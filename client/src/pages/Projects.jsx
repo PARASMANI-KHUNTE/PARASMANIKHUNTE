@@ -24,8 +24,8 @@ const projects = [
   },
   {
     title: "Hotel Management System",
-    description: "A comprehensive admin panel for managing products, orders, customers, and analytics for online stores.",
-    tech: "Next.js, MongoDB, Tailwind CSS",
+    description: "A comprehensive admin panel for managing hotel bookings, guest check-ins and check-outs, room availability, and analytics for hotel operations.",
+    tech: "Mern, MongoDB, Tailwind CSS",
     link: "https://admin-dashboard-js6u.onrender.com/",
     github: "https://github.com/PARASMANI-KHUNTE/Admin-Dashboard",
     year: "2025"

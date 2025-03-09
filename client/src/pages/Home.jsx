@@ -8,8 +8,9 @@ const Home = () => {
   const handleHireMeClick = () => {
     const email = "parasmanikhunte@gmail.com"; // Replace with your email
     const subject = encodeURIComponent("Job Opportunity Inquiry");
+    const Name = prompt("Enter your name -")
     const body = encodeURIComponent(
-      "Hello Paras,\n\nI came across your profile and would love to discuss an opportunity with you. Looking forward to connecting!\n\nBest regards,\n[Your Name]"
+      `Hello Paras,\n\nI came across your profile and would love to discuss an opportunity with you. Looking forward to connecting!\n\nBest regards,\n${Name}`
     );
 
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;

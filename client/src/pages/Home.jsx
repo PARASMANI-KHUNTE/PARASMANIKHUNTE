@@ -6,7 +6,7 @@ const Home = () => {
   const { isDarkMode } = useTheme();
   // Email Handler
   const handleHireMeClick = () => {
-    const email = "paras@example.com"; // Replace with your email
+    const email = "parasmanikhunte@gmail.com"; // Replace with your email
     const subject = encodeURIComponent("Job Opportunity Inquiry");
     const body = encodeURIComponent(
       "Hello Paras,\n\nI came across your profile and would love to discuss an opportunity with you. Looking forward to connecting!\n\nBest regards,\n[Your Name]"

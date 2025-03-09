@@ -56,7 +56,7 @@ const Home = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className={`min-h-screen relative overflow-hidden ${
+      className={`min-h-screen  relative overflow-hidden ${
         isDarkMode 
         ? "bg-gray-900 text-white" 
         : "bg-gradient-to-br from-amber-50 to-white text-gray-800"
@@ -71,7 +71,7 @@ const Home = () => {
       </div>
 
       {/* Content container */}
-      <div className="relative z-10 container mx-auto px-6 py-16 flex flex-col items-center justify-center  min-h-screen">
+      <div className="relative z-10 mt-4 container mx-auto px-6 py-16 flex flex-col items-center justify-center  min-h-screen">
         {/* Profile section */}
         <motion.div
           variants={itemVariants}

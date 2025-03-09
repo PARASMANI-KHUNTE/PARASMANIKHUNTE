@@ -29,7 +29,7 @@ const educationData = [
     description: "PCB - Physic , Chemistry , Biology with Computer Science & English",
     courses: ["Physic", "Chemistry", "Biology", "Computer Science","English"],
     achievements: [
-      "School Desipline Captian"
+      "School Discipline Captian"
     ]
   },
   {

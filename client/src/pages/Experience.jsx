@@ -7,7 +7,7 @@ import { Briefcase, Sun, Moon, ChevronDown } from "lucide-react";
 
 const experienceData = [
   {
-    role: "React & Python Developer",
+    role: "Technical Intern",
     company: "hybrowlabs",
     companyUrl: "https://hybrowlabs.com/",
     duration: "March 2025 - Present",

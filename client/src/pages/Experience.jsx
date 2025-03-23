@@ -12,7 +12,7 @@ const experienceData = [
     companyUrl: "https://hybrowlabs.com/",
     duration: "March 2025 - Present",
     location: "Remote",
-    description: "Developed scalable web applications using the MERN stack.",
+    description: "Developed scalable web applications using the React + Frappe",
     skills: ["React", "Redux" , "Frappe" , "Pyhton"]
   },
   {
@@ -30,11 +30,11 @@ const experienceData = [
     companyUrl: "https://bluestock.in/",
     duration: "Nov 2024 - Dec 2024 · 2 mos",
     location: "Remote",
-    description: "Built modern UI/UX designs using React and TailwindCSS. Improved site performance by 40% through code optimization.",
+    description: "Built modern UI/UX designs using HTML , CSS , Javascript and Jinja Template. Improved site performance by 40% through code optimization.",
     skills: ["Pyhton","Django", "CSS", "JavaScript", "HTML", "Jinga"]
   },
   {
-    role: "Full Stack Developer",
+    role: "Full Stack Developer Intern",
     company: "ELiteTech Intern",
     companyUrl: "https://www.linkedin.com/company/elite-tech-intern/posts/?feedView=all",
     duration: "Oct 2024 - Nov 2024 · 2 mos",

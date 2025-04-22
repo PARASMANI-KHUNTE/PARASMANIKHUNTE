@@ -13,7 +13,7 @@ const experienceData = [
     duration: "March 2025 - Present ",
     location: "Remote",
     description: "Developed scalable web applications using the React + Frappe",
-    skills: ["React", "Redux" , "Frappe" , "Pyhton"]
+    skills: ["React", "Redux" , "Frappe" , "Pyhton", "React js"]
   },
   {
     role: "Web Developer Intern",

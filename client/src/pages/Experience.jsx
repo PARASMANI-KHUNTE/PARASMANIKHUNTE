@@ -10,7 +10,7 @@ const experienceData = [
     role: "Technical Intern",
     company: "hybrowlabs",
     companyUrl: "https://hybrowlabs.com/",
-    duration: "March 2025 - Present",
+    duration: "March 2025 - Present ",
     location: "Remote",
     description: "Developed scalable web applications using the React + Frappe",
     skills: ["React", "Redux" , "Frappe" , "Pyhton"]
@@ -19,7 +19,7 @@ const experienceData = [
     role: "Web Developer Intern",
     company: "Akkuraa it services",
     companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
-    duration: "Jan 2025 - Present",
+    duration: "Jan 2025 - April 2025 · 4 mos",
     location: "Remote",
     description: "Developed scalable web applications using the MERN stack.",
     skills: ["React", "Node.js", "MongoDB", "Express", "Redux" , "Machine Learning"]

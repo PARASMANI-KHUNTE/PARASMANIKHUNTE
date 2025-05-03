@@ -192,55 +192,66 @@ const Home = () => {
           </motion.div>
         </motion.div>
 
-        {/* Skills section */}
-        <motion.div 
-          variants={itemVariants}
-          className={`mb-16 py-6 px-8 rounded-xl backdrop-blur-sm max-w-5xl w-full ${
-            isDarkMode ? "bg-gray-800/50" : "bg-white/70"
-          } shadow-lg`}
-        >
-          <h2 className={`text-xl md:text-2xl font-semibold mb-6 ${
-            isDarkMode ? "text-amber-400" : "text-amber-600"
-          }`}>My Expertise</h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className={`p-4 rounded-lg text-center ${
-              isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
-            }`}>
-              <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-              <h3 className="font-medium">Frontend</h3>
-            </div>
-            <div className={`p-4 rounded-lg text-center ${
-              isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
-            }`}>
-              <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-              </svg>
-              <h3 className="font-medium">Backend</h3>
-            </div>
-            <div className={`p-4 rounded-lg text-center ${
-              isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
-            }`}>
-              <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
-                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-              </svg>
-              <h3 className="font-medium">Database</h3>
-            </div>
-            <div className={`p-4 rounded-lg text-center ${
-              isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
-            }`}>
-              <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-              </svg>
-              <h3 className="font-medium">DevOps</h3>
-            </div>
-          </div>
-        </motion.div>
-        
+ {/* Skills section */}
+<motion.div 
+  variants={itemVariants}
+  className={`mb-16 py-6 px-8 rounded-xl backdrop-blur-sm max-w-5xl w-full ${
+    isDarkMode ? "bg-gray-800/50" : "bg-white/70"
+  } shadow-lg`}
+>
+  <h2 className={`text-xl md:text-2xl font-semibold mb-6 ${
+    isDarkMode ? "text-amber-400" : "text-amber-600"
+  }`}>My Expertise</h2>
+  
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className={`p-4 rounded-lg text-center ${
+      isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
+    }`}>
+      <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+      </svg>
+      <h3 className="font-medium">Frontend</h3>
+    </div>
+    <div className={`p-4 rounded-lg text-center ${
+      isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
+    }`}>
+      <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+      </svg>
+      <h3 className="font-medium">Backend</h3>
+    </div>
+    <div className={`p-4 rounded-lg text-center ${
+      isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
+    }`}>
+      <svg xmlns="http://www.w3.org/2000/svg" className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} viewBox="0 0 20 20" fill="currentColor">
+        <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+        <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+        <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+      </svg>
+      <h3 className="font-medium">Database</h3>
+    </div>
+    <div className={`p-4 rounded-lg text-center ${
+      isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
+    }`}>
+  <svg xmlns="http://www.w3.org/2000/svg" 
+  className={`h-8 w-8 mx-auto mb-2 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} 
+  viewBox="0 0 24 24" 
+  fill="none" 
+  stroke="currentColor" 
+  strokeWidth="2" 
+  strokeLinecap="round" 
+  strokeLinejoin="round"
+>
+  <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+  <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+  <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+  <circle cx="12" cy="20" r="1" />
+</svg>
+
+      <h3 className="font-medium">IoT</h3>
+    </div>
+  </div>
+</motion.div>
         {/* Social links */}
         <motion.div 
           variants={itemVariants}

@@ -18,7 +18,7 @@ const Home = () => {
 
   // Download CV Handler
   const handleDownloadCV = () => {
-    const cvPath = "/ParasmaniKhunte_2025.pdf"; // File in 'public' folder
+    const cvPath = "/ParasmaniKhunteResume.pdf"; // File in 'public' folder
     const link = document.createElement("a");
     link.href = cvPath;
     link.download = "PARASMANIKHUNTE_2025.pdf";

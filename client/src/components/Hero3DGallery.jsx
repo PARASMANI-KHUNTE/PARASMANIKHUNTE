@@ -93,9 +93,6 @@ const Hero3DGallery = () => {
                                             {image.description}
                                         </motion.p>
                                     </div>
-
-                                    {/* Glass effect overlay */}
-                                    <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
                                 </div>
                             </motion.div>
                         );

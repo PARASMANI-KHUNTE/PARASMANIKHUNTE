@@ -1,177 +1,110 @@
-import React, { useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import ProjectCard from "../components/ProjectCard";
-import { Code, ArrowRight } from "lucide-react";
-
-const projects = [
-  {
-    title: "PhotoShare",
-    description: "A social media platform for photographers to share their work and connect with other creatives.",
-    tech: "React, Node.js, MongoDB, Tailwind CSS, Firebase",
-    link: "https://photoshare-ctj3.onrender.com/",
-    github: "https://github.com/username/photoshare",
-    year: "2023"
-  },
-  {
-    title: "FaceTrack",
-    description: "Multi-Branch, Multi-Department Organization Management System",
-    tech: "React, Redux, Machine learning, TailwindCSS, Express , Mongodb", 
-    link: "https://facetrack-0s10.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/FaceTrack",
-    year: "2025"
-  },
-  {
-    title: "Hotel Management System",
-    description: "A comprehensive admin panel for managing hotel bookings, guest check-ins and check-outs, room availability, and analytics for hotel operations.",
-    tech: "Mern, MongoDB, Tailwind CSS",
-    link: "https://admin-dashboard-js6u.onrender.com/",
-    github: "https://github.com/PARASMANI-KHUNTE/Admin-Dashboard",
-    year: "2025"
-  },
-];
+import EmptyState from "../components/ui/EmptyState";
+import { Code2, FolderOpen, Github, ExternalLink } from "lucide-react";
+import { getProjects } from "../services/api";
 
 const Projects = () => {
   const { isDarkMode } = useTheme();
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
+    const fetchProjects = async () => {
+      try {
+        const { data } = await getProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
       }
-    }
-  };
+    };
+    fetchProjects();
+  }, []);
 
   return (
-    <section
-      className={`min-h-screen relative py-20 px-6 overflow-hidden transition-all duration-500 ${
-        isDarkMode 
-          ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white" 
-          : "bg-gradient-to-br from-white to-gray-50 text-gray-800"
-      }`}
-    >
-      {/* Animated background shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute rounded-full blur-3xl opacity-10 ${
-              isDarkMode ? "bg-amber-600" : "bg-amber-400"
-            }`}
-            style={{
-              width: `${Math.random() * 20 + 10}rem`,
-              height: `${Math.random() * 20 + 10}rem`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              zIndex: 0
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ 
-              scale: 1, 
-              opacity: isDarkMode ? 0.1 : 0.15,
-              x: [0, Math.random() * 20 - 10],
-              y: [0, Math.random() * 20 - 10],
-            }}
-            transition={{ 
-              duration: 8,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: i * 0.3
-            }}
-          />
-        ))}
-      </div>
+    <div className="space-y-12">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center space-y-4"
+      >
+        <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 mb-4">
+          <Code2 size={32} />
+        </div>
 
-      <div className="container mx-auto max-w-6xl relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
+        <h1 className="text-4xl md:text-5xl font-bold">
+          Featured <span className="text-gradient">Projects</span>
+        </h1>
+
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          A showcase of my recent work, demonstrating creativity, technical expertise, and problem-solving skills.
+        </p>
+      </motion.div>
+
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center py-20">
+          <div className="spinner"></div>
+        </div>
+      )}
+
+      {/* Empty State */}
+      {!loading && projects.length === 0 && (
+        <EmptyState
+          icon={FolderOpen}
+          title="No Projects Yet"
+          description="Projects will be showcased here soon. Stay tuned!"
+          showAction={false}
+        />
+      )}
+
+      {/* Projects Grid */}
+      {!loading && projects.length > 0 && (
+        <>
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-            className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${
-              isDarkMode ? "bg-gray-800" : "bg-white shadow-md"
-            }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            <Code className={`h-8 w-8 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
+            {projects.map((project, index) => (
+              <motion.div
+                key={project._id || index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index }}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
           </motion.div>
-          
-          <h2 className={`text-4xl md:text-5xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-            Featured Projects
-          </h2>
-          
+
+          {/* View More */}
           <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "80px" }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className={`h-1 mx-auto mt-4 mb-6 rounded-full ${isDarkMode ? "bg-amber-400" : "bg-amber-500"}`}
-          />
-          
-          <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-            A collection of my recent work, spanning from web applications to design systems.
-          </p>
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-        >
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
-          ))}
-        </motion.div>
-
-        {/* View More Projects Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-          className="flex justify-center mt-12"
-        >
-          <motion.a
-            href="https://github.com/PARASMANI-KHUNTE"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`group flex items-center gap-2 rounded-full px-6 py-3 font-medium transition-all ${
-              isDarkMode
-                ? "bg-gray-800 text-white hover:bg-gray-700"
-                : "bg-white text-gray-800 shadow-md hover:shadow-lg"
-            }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-center pt-8"
           >
-            View All Projects
-            <motion.span
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+            <a
+              href="https://github.com/PARASMANI-KHUNTE"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
             >
-              <ArrowRight className={`h-4 w-4 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
-            </motion.span>
-          </motion.a>
-        </motion.div>
-      </div>
-    </section>
+              <Github className="w-5 h-5" />
+              <span>View More on GitHub</span>
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </motion.div>
+        </>
+      )}
+    </div>
   );
 };
 

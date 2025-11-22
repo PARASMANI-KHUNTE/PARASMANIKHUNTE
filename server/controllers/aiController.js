@@ -87,29 +87,51 @@ const chatWithAI = asyncHandler(async (req, res) => {
     } catch (error) {
         console.error('AI Error Details:', error);
 
-        // Fallback Mock Response with Keyword Matching
+        // Fallback Mock Response with Enhanced Keyword Matching
         console.log("Using Fallback Mock Response due to API failure.");
 
         const lowerMessage = message.toLowerCase();
         let reply = "";
 
-        if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("phone") || lowerMessage.includes("reach")) {
+        // Duration/time-related questions (CHECK FIRST to avoid being caught by skill/experience keywords)
+        if (lowerMessage.includes("how long") || lowerMessage.includes("how many") || lowerMessage.includes("duration") || lowerMessage.includes("count") || (lowerMessage.includes("months") || lowerMessage.includes("years"))) {
+            if (lowerMessage.includes("skill") || lowerMessage.includes("experience") || lowerMessage.includes("work")) {
+                reply = "Paras has been actively developing his skills since 2022 when he started his Bachelor's degree. He has professional work experience starting from October 2024, which is about 4-5 months of hands-on industry experience. He's been coding and building projects for over 2 years.";
+            } else {
+                reply = "Paras started his Bachelor of Computer Application in 2022 and is currently in his final year (graduating in 2025). He has been working professionally since October 2024.";
+            }
+        }
+        // Contact information
+        else if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("phone") || lowerMessage.includes("reach")) {
             reply = "You can contact Paras via email at parasmanikhunte@gmail.com or call him at +91 8103713757. You can also use the Contact form on this website.";
-        } else if (lowerMessage.includes("project") || lowerMessage.includes("work") || lowerMessage.includes("portfolio")) {
+        }
+        // Projects
+        else if (lowerMessage.includes("project") || lowerMessage.includes("portfolio")) {
             reply = "Paras has worked on several impressive projects like PhotoShare (Social Media), FaceTrack (Organization Management), and a Hotel Management System. Check out the Projects page for more details!";
-        } else if (lowerMessage.includes("skill") || lowerMessage.includes("stack") || lowerMessage.includes("technology")) {
+        }
+        // Skills and technologies
+        else if (lowerMessage.includes("skill") || lowerMessage.includes("stack") || lowerMessage.includes("technology") || lowerMessage.includes("tech")) {
             reply = "Paras is a Full Stack Developer skilled in React, Node.js, MongoDB, Express, Python, and Django. He also has experience with IoT and Machine Learning.";
-        } else if (lowerMessage.includes("experience") || lowerMessage.includes("job") || lowerMessage.includes("intern")) {
-            reply = "Paras has experience as a Technical Intern at Hybrowlabs, and has also interned at Akkuraa IT Services, Bluestock, and EliteTech. He is currently freelancing as a Full Stack Developer.";
-        } else if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey")) {
+        }
+        // Experience and jobs
+        else if (lowerMessage.includes("experience") || lowerMessage.includes("job") || lowerMessage.includes("intern") || lowerMessage.includes("work")) {
+            reply = "Paras has experience as a Technical Intern at Hybrowlabs (March 2025 - Present), Full Stack Developer Freelancer at Akkuraa IT Services (April 2025 - Present), and has also interned at Bluestock and EliteTech. He has been actively working in the industry since October 2024.";
+        }
+        // Education
+        else if (lowerMessage.includes("education") || lowerMessage.includes("degree") || lowerMessage.includes("university") || lowerMessage.includes("college")) {
+            reply = "Paras is pursuing a Bachelor of Computer Application from Guru Ghasidas University (2022-2025) with a GPA of 8.2. He completed his Higher Secondary School from Kendriya Vidyalaya in 2021.";
+        }
+        // Greeting
+        else if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey")) {
             reply = "Hello! I'm Paras's AI assistant. I'm currently operating in offline mode, but I can still help you with basic information about Paras. What would you like to know?";
-        } else {
-            const genericReplies = [
-                "I'm currently experiencing high traffic, but I can tell you that Paras is a skilled Full Stack Developer with expertise in React, Node.js, and Python.",
-                "I'm having trouble connecting to my brain right now. However, you can check out Paras's projects in the Projects section!",
-                "My AI services are temporarily unavailable. Please feel free to contact Paras directly at parasmanikhunte@gmail.com."
-            ];
-            reply = genericReplies[Math.floor(Math.random() * genericReplies.length)];
+        }
+        // Who/what questions
+        else if (lowerMessage.includes("who") || lowerMessage.includes("what is") || lowerMessage.includes("tell me about")) {
+            reply = "Paras is a Full Stack Developer and Creative Problem Solver specializing in React, Node.js, MongoDB, and modern web technologies. He's currently pursuing his BCA from Guru Ghasidas University with an 8.2 GPA and has professional experience at companies like Hybrowlabs and Akkuraa IT Services.";
+        }
+        // Default fallback
+        else {
+            reply = "I'm currently in offline mode and can provide basic information about Paras. You can ask me about his skills, projects, experience, education, or contact information. For detailed answers, please contact Paras directly at parasmanikhunte@gmail.com.";
         }
 
         res.json({ reply });

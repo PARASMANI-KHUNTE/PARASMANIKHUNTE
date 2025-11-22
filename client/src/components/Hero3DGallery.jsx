@@ -66,16 +66,12 @@ const Hero3DGallery = () => {
                             >
                                 <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500/20 to-accent-500/20 backdrop-blur-sm border border-white/20">
                                     {/* Image */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-accent-600">
-                                        <div className="w-full h-full flex items-center justify-center text-white/20 text-6xl font-bold">
-                                            {index + 1}
-                                        </div>
-                                        {/* Uncomment when you add real images */}
-                                        {/* <img 
-                      src={image.url} 
-                      alt={image.title}
-                      className="w-full h-full object-cover"
-                    /> */}
+                                    <div className="absolute inset-0">
+                                        <img
+                                            src={image.url}
+                                            alt={image.title}
+                                            className="w-full h-full object-cover"
+                                        />
                                     </div>
 
                                     {/* Overlay */}
@@ -131,8 +127,8 @@ const Hero3DGallery = () => {
                         key={index}
                         onClick={() => setCurrentIndex(index)}
                         className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
-                                ? 'bg-white w-8'
-                                : 'bg-white/40 hover:bg-white/60'
+                            ? 'bg-white w-8'
+                            : 'bg-white/40 hover:bg-white/60'
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />

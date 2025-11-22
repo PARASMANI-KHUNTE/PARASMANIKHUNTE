@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { Mail, Phone, MapPin, Send, MessageSquare, User, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
+import { sendMessage } from "../services/api";
 
 const Contact = () => {
   const { isDarkMode } = useTheme();
@@ -46,11 +47,12 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      toast.success("Message sent successfully!");
+      await sendMessage(formData);
+      toast.success("Message sent successfully! I'll get back to you soon.");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      toast.error("Failed to send message. Please try again.");
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message. Please try again or email me directly.");
     } finally {
       setLoading(false);
     }

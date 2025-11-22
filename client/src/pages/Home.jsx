@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
-import Hero3D from "../components/Hero3D";
+import Hero3DGallery from "../components/Hero3DGallery";
 import {
   ArrowRight,
   Github,
@@ -81,7 +81,7 @@ const Home = () => {
           className="relative h-[400px] lg:h-[600px] w-full flex items-center justify-center"
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-primary-500/20 to-accent-500/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
-          <Hero3D />
+          <Hero3DGallery />
         </motion.div>
       </section>
 

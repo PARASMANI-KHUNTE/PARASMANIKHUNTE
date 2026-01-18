@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 const Admin = () => {
-  const { user, logout } = useAuth();
+  const { user, login, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("projects");
 

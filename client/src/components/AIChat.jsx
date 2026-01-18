@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import api from '../api';
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, Send, X, Bot, User, Sparkles } from "lucide-react";
+import { MessageSquare, Send, X, Bot, User, Sparkles, Lightbulb, Maximize2, ChevronDown, ChevronUp } from "lucide-react";
 import GlassCard from "./ui/GlassCard";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const AIChat = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +14,10 @@ const AIChat = () => {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
+    const [chatSize, setChatSize] = useState({ width: 384, height: 500 });
+    const resizeRef = useRef(null);
+    const [isResizing, setIsResizing] = useState(false);
+    const [showQuickActions, setShowQuickActions] = useState(true);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -40,6 +46,68 @@ const AIChat = () => {
         }
     };
 
+    const quickActions = [
+        { icon: "💼", text: "Tell me about the projects", prompt: "Can you give me an overview of the key projects in this portfolio?" },
+        { icon: "🎯", text: "What are the main skills?", prompt: "What are the primary technical skills and technologies used?" },
+        { icon: "📚", text: "Describe the experience", prompt: "Can you summarize the professional experience and background?" },
+        { icon: "🚀", text: "Recent achievements", prompt: "What are some notable recent projects or achievements?" }
+    ];
+
+    const handleQuickAction = (prompt) => {
+        setInput(prompt);
+        // Auto-submit
+        setMessages(prev => [...prev, { role: 'user', text: prompt }]);
+        setInput("");
+        setLoading(true);
+
+        api.post('/ai/chat', { message: prompt })
+            .then(({ data }) => {
+                setMessages(prev => [...prev, { role: 'model', text: data.reply }]);
+            })
+            .catch(() => {
+                setMessages(prev => [...prev, { role: 'model', text: "Sorry, I'm having trouble connecting right now. Please try again later." }]);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    // Resize functionality
+    const handleResizeStart = (e) => {
+        setIsResizing(true);
+        e.preventDefault();
+    };
+
+    useEffect(() => {
+        const handleResize = (e) => {
+            if (!isResizing) return;
+
+            // Calculate from right and bottom
+            const newWidth = Math.max(320, Math.min(600, window.innerWidth - e.clientX - 24));
+            const newHeight = Math.max(400, Math.min(800, window.innerHeight - e.clientY - 96));
+
+            setChatSize({ width: newWidth, height: newHeight });
+        };
+
+        const handleResizeEnd = () => {
+            setIsResizing(false);
+        };
+
+        if (isResizing) {
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', handleResizeEnd);
+            document.body.style.cursor = 'nwse-resize';
+        } else {
+            document.body.style.cursor = 'default';
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', handleResizeEnd);
+            document.body.style.cursor = 'default';
+        };
+    }, [isResizing]);
+
     return (
         <>
             <motion.button
@@ -61,9 +129,21 @@ const AIChat = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.9 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="fixed bottom-24 right-6 w-80 md:w-96 h-[500px] z-50"
+                        className="fixed bottom-24 right-6 z-50"
+                        style={{ width: `${chatSize.width}px`, height: `${chatSize.height}px` }}
                     >
-                        <GlassCard className="!p-0 h-full flex flex-col overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                        <GlassCard className="!p-0 h-full flex flex-col overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative">
+                            {/* Resize Handle - Top Left Corner */}
+                            <div
+                                onMouseDown={handleResizeStart}
+                                className="absolute top-0 left-0 w-8 h-8 cursor-nwse-resize z-[60] group"
+                                title="Drag to resize"
+                            >
+                                <div className="absolute top-1.5 left-1.5 p-1 bg-indigo-500/20 rounded-md text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Maximize2 size={12} className="rotate-0" />
+                                </div>
+                            </div>
+
                             {/* Header */}
                             <div className="p-4 bg-indigo-600/20 border-b border-white/10 flex justify-between items-center backdrop-blur-md">
                                 <div className="flex items-center gap-3">
@@ -101,12 +181,28 @@ const AIChat = () => {
                                             </div>
                                         )}
                                         <div
-                                            className={`max-w-[80%] p-3.5 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
+                                            className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
                                                 ? 'bg-indigo-600 text-white rounded-tr-none shadow-lg shadow-indigo-500/20'
-                                                : 'bg-white/5 text-gray-300 border border-white/10 rounded-tl-none'
+                                                : 'bg-white/5 text-gray-300 border border-white/10 rounded-tl-none prose prose-invert prose-p:leading-relaxed prose-pre:bg-black/30 prose-code:text-indigo-300'
                                                 }`}
                                         >
-                                            {msg.text}
+                                            {msg.role === 'user' ? (
+                                                msg.text
+                                            ) : (
+                                                <ReactMarkdown
+                                                    remarkPlugins={[remarkGfm]}
+                                                    components={{
+                                                        p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                                                        ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
+                                                        li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                                                        strong: ({ node, ...props }) => <strong className="font-bold text-indigo-200" {...props} />,
+                                                        h1: ({ node, ...props }) => <h1 className="text-lg font-bold mb-2 text-white" {...props} />,
+                                                        h2: ({ node, ...props }) => <h2 className="text-md font-bold mb-1 text-white" {...props} />,
+                                                    }}
+                                                >
+                                                    {msg.text}
+                                                </ReactMarkdown>
+                                            )}
                                         </div>
                                         {msg.role === 'user' && (
                                             <div className="w-8 h-8 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center flex-shrink-0">
@@ -128,6 +224,50 @@ const AIChat = () => {
                                     </div>
                                 )}
                                 <div ref={messagesEndRef} />
+
+                                {/* Quick Actions - Collapsible */}
+                                {!loading && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="mt-4 border-t border-white/5 pt-4"
+                                    >
+                                        <button
+                                            onClick={() => setShowQuickActions(!showQuickActions)}
+                                            className="flex items-center justify-between w-full text-xs text-gray-400 hover:text-indigo-400 transition-colors mb-2 group"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <Lightbulb size={14} className={showQuickActions ? "text-indigo-400" : "text-gray-500"} />
+                                                <span className="font-medium">Suggested questions</span>
+                                            </div>
+                                            {showQuickActions ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
+                                        </button>
+
+                                        <AnimatePresence>
+                                            {showQuickActions && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="grid grid-cols-1 gap-2 pb-2">
+                                                        {quickActions.map((action, idx) => (
+                                                            <button
+                                                                key={idx}
+                                                                onClick={() => handleQuickAction(action.prompt)}
+                                                                className="group text-left p-2.5 bg-white/5 hover:bg-indigo-500/10 border border-white/10 hover:border-indigo-500/30 rounded-lg transition-all text-xs text-gray-300 hover:text-white flex items-center gap-3"
+                                                            >
+                                                                <span className="text-base grayscale group-hover:grayscale-0 transition-all">{action.icon}</span>
+                                                                <span className="group-hover:translate-x-0.5 transition-transform flex-1">{action.text}</span>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </motion.div>
+                                )}
                             </div>
 
                             {/* Input */}

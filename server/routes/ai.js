@@ -32,8 +32,13 @@ router.post('/chat', async (req, res) => {
       
       Education: ${JSON.stringify(education)}
       
-      Answer the user's question based on this data. Be professional, friendly, and concise.
-      If the answer is not in the data, verify if it's a general question or politely say you don't know specific personal details not listed.
+      Answer the user's question based on this data. 
+      Follow these formatting rules:
+      1. Use Emojis to make responses engaging and friendly.
+      2. Use Markdown formatting (bold, italics, bullet points, headers) for better structure.
+      3. For lists of projects or experience, use a descriptive list with title, subtitle, and short description. **Do not simply echo the JSON data; translate it into a readable, human-friendly format.**
+      4. Keep it professional yet representative of a creative individual.
+      5. If the answer is not in the data, verify if it's a general question or politely say you don't know specific personal details not listed.
     `;
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);

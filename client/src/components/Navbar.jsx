@@ -29,9 +29,12 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="text-2xl font-bold text-white font-space-grotesk tracking-wide"
+          className="flex items-center gap-3 text-2xl font-bold text-white font-space-grotesk tracking-wide group"
         >
-          PARAS<span className="text-indigo-500">.</span>
+          <div className="w-10 h-10 rounded-lg overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(99,102,241,0.3)] group-hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all">
+            <img src="/logo-cosmic.png" alt="Logo" className="w-full h-full object-cover" />
+          </div>
+          <span>PARAS<span className="text-indigo-500">.</span></span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -79,8 +82,8 @@ const Navbar = () => {
                   to={link.path}
                   onClick={() => setMenuOpen(false)}
                   className={`px-4 py-3 rounded-xl text-lg font-medium transition-all ${location.pathname === link.path
-                      ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
-                      : "text-gray-400 hover:bg-white/5 hover:text-white"
+                    ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                    : "text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                 >
                   {link.name}

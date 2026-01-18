@@ -5,6 +5,7 @@ import ProjectCard from "../components/ProjectCard";
 import { Code, ArrowRight } from "lucide-react";
 import api from '../api';
 import ThreeBackground from "../components/ThreeBackground";
+import ProjectModal from "../components/ui/ProjectModal";
 
 const Projects = () => {
   const controls = useAnimation();
@@ -15,6 +16,13 @@ const Projects = () => {
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -101,7 +109,11 @@ const Projects = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
+              <ProjectCard
+                key={index}
+                project={project}
+                onClick={() => handleProjectClick(project)}
+              />
             ))}
           </motion.div>
         )}
@@ -130,6 +142,13 @@ const Projects = () => {
             </motion.span>
           </motion.a>
         </motion.div>
+
+        {/* Project Preview Modal */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       </div>
     </section>
   );

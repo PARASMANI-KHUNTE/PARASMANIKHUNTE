@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ContactForm from "../components/ContactForm";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram } from "lucide-react";
 import ThreeBackground from "../components/ThreeBackground";
 import GlassCard from "../components/ui/GlassCard";
 
@@ -75,8 +75,8 @@ const Contact = () => {
               <a href="https://www.linkedin.com/in/paras-mani-khunte-4a9a08233/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 text-gray-400 hover:text-white hover:bg-indigo-600 transition-all border border-white/10 hover:border-indigo-500">
                 <Linkedin size={24} />
               </a>
-              <a href="#" className="p-3 rounded-full bg-white/5 text-gray-400 hover:text-white hover:bg-indigo-600 transition-all border border-white/10 hover:border-indigo-500">
-                <Twitter size={24} />
+              <a href="https://www.instagram.com/parasmani_khunte/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 text-gray-400 hover:text-white hover:bg-indigo-600 transition-all border border-white/10 hover:border-indigo-500">
+                <Instagram size={24} />
               </a>
             </div>
           </motion.div>

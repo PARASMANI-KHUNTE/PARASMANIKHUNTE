@@ -132,8 +132,8 @@ const Home = () => {
         >
           {[
             { icon: Github, href: "https://github.com/PARASMANI-KHUNTE" },
-            { icon: Linkedin, href: "https://www.linkedin.com/in/parasmani-khunte-330488228/" },
-            { icon: Instagram, href: "https://www.instagram.com/ll.__.p.a.r.a.s.__.ll/" }
+            { icon: Linkedin, href: "https://www.linkedin.com/in/paras-mani-khunte-4a9a08233/" },
+            { icon: Instagram, href: "https://www.instagram.com/parasmani_khunte/" }
           ].map((social, i) => (
             <a
               key={i}

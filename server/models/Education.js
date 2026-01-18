@@ -5,7 +5,8 @@ const EducationSchema = new mongoose.Schema({
     degree: { type: String, required: true },
     startYear: { type: String },
     endYear: { type: String },
-    description: { type: String }
+    description: { type: String },
+    year: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Education', EducationSchema);

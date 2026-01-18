@@ -63,7 +63,7 @@ const ExperienceCard = ({ experience }) => {
       <div className="mb-5 flex flex-wrap gap-4 relative z-10">
         <div className="flex items-center gap-2 text-sm text-gray-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
           <Calendar className="h-4 w-4 text-indigo-400" />
-          <span>{experience.duration}</span>
+          <span>{experience.years || experience.duration}</span>
         </div>
 
         {experience.location && (

@@ -9,10 +9,10 @@ const Footer = () => {
           <a href="https://github.com/PARASMANI-KHUNTE" className="hover:text-blue-500">
             GitHub
           </a>
-          <a href="https://www.linkedin.com/in/parasmani-khunte-330488228/" className="hover:text-blue-500">
+          <a href="https://www.linkedin.com/in/paras-mani-khunte-4a9a08233/" className="hover:text-blue-500">
             LinkedIn
           </a>
-          <a href="https://www.instagram.com/ll.__.p.a.r.a.s.__.ll/" className="hover:text-blue-500">
+          <a href="https://www.instagram.com/parasmani_khunte/" className="hover:text-blue-500">
             Instagram
           </a>
         </div>

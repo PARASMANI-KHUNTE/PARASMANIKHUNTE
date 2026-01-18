@@ -6,7 +6,8 @@ const ExperienceSchema = new mongoose.Schema({
     startYear: { type: String },
     endYear: { type: String },
     description: { type: String },
-    technologies: { type: String }
+    technologies: { type: String },
+    years: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Experience', ExperienceSchema);

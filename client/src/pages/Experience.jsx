@@ -102,7 +102,7 @@ const Experience = () => {
                     style={index % 2 !== 0 ? { right: 'auto', left: '-0.6rem' } : {}}
                   />
                   <div className="font-bold text-xl text-indigo-400">
-                    {exp.duration}
+                    {exp.years || exp.duration}
                   </div>
                 </div>
 

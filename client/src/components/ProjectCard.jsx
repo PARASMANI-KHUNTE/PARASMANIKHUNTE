@@ -2,9 +2,12 @@ import React from "react";
 import { ExternalLink, Github, Code } from "lucide-react";
 import GlassCard from "./ui/GlassCard";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, onClick }) => {
   return (
-    <GlassCard className="!p-0 overflow-hidden h-full flex flex-col group">
+    <GlassCard
+      onClick={onClick}
+      className="!p-0 overflow-hidden h-full flex flex-col group cursor-pointer hover:border-indigo-500/50 transition-all duration-300"
+    >
       <div className="relative h-48 overflow-hidden">
         {project.image ? (
           <img

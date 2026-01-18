@@ -22,7 +22,7 @@ const ContactForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.post('/messages', formData);
+      await api.post('/contact', formData);
       toast.success("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {

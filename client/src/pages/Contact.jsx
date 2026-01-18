@@ -43,7 +43,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-400">Email Me</p>
-                  <p className="text-white font-medium">contact@parasmanikhunte.com</p>
+                  <p className="text-white font-medium">parasmanikhunte@gmail.com</p>
                 </div>
               </GlassCard>
 
@@ -53,7 +53,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-400">Call Me</p>
-                  <p className="text-white font-medium">+91 9301982976</p>
+                  <p className="text-white font-medium">+91 8103713757</p>
                 </div>
               </GlassCard>
 

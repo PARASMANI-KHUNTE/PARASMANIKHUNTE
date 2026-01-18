@@ -9,16 +9,10 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors(
-    {
-        origin: process.env.CLIENT_URL_Development,
-        credentials: true,
-    },
-    {
-        origin: process.env.CLIENT_URL_Production,
-        credentials: true,
-    }
-));
+app.use(cors({
+    origin: [process.env.CLIENT_URL_Development, process.env.CLIENT_URL_Production],
+    credentials: true,
+}));
 
 // Database Connection
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/portfolio')

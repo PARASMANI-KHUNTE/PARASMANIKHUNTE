@@ -59,9 +59,9 @@ const Home = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-6xl md:text-8xl font-bold mb-6 tracking-tight font-space-grotesk"
+            className="text-4xl md:text-8xl font-bold mb-6 tracking-tight font-space-grotesk"
           >
-            I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 text-glow">digital</span> <br />
+            I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 text-glow">digital</span> <br className="hidden md:block" />
             experiences.
           </motion.h1>
 
@@ -111,13 +111,13 @@ const Home = () => {
             </GlassCard>
 
             <GlassCard className="md:col-span-3 flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-cyan-900/10 transition-colors">
-              <div className="text-left">
+              <div className="text-left w-full md:w-auto">
                 <h3 className="text-2xl font-bold mb-2 text-cyan-300">AI & Cloud Integration</h3>
-                <p className="text-gray-400">Leveraging LLMs and Cloud Services for smart applications.</p>
+                <p className="text-gray-400 mb-4 md:mb-0">Leveraging LLMs and Cloud Services for smart applications.</p>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3 justify-start md:justify-end w-full md:w-auto">
                 {['Gemini API', 'OpenAI', 'AWS', 'Docker', 'Firebase'].map(tech => (
-                  <span key={tech} className="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">{tech}</span>
+                  <span key={tech} className="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5 whitespace-nowrap">{tech}</span>
                 ))}
               </div>
             </GlassCard>

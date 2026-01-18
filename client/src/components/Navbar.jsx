@@ -24,7 +24,7 @@ const Navbar = () => {
       {/* Glassmorphism Background */}
       <div className="absolute inset-0 bg-gray-950/80 backdrop-blur-md border-b border-white/5" />
 
-      <div className="container mx-auto flex justify-between items-center px-4 relative z-10">
+      <div className="container mx-auto flex justify-between items-center px-4 md:px-6 relative z-10">
 
         {/* Logo */}
         <Link

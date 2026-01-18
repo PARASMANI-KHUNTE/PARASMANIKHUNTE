@@ -25,9 +25,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.9, opacity: 0, y: 20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="relative w-full max-w-5xl max-h-[90vh] overflow-hidden"
+                        className="relative w-full max-w-5xl max-h-[95vh] flex overflow-hidden"
                     >
-                        <GlassCard className="!p-0 h-full overflow-y-auto custom-scrollbar border-indigo-500/30 shadow-[0_0_50px_rgba(99,102,241,0.2)]">
+                        <GlassCard className="!p-0 w-full h-full overflow-y-auto custom-scrollbar border-indigo-500/30 shadow-[0_0_50px_rgba(99,102,241,0.2)]">
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
@@ -54,13 +54,13 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                                 </div>
 
                                 {/* Info Side */}
-                                <div className="p-8 lg:p-12 flex flex-col h-full bg-black/40">
+                                <div className="p-6 md:p-12 flex flex-col h-full bg-black/40">
                                     <motion.div
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.2 }}
                                     >
-                                        <h2 className="text-4xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight mb-4">
+                                        <h2 className="text-3xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight mb-4">
                                             {project.title}
                                         </h2>
 
@@ -78,7 +78,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                                         <div className="space-y-6">
                                             <div>
                                                 <h4 className="text-sm uppercase tracking-widest text-indigo-400 font-bold mb-3">About the project</h4>
-                                                <p className="text-gray-300 leading-relaxed text-lg">
+                                                <p className="text-gray-300 leading-relaxed text-base md:text-lg">
                                                     {project.description}
                                                 </p>
                                             </div>

@@ -23,7 +23,7 @@ const ProjectCard = ({ project, onClick }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent" />
       </div>
 
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-4 md:p-6 flex flex-col flex-grow">
         <h3 className="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">
           {project.title}
         </h3>

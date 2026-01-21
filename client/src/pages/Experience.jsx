@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import ExperienceCard from "../components/ExperienceCard";
 import { Briefcase, ChevronDown } from "lucide-react";
 import api from '../api';
-import ThreeBackground from "../components/ThreeBackground";
+;
 
 const Experience = () => {
   const controls = useAnimation();
@@ -41,8 +41,7 @@ const Experience = () => {
   };
 
   return (
-    <section className="min-h-screen relative py-20 px-6 overflow-hidden bg-gray-950">
-      <ThreeBackground />
+    <section className="min-h-screen relative py-20 px-4 md:px-6 overflow-x-hidden">
 
       <div className="container mx-auto max-w-4xl relative z-10">
         <motion.div
@@ -60,7 +59,7 @@ const Experience = () => {
             <Briefcase className="h-8 w-8 text-indigo-400" />
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight">
             Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 text-glow">Experience</span>
           </h2>
 

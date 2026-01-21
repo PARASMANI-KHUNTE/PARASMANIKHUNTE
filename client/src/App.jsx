@@ -14,12 +14,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AIChat from "./components/AIChat";
 
+import ThreeBackground from "./components/ThreeBackground";
+
 const Layout = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-950 text-white">
+      {!isAdminRoute && <ThreeBackground />}
       {!isAdminRoute && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />

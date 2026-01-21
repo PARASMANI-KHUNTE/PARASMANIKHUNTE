@@ -2,13 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import ContactForm from "../components/ContactForm";
 import { Mail, Phone, MapPin, Github, Linkedin, Instagram } from "lucide-react";
-import ThreeBackground from "../components/ThreeBackground";
 import GlassCard from "../components/ui/GlassCard";
 
 const Contact = () => {
   return (
-    <section className="min-h-screen relative py-20 px-6 overflow-hidden bg-gray-950 flex items-center justify-center">
-      <ThreeBackground />
+    <section className="min-h-screen relative py-20 px-4 md:px-6 overflow-x-hidden flex items-center justify-center">
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -28,7 +26,7 @@ const Contact = () => {
               >
                 <Mail className="h-8 w-8 text-indigo-400" />
               </motion.div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight mb-4">
                 Let's Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 text-glow">Together</span>
               </h2>
               <p className="text-lg text-gray-400 leading-relaxed max-w-lg">

@@ -4,7 +4,6 @@ import { useInView } from "react-intersection-observer";
 import ProjectCard from "../components/ProjectCard";
 import { Code, ArrowRight } from "lucide-react";
 import api from '../api';
-import ThreeBackground from "../components/ThreeBackground";
 import ProjectModal from "../components/ui/ProjectModal";
 
 const Projects = () => {
@@ -55,8 +54,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="min-h-screen relative py-20 px-6 overflow-hidden bg-gray-950">
-      <ThreeBackground />
+    <section className="min-h-screen relative py-20 px-4 md:px-6 overflow-x-hidden">
 
       {/* Cosmic Gradient Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -81,7 +79,7 @@ const Projects = () => {
             <Code className="h-8 w-8 text-indigo-400" />
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-white font-space-grotesk tracking-tight">
             Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 text-glow">Projects</span>
           </h2>
 

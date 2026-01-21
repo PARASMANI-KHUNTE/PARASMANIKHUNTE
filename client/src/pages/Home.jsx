@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
-import ThreeBackground from "../components/ThreeBackground";
 import GlassCard from "../components/ui/GlassCard";
 import GlowButton from "../components/ui/GlowButton";
 import { Download, Mail, Github, Linkedin, Instagram } from "lucide-react";
@@ -33,8 +32,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gray-950 text-white selection:bg-indigo-500/30">
-      <ThreeBackground />
+    <div className="min-h-screen relative overflow-x-hidden text-white selection:bg-indigo-500/30">
 
       {/* Cosmic Gradient Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -42,7 +40,7 @@ const Home = () => {
         <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 py-20 flex flex-col items-center justify-center min-h-screen">
+      <div className="relative z-10 container mx-auto px-4 md:px-6 py-20 flex flex-col items-center justify-center min-h-screen">
 
         {/* HERO SECTION */}
         <motion.div
@@ -59,7 +57,7 @@ const Home = () => {
 
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-8xl font-bold mb-6 tracking-tight font-space-grotesk"
+            className="text-3xl md:text-6xl lg:text-8xl font-bold mb-6 tracking-tight font-space-grotesk"
           >
             I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 text-glow">digital</span> <br className="hidden md:block" />
             experiences.

@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 
 const Stars = (props) => {
     const ref = useRef();
-    const [sphere] = React.useState(() => random.inSphere(new Float32Array(5000), { radius: 1.5 }));
+    const [sphere] = React.useState(() => random.inSphere(new Float32Array(5001), { radius: 1.5 }));
 
     useFrame((state, delta) => {
         ref.current.rotation.x -= delta / 10;
@@ -34,7 +34,7 @@ const ThreeBackground = () => {
     const color = isDarkMode ? "#818cf8" : "#4f46e5";
 
     return (
-        <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
+        <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
             <Canvas camera={{ position: [0, 0, 1] }}>
                 <Stars color={color} />
             </Canvas>

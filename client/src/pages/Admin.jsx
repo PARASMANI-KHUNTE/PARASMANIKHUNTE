@@ -137,7 +137,7 @@ const Admin = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 md:ml-64 p-4 md:p-8 overflow-y-auto">
+      <main className="flex-1 md:ml-64 p-4 md:p-8 overflow-y-auto overflow-x-hidden">
         <header className="mb-8">
           <div>
             <h2 className="text-3xl font-bold font-space-grotesk text-white">

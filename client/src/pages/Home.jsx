@@ -14,8 +14,8 @@ const Home = () => {
 
   const handleDownloadCV = () => {
     const link = document.createElement("a");
-    link.href = "/ParasmaniKhunteResume.pdf";
-    link.download = "PARASMANI_KHUNTE_CV.pdf";
+    link.href = "/Parasmani_Khunte_Resume_ATS.pdf";
+    link.download = "Parasmani_Khunte_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

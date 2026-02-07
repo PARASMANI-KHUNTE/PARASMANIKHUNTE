@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTheme } from "../context/ThemeContext";
 import ExperienceCard, { ExperienceGroupCard } from "../components/ExperienceCard";
+import ProjectPreviewModal from "../components/ProjectPreviewModal";
 import { Briefcase, ChevronDown } from "lucide-react";
 
 const experienceData = [
@@ -14,7 +15,7 @@ const experienceData = [
     duration: "March 2025 - May 2025 · 3 mos",
     location: "Remote",
     description: "Developed scalable web applications using React and Frappe frameworks.",
-    skills: ["React", "Redux", "Frappe", "Python", "React.js"],
+    skills: ["React", "Redux", "Frappe", "Python", "React.js", "Google Maps"],
     certificateUrl: "/certificates/hybrowlabs.pdf"
   },
   {
@@ -26,7 +27,7 @@ const experienceData = [
     location: "Remote",
     description: "Developed scalable web applications using the MERN stack as a freelancer.",
     skills: ["React", "Node.js", "MongoDB", "Express", "Redux", "Machine Learning"],
-    certificateUrl: "/certificates/akkuraa-freelancer.pdf"
+    certificateUrl: "/IntershipCertificate.pdf"
   },
   {
     role: "Web Developer Intern",
@@ -79,6 +80,16 @@ const Experience = () => {
     threshold: 0.1,
     triggerOnce: true
   });
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(null);
+
+  const handleOpenPreview = (role) => {
+    setSelectedRole({
+      title: `${role.role} - ${role.company}`,
+      link: role.certificateUrl
+    });
+    setIsPreviewModalOpen(true);
+  };
 
   useEffect(() => {
     if (inView) {
@@ -233,7 +244,10 @@ const Experience = () => {
 
                   {/* Experience Card */}
                   <div className="md:w-1/2 md:pl-8">
-                    <ExperienceCard experience={first} />
+                    <ExperienceCard
+                      experience={first}
+                      onPreview={handleOpenPreview}
+                    />
                   </div>
                 </motion.div>
               );
@@ -258,26 +272,29 @@ const Experience = () => {
                     </div>
                   </div>
                   <div className="md:w-1/2 md:pl-8">
-                    <ExperienceGroupCard company={first.company} logoUrl={first.logoUrl} companyUrl={first.companyUrl} roles={roles} />
+                    <ExperienceGroupCard
+                      company={first.company}
+                      logoUrl={first.logoUrl}
+                      companyUrl={first.companyUrl}
+                      roles={roles}
+                      onPreview={handleOpenPreview}
+                    />
                   </div>
                 </motion.div>
               );
             }
           })}
 
-          {/* Continue Indicator */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: 1.2, duration: 0.6 } }}
-            className="flex flex-col items-center mt-10"
-          >
-            <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"} mb-2`}>Scroll for more</p>
-            <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
-              <ChevronDown className={`h-6 w-6 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`} />
-            </motion.div>
-          </motion.div>
         </motion.div>
       </div>
+
+      {/* Certificate Preview Modal */}
+      <ProjectPreviewModal
+        isOpen={isPreviewModalOpen}
+        onClose={() => setIsPreviewModalOpen(false)}
+        project={selectedRole}
+        isDarkMode={isDarkMode}
+      />
     </section>
   );
 };

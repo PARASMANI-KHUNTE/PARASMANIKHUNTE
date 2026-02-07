@@ -10,6 +10,8 @@ const Home = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isCvPreviewOpen, setIsCvPreviewOpen] = useState(false);
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+  const [isNameModalOpen, setIsNameModalOpen] = useState(false);
+  const [visitorName, setVisitorName] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
 
   const handleOpenPreview = (project) => {
@@ -34,16 +36,24 @@ const Home = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Email Handler
+  // Email Handler - Stage 1: Open Modal
   const handleHireMeClick = () => {
-    const email = "parasmanikhunte@gmail.com"; // Replace with your email
+    setIsNameModalOpen(true);
+  };
+
+  // Email Handler - Stage 2: Trigger Email
+  const confirmHireMe = (e) => {
+    if (e) e.preventDefault();
+    if (!visitorName.trim()) return;
+
+    const email = "parasmanikhunte@gmail.com";
     const subject = encodeURIComponent("Job Opportunity Inquiry");
-    const Name = prompt("Enter your name -")
     const body = encodeURIComponent(
-      `Hello Paras,\n\nI came across your profile and would love to discuss an opportunity with you. Looking forward to connecting!\n\nBest regards,\n${Name}`
+      `Hello Paras,\n\nI came across your profile and would love to discuss an opportunity with you. Looking forward to connecting!\n\nBest regards,\n${visitorName}`
     );
 
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    setIsNameModalOpen(false);
   };
 
   // Download CV Handler
@@ -652,97 +662,55 @@ const Home = () => {
           variants={itemVariants}
           className="mb-16 max-w-5xl w-full"
         >
-          <h2 className={`text-2xl md:text-3xl font-bold text-center mb-8 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+          <h2 className={`text-2xl md:text-3xl font-bold text-center mb-12 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
             Get In <span className={isDarkMode ? "text-amber-400" : "text-amber-500"}>Touch</span>
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Contact Information */}
-            <div className="space-y-6">
-              <p className={`text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                Have a project in mind or just want to say hi? Feel free to reach out. I'm always open to discussing new opportunities and creative ideas.
-              </p>
+          <div className="max-w-3xl mx-auto space-y-8">
+            <p className={`text-lg text-center ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+              Have a project in mind or just want to say hi? Feel free to reach out. I'm always open to discussing new opportunities and creative ideas.
+            </p>
 
-              <div className="space-y-4">
-                <div className={`flex items-start gap-4 p-4 rounded-xl ${isDarkMode ? "bg-gray-800/30" : "bg-white/50 shadow-sm"}`}>
-                  <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Email</h4>
-                    <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>parasmanikhunte@gmail.com</p>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className={`flex items-start gap-4 p-6 rounded-xl ${isDarkMode ? "bg-gray-800/30" : "bg-white/50 shadow-sm"}`}>
+                <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </div>
+                <div>
+                  <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Email</h4>
+                  <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>parasmanikhunte@gmail.com</p>
+                </div>
+              </div>
 
-                <div className={`flex items-start gap-4 p-4 rounded-xl ${isDarkMode ? "bg-gray-800/30" : "bg-white/50 shadow-sm"}`}>
-                  <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Location</h4>
-                    <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>Bilaspur, Chhattisgarh, India</p>
-                  </div>
+              <div className={`flex items-start gap-4 p-6 rounded-xl ${isDarkMode ? "bg-gray-800/30" : "bg-white/50 shadow-sm"}`}>
+                <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Location</h4>
+                  <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>Bilaspur, Chhattisgarh, India</p>
                 </div>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <form className={`p-6 md:p-8 rounded-2xl ${isDarkMode
-              ? "bg-gray-800/30 border border-gray-700"
-              : "bg-white/50 border border-gray-100 shadow-xl"
-              }`}>
-              <div className="space-y-4">
-                <div>
-                  <label className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Name</label>
-                  <input
-                    type="text"
-                    className={`w-full px-4 py-2 rounded-lg outline-none transition-all ${isDarkMode
-                      ? "bg-gray-700/50 border border-gray-600 focus:border-amber-400 text-white"
-                      : "bg-white border border-gray-200 focus:border-amber-500 text-gray-800"
-                      }`}
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Email</label>
-                  <input
-                    type="email"
-                    className={`w-full px-4 py-2 rounded-lg outline-none transition-all ${isDarkMode
-                      ? "bg-gray-700/50 border border-gray-600 focus:border-amber-400 text-white"
-                      : "bg-white border border-gray-200 focus:border-amber-500 text-gray-800"
-                      }`}
-                    placeholder="Your Email"
-                  />
-                </div>
-                <div>
-                  <label className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Message</label>
-                  <textarea
-                    rows="4"
-                    className={`w-full px-4 py-2 rounded-lg outline-none transition-all resize-none ${isDarkMode
-                      ? "bg-gray-700/50 border border-gray-600 focus:border-amber-400 text-white"
-                      : "bg-white border border-gray-200 focus:border-amber-500 text-gray-800"
-                      }`}
-                    placeholder="Your Message"
-                  ></textarea>
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-3 rounded-lg font-bold shadow-lg transition-all ${isDarkMode
-                    ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
-                    : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
-                    }`}
-                  type="button"
-                >
-                  Send Message
-                </motion.button>
-              </div>
-            </form>
+            <div className="flex justify-center mt-8">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleHireMeClick}
+                className={`px-10 py-4 rounded-xl font-bold shadow-lg transition-all ${isDarkMode
+                  ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
+                  : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
+                  }`}
+              >
+                Send Me an Email
+              </motion.button>
+            </div>
           </div>
         </motion.div>
 
@@ -938,6 +906,87 @@ const Home = () => {
         project={selectedProject}
         isDarkMode={isDarkMode}
       />
+
+      {/* Custom Name Prompt Modal */}
+      <AnimatePresence>
+        {isNameModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setIsNameModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className={`relative max-w-md w-full p-8 rounded-3xl shadow-2xl ${isDarkMode ? "bg-gray-800 border border-gray-700" : "bg-white border border-amber-100"
+                }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsNameModalOpen(false)}
+                className={`absolute top-4 right-4 p-2 rounded-full transition-colors ${isDarkMode ? "hover:bg-gray-700 text-gray-400" : "hover:bg-amber-50 text-amber-500"
+                  }`}
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="text-center mb-6">
+                <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"
+                  }`}>
+                  <Monitor className="w-8 h-8" />
+                </div>
+                <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                  Nice to meet you!
+                </h3>
+                <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                  Please enter your name to personalize your message.
+                </p>
+              </div>
+
+              <form onSubmit={confirmHireMe} className="space-y-4">
+                <div>
+                  <input
+                    autoFocus
+                    type="text"
+                    value={visitorName}
+                    onChange={(e) => setVisitorName(e.target.value)}
+                    placeholder="Your Name"
+                    className={`w-full px-6 py-4 rounded-xl outline-none transition-all border-2 ${isDarkMode
+                      ? "bg-gray-900 border-gray-700 focus:border-amber-400 text-white"
+                      : "bg-amber-50/30 border-amber-100 focus:border-amber-500 text-gray-800"
+                      }`}
+                  />
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsNameModalOpen(false)}
+                    className={`flex-1 py-4 rounded-xl font-bold transition-all ${isDarkMode
+                      ? "bg-gray-700 text-white hover:bg-gray-600"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      }`}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!visitorName.trim()}
+                    className={`flex-1 py-4 rounded-xl font-bold shadow-lg transition-all ${isDarkMode
+                      ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
+                      : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  >
+                    Continue
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

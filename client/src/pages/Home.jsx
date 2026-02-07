@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
+import { X, Maximize2, Eye, Monitor } from "lucide-react";
+import ProjectPreviewModal from "../components/ProjectPreviewModal";
 
 const Home = () => {
   const { isDarkMode } = useTheme();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isCvPreviewOpen, setIsCvPreviewOpen] = useState(false);
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleOpenPreview = (project) => {
+    setSelectedProject(project);
+    setIsPreviewModalOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -167,6 +178,20 @@ const Home = () => {
                     Download CV
                   </span>
                 </motion.button>
+
+                {/* Preview CV Button */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setIsCvPreviewOpen(true)}
+                  className={`p-3 rounded-lg font-semibold transition-all duration-300 border-2 ${isDarkMode
+                    ? "border-amber-500 text-amber-400 hover:bg-amber-900/30"
+                    : "border-amber-500 text-amber-600 hover:bg-amber-50"
+                    }`}
+                  title="Preview CV"
+                >
+                  <Eye className="h-6 w-6" />
+                </motion.button>
               </div>
             </motion.div>
           </div>
@@ -176,15 +201,26 @@ const Home = () => {
             variants={itemVariants}
             className="md:w-1/2 flex justify-center md:justify-end"
           >
-            <div className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden ${isDarkMode ? "bg-amber-800/20" : "bg-amber-100"
-              }`}>
+            <div
+              onClick={() => profileImageUrl && setIsPreviewOpen(true)}
+              className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden cursor-pointer group ${isDarkMode ? "bg-amber-800/20" : "bg-amber-100"
+                }`}
+            >
               {profileImageUrl ? (
                 // Display actual profile image if URL is provided
-                <img
-                  src={profileImageUrl}
-                  alt="Paras Khunte"
-                  className="w-full h-full object-cover"
-                />
+                <>
+                  <img
+                    src={profileImageUrl}
+                    alt="Paras Khunte"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30">
+                      <Maximize2 className="text-white w-6 h-6" />
+                    </div>
+                  </div>
+                </>
               ) : (
                 // Fallback to icon if no image URL is provided
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -194,7 +230,7 @@ const Home = () => {
                 </div>
               )}
               <motion.div
-                className="absolute inset-0 rounded-full"
+                className="absolute inset-0 rounded-full pointer-events-none"
                 initial={{ borderWidth: "0px" }}
                 animate={{ borderWidth: "4px" }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
@@ -375,11 +411,20 @@ const Home = () => {
             }`}
         >
           <div className="p-8">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">⭐</span>
-              <h3 className={`text-lg font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
-                Featured Project
-              </h3>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">⭐</span>
+                <h3 className={`text-lg font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
+                  Featured Project
+                </h3>
+              </div>
+              <div className="bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 uppercase tracking-wider">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                Latest
+              </div>
             </div>
 
             <h4 className={`text-2xl md:text-3xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
@@ -410,7 +455,7 @@ const Home = () => {
             {/* Action buttons */}
             <div className="flex flex-wrap gap-4">
               <motion.a
-                href="https://mycircle-71hh.onrender.com"
+                href="https://mycircle-9gm5.onrender.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -423,8 +468,26 @@ const Home = () => {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                Live Demo
+                <span>Live Site</span>
               </motion.a>
+
+              <motion.button
+                onClick={() => handleOpenPreview({
+                  title: "MyCircle",
+                  link: "https://mycircle-9gm5.onrender.com",
+                  github: "https://github.com/PARASMANI-KHUNTE/MyCircle"
+                })}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-6 py-3 rounded-lg font-medium flex items-center gap-2 border-2 ${isDarkMode
+                  ? "border-amber-500 text-amber-400 hover:bg-amber-900/30"
+                  : "border-amber-500 text-amber-600 hover:bg-amber-50"
+                  }`}
+              >
+                <Monitor className="w-5 h-5" />
+                <span>Preview Live</span>
+              </motion.button>
+
               <motion.a
                 href="https://github.com/PARASMANI-KHUNTE/MyCircle"
                 target="_blank"
@@ -791,6 +854,90 @@ const Home = () => {
           </svg>
         </motion.button>
       )}
+
+      {/* Profile Image Preview Modal */}
+      <AnimatePresence>
+        {isPreviewOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setIsPreviewOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl w-full max-h-[90vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsPreviewOpen(false)}
+                className="absolute -top-12 right-0 md:-right-12 p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <img
+                src={profileImageUrl}
+                alt="Profile Preview"
+                className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain border border-white/10"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* CV Preview Modal */}
+      <AnimatePresence>
+        {isCvPreviewOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setIsCvPreviewOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-5xl w-full h-[90vh] bg-white rounded-2xl overflow-hidden flex flex-col shadow-2xl shadow-black/50"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
+                <h3 className="font-bold text-gray-800 flex items-center gap-2">
+                  <Eye className="w-5 h-5 text-amber-500" />
+                  Resume Preview
+                </h3>
+                <button
+                  onClick={() => setIsCvPreviewOpen(false)}
+                  className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="flex-1 w-full h-full bg-gray-200">
+                <iframe
+                  src="/Parasmani_Khunte_Resume_ATS.pdf#toolbar=0"
+                  className="w-full h-full border-none"
+                  title="CV Preview"
+                ></iframe>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Project Preview Modal */}
+      <ProjectPreviewModal
+        isOpen={isPreviewModalOpen}
+        onClose={() => setIsPreviewModalOpen(false)}
+        project={selectedProject}
+        isDarkMode={isDarkMode}
+      />
     </motion.div>
   );
 };

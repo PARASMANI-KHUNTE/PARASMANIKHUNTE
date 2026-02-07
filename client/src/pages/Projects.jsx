@@ -4,6 +4,8 @@ import { useInView } from "react-intersection-observer";
 import { useTheme } from "../context/ThemeContext";
 import ProjectCard from "../components/ProjectCard";
 import { Code, ArrowRight } from "lucide-react";
+import ProjectPreviewModal from "../components/ProjectPreviewModal";
+import { useState } from "react";
 
 const projects = [
   // 🥇 TOP PROJECT - MyCircle
@@ -11,16 +13,27 @@ const projects = [
     title: "MyCircle",
     description: "A hyperlocal exchange platform for neighbors to post and discover jobs, services, and items for sale/rent. Features real-time chat, AI moderation, trust system, and interactive map view.",
     tech: "React Native, React 19, Node.js, MongoDB, Socket.io, Gemini AI",
-    link: "https://mycircle-71hh.onrender.com",
+    link: "https://mycircle-9gm5.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
-    year: "2025"
+    year: "2025",
+    isLatest: true
   },
-  // 🥈 Admin Dashboard
+  // 🥈 Modern Developer Portfolio
+  {
+    title: "Modern Developer Portfolio",
+    description: "A premium, high-performance portfolio featuring glassmorphism design, interactive project previews, and advanced UI animations with dark mode support.",
+    tech: "React 19, Tailwind CSS, Framer Motion, Lucide React, Vite",
+    link: "https://parasmanikhunte.onrender.com/",
+    github: "https://github.com/PARASMANI-KHUNTE/PARASMANIKHUNTE",
+    year: "2025",
+    isLatest: true
+  },
+  // 🥉 Admin Dashboard
   {
     title: "Admin Dashboard",
     description: "A full-stack web application for managing hotels, vehicles, and regions with CRUD operations. Features secure JWT authentication and modern responsive UI.",
     tech: "React, Node.js, Express, MongoDB, JWT, Tailwind CSS",
-    link: "https://admin-dashboard-js6u.onrender.com/",
+    link: "",
     github: "https://github.com/PARASMANI-KHUNTE/Admin-Dashboard",
     year: "2025"
   },
@@ -56,7 +69,7 @@ const projects = [
     title: "Chat Application",
     description: "Real-time chat application with Google OAuth authentication and modern glassmorphism UI design deployed on Vercel.",
     tech: "React, Node.js, Socket.io, Google OAuth",
-    link: "https://chat-application-snowy-eight.vercel.app",
+    link: "",
     github: "https://github.com/PARASMANI-KHUNTE/ChatApplication",
     year: "2024"
   },
@@ -65,7 +78,7 @@ const projects = [
     title: "FaceTrack",
     description: "Multi-Branch, Multi-Department Organization Management System with face tracking and recognition capabilities.",
     tech: "React, Redux, Machine Learning, TailwindCSS, Express, MongoDB",
-    link: "https://facetrack-0s10.onrender.com",
+    link: "",
     github: "https://github.com/PARASMANI-KHUNTE/FaceTrack",
     year: "2025"
   },
@@ -105,6 +118,14 @@ const Projects = () => {
     threshold: 0.1,
     triggerOnce: true
   });
+
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleOpenPreview = (project) => {
+    setSelectedProject(project);
+    setIsPreviewModalOpen(true);
+  };
 
   useEffect(() => {
     if (inView) {
@@ -200,12 +221,24 @@ const Projects = () => {
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-visible"
         >
           {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
+            <ProjectCard
+              key={index}
+              project={project}
+              onPreview={handleOpenPreview}
+            />
           ))}
         </motion.div>
+
+        {/* Project Preview Modal */}
+        <ProjectPreviewModal
+          isOpen={isPreviewModalOpen}
+          onClose={() => setIsPreviewModalOpen(false)}
+          project={selectedProject}
+          isDarkMode={isDarkMode}
+        />
 
         {/* View More Projects Button */}
         <motion.div

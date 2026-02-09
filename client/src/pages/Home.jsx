@@ -607,7 +607,7 @@ const Home = () => {
                 },
                 {
                   date: "2024",
-                  title: "IoT Executive Leader",
+                  title: "IoT Executive",
                   organization: "GeeksforGeeks Student Chapter",
                   description: "Led technical initiatives and mentored students in Internet of Things and web integration.",
                   icon: "🌐"

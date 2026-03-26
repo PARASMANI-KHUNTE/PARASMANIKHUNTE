@@ -18,6 +18,7 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import Chatbot from './Chatbot';
 import VisitorCounter from "./VisitorCounter";
+import ParticleBackground from './ParticleBackground';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

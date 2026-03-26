@@ -47,13 +47,14 @@ const Hero3DGallery = () => {
                                 className="absolute inset-0 cursor-pointer"
                                 initial={{ scale: 0.8, opacity: 0, rotateY: 90 }}
                                 animate={{
-                                    scale: isActive ? 1 : 0.85 - Math.abs(offset) * 0.1,
-                                    opacity: Math.abs(offset) <= 1 ? 1 - Math.abs(offset) * 0.3 : 0,
-                                    rotateY: offset * 15,
-                                    z: isActive ? 0 : -Math.abs(offset) * 100,
-                                    x: offset * 120,
+                                    scale: isActive ? 1 : 0.75 - Math.abs(offset) * 0.15,
+                                    opacity: Math.abs(offset) <= 1 ? 1 - Math.abs(offset) * 0.5 : 0,
+                                    rotateY: offset * 25,
+                                    z: isActive ? 50 : -Math.abs(offset) * 150,
+                                    x: offset * 180,
+                                    y: Math.abs(offset) * 20,
                                     transition: {
-                                        duration: 0.5,
+                                        duration: 0.6,
                                         ease: [0.32, 0.72, 0, 1]
                                     }
                                 }}
@@ -61,7 +62,8 @@ const Hero3DGallery = () => {
                                 onClick={() => setCurrentIndex(index)}
                                 style={{
                                     transformStyle: 'preserve-3d',
-                                    pointerEvents: Math.abs(offset) <= 1 ? 'auto' : 'none'
+                                    pointerEvents: Math.abs(offset) <= 1 ? 'auto' : 'none',
+                                    zIndex: isActive ? 10 : 10 - Math.abs(offset)
                                 }}
                             >
                                 <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500/20 to-accent-500/20 backdrop-blur-sm border border-white/20">

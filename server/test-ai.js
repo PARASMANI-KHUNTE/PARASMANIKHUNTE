@@ -1,43 +1,38 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const Groq = require('groq-sdk');
 const dotenv = require('dotenv');
 const path = require('path');
 
 // Load env vars from .env file in the same directory
 dotenv.config({ path: path.join(__dirname, '.env') });
 
-console.log("Testing Gemini API...");
+console.log("Testing Groq API...");
 
 async function testAI() {
-    if (!process.env.GEMINI_API_KEY) {
-        console.error("Error: GEMINI_API_KEY is missing.");
+    if (!process.env.GROQ_API_KEY) {
+        console.error("Error: GROQ_API_KEY is missing.");
         return;
     }
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
     try {
-        console.log("Trying model: gemini-1.5-flash");
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        console.log("Trying model: llama-3.1-8b-instant");
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "user",
+                    content: "Hello",
+                },
+            ],
+            model: "llama-3.1-8b-instant",
+            temperature: 0.5,
+            max_tokens: 100,
+        });
 
-        // Use the simplest possible input format
-        const result = await model.generateContent("Hello");
-        const response = await result.response;
-        const text = response.text();
-
-        console.log("Success with gemini-1.5-flash:", text);
+        const text = chatCompletion.choices[0]?.message?.content || "";
+        console.log("Success with llama3-8b-8192:", text);
     } catch (error) {
-        console.error("Error with gemini-1.5-flash:", error.message);
-
-        try {
-            console.log("Retrying with model: gemini-pro");
-            const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-            const result = await model.generateContent("Hello");
-            const response = await result.response;
-            const text = response.text();
-            console.log("Success with gemini-pro:", text);
-        } catch (err) {
-            console.error("Error with gemini-pro:", err.message);
-        }
+        console.error("Error with llama3-8b-8192:", error.message);
     }
 }
 

@@ -1,10 +1,10 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const Groq = require('groq-sdk');
 const asyncHandler = require('express-async-handler');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const resumeContext = `
 You are an AI assistant for Parasmani Khunte's portfolio website. Your job is to answer questions about Paras based on his resume and portfolio.
@@ -50,37 +50,40 @@ const chatWithAI = asyncHandler(async (req, res) => {
 
     console.log("AI Chat Request Received:", message);
 
-    if (!process.env.GEMINI_API_KEY) {
-        console.error("Error: GEMINI_API_KEY is missing in environment variables.");
+    if (!process.env.GROQ_API_KEY) {
+        console.error("Error: GROQ_API_KEY is missing in environment variables.");
         res.status(500);
-        throw new Error('Gemini API Key not configured');
+        throw new Error('Groq API Key not configured');
     } else {
-        console.log("GEMINI_API_KEY is present.");
+        console.log("GROQ_API_KEY is present.");
     }
 
     try {
-        // Try using the newer flash model first
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
-        const chat = model.startChat({
-            history: [
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
                 {
-                    role: 'user',
-                    parts: [{ text: 'Who are you?' }],
+                    role: "system",
+                    content: resumeContext
                 },
                 {
-                    role: 'model',
-                    parts: [{ text: 'I am an AI assistant for Parasmani Khunte. I can answer questions about his skills, experience, and projects.' }],
+                    role: "user",
+                    content: "Who are you?"
                 },
+                {
+                    role: "assistant",
+                    content: "I am an AI assistant for Parasmani Khunte. I can answer questions about his skills, experience, and projects."
+                },
+                {
+                    role: "user",
+                    content: message
+                }
             ],
-            generationConfig: {
-                maxOutputTokens: 200,
-            },
+            model: "llama-3.1-8b-instant",
+            temperature: 0.5,
+            max_tokens: 200,
         });
 
-        const result = await chat.sendMessage(`${resumeContext}\n\nUser Question: ${message}`);
-        const response = await result.response;
-        const text = response.text();
+        const text = chatCompletion.choices[0]?.message?.content || "";
 
         res.json({ reply: text });
 
@@ -140,8 +143,8 @@ const chatWithAI = asyncHandler(async (req, res) => {
 
 const pingAI = asyncHandler(async (req, res) => {
     // Simple health check – returns status ok if API key is present
-    if (!process.env.GEMINI_API_KEY) {
-        return res.status(500).json({ status: 'error', message: 'GEMINI_API_KEY missing' });
+    if (!process.env.GROQ_API_KEY) {
+        return res.status(500).json({ status: 'error', message: 'GROQ_API_KEY missing' });
     }
     try {
         // Optionally we could make a lightweight request to Gemini to verify connectivity

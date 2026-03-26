@@ -1,5 +1,4 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ExternalLink, Github, Code, Layers } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
@@ -14,17 +13,46 @@ const ProjectCard = ({ project, onPreview }) => {
 
   const ProjectIcon = getProjectIcon(project.tech);
 
+  // 3D Tilt Logic
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-100, 100], [10, -10]);
+  const rotateY = useTransform(x, [-100, 100], [-10, 10]);
+
+  const springConfig = { damping: 20, stiffness: 300 };
+  const springRotateX = useSpring(rotateX, springConfig);
+  const springRotateY = useSpring(rotateY, springConfig);
+
+  function handleMouseMove(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set(event.clientX - centerX);
+    y.set(event.clientY - centerY);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      whileHover={{ y: -5 }}
-      transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className={`group relative overflow-hidden rounded-xl h-full flex flex-col ${isDarkMode
-          ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-          : "bg-gradient-to-br from-white to-gray-50 border border-gray-100 shadow-lg"
-        } ${project.isLatest ? (isDarkMode ? "shadow-emerald-900/20 ring-1 ring-emerald-500/30" : "shadow-emerald-200/50 ring-1 ring-emerald-500/20") : ""}`}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX: springRotateX,
+        rotateY: springRotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className={`group relative overflow-hidden rounded-xl h-full flex flex-col backdrop-blur-md transition-all duration-300 ${isDarkMode
+          ? "bg-gray-800/40 border border-gray-700 hover:border-amber-500/50 hover:shadow-2xl hover:shadow-black/50"
+          : "bg-white/60 border border-white shadow-lg hover:shadow-2xl hover:shadow-amber-100"
+        } ${project.isLatest ? (isDarkMode ? "ring-1 ring-emerald-500/30" : "ring-1 ring-emerald-500/20") : ""}`}
     >
       {/* Latest Badge */}
       {project.isLatest && (
@@ -141,6 +169,9 @@ const ProjectCard = ({ project, onPreview }) => {
           </div>
         </div>
       </div>
+
+      {/* Gloss reflection effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-20 pointer-events-none bg-gradient-to-br from-white/40 via-transparent to-transparent"></div>
 
       {/* Bottom accent bar */}
       <motion.div

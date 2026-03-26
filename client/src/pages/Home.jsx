@@ -1,8 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { X, Maximize2, Eye, Monitor } from "lucide-react";
-import ProjectPreviewModal from "../components/ProjectPreviewModal";
+const ProjectPreviewModal = React.lazy(() => import("../components/ProjectPreviewModal"));
+
+import BackgroundParticles from "../components/common/BackgroundParticles";
+
+// Helper component for counting up numbers
+const AnimatedCounter = ({ from = 0, to, duration = 2 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const count = useMotionValue(from);
+  const rounded = useSpring(count, { duration: duration * 1000, bounce: 0 });
+  const [display, setDisplay] = useState(from);
+
+  useEffect(() => {
+    if (isInView) {
+      count.set(to);
+    }
+  }, [isInView, to, count]);
+
+  useEffect(() => {
+    return rounded.onChange((v) => setDisplay(Math.round(v)));
+  }, [rounded]);
+
+  return <span ref={ref}>{display}</span>;
+};
+
+// Helper component for typewriter effect
+const TypewriterText = ({ text, className }) => {
+  const words = text.split(" ");
+  return (
+    <div className={`flex flex-wrap ${className}`}>
+      {words.map((word, index) => (
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1, duration: 0.5 }}
+          className="mr-2"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </div>
+  );
+};
 
 const Home = () => {
   const { isDarkMode } = useTheme();
@@ -78,18 +122,33 @@ const Home = () => {
       transition: {
         duration: 0.6,
         when: "beforeChildren",
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6 }
+      transition: { duration: 0.6, ease: "easeOut" }
     }
+  };
+
+  const fadeInUp = {
+    hidden: { y: 40, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const fadeInLeft = {
+    hidden: { x: -40, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const fadeInRight = {
+    hidden: { x: 40, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   return (
@@ -104,6 +163,7 @@ const Home = () => {
     >
       {/* Abstract shapes background */}
       <div className="absolute inset-0 overflow-hidden">
+        <BackgroundParticles />
         <div className={`absolute blur -top-32 -right-32 w-96 h-96 rounded-full ${isDarkMode ? "bg-amber-900/10" : "bg-amber-200/30"}`}></div>
         <div className={`absolute blur top-1/4 -left-16 w-64 h-64 rounded-full ${isDarkMode ? "bg-amber-800/10" : "bg-amber-100/50"}`}></div>
         <div className={`absolute blur bottom-1/4 right-1/3 w-48 h-48 rounded-full ${isDarkMode ? "bg-amber-700/10" : "bg-amber-300/20"}`}></div>
@@ -126,9 +186,10 @@ const Home = () => {
               <h1 className={`text-5xl md:text-6xl font-bold mb-4`}>
                 Hi, I'm <span className={`${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Paras</span>
               </h1>
-              <p className={`text-xl md:text-2xl mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                Software Development Engineer | MCA Student
-              </p>
+              <TypewriterText 
+                text="Software Development Engineer | MCA Student" 
+                className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+              />
               <p className={`text-base md:text-lg mb-8 max-w-lg ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
                 Building scalable full-stack applications with React, Node.js & AI integration. ISRO Hackathon participant. Passionate about creating impactful tech solutions.
               </p>
@@ -139,9 +200,9 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleHireMeClick}
-                  className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 ${isDarkMode
-                    ? "bg-amber-500 text-gray-900 hover:bg-amber-400"
-                    : "bg-amber-500 text-white hover:bg-amber-600"
+                  className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg ${isDarkMode
+                    ? "bg-amber-500 text-gray-900 hover:bg-amber-400 hover:shadow-amber-500/50"
+                    : "bg-amber-500 text-white hover:bg-amber-600 hover:shadow-amber-500/40"
                     }`}
                 >
                   <span className="flex items-center justify-center">
@@ -168,8 +229,8 @@ const Home = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={handleDownloadCV}
                   className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 ${isDarkMode
-                    ? "bg-transparent border-2 border-amber-500 text-amber-400 hover:bg-amber-900/30"
-                    : "bg-transparent border-2 border-amber-500 text-amber-600 hover:bg-amber-50"
+                    ? "bg-transparent border-2 border-amber-500 text-amber-400 hover:bg-amber-900/30 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]"
+                    : "bg-transparent border-2 border-amber-500 text-amber-600 hover:bg-amber-50 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)]"
                     }`}
                 >
                   <span className="flex items-center justify-center">
@@ -240,13 +301,15 @@ const Home = () => {
                 </div>
               )}
               <motion.div
-                className="absolute inset-0 rounded-full pointer-events-none"
-                initial={{ borderWidth: "0px" }}
-                animate={{ borderWidth: "4px" }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                className="absolute -inset-4 rounded-full pointer-events-none"
+                initial={{ opacity: 0.4, scale: 0.95 }}
+                animate={{ opacity: 0.8, scale: 1.05 }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                 style={{
-                  borderColor: isDarkMode ? "rgba(245, 158, 11, 0.3)" : "rgba(245, 158, 11, 0.2)",
-                  borderStyle: "solid"
+                  background: isDarkMode 
+                    ? "radial-gradient(circle, rgba(245,158,11,0.4) 0%, rgba(245,158,11,0) 70%)" 
+                    : "radial-gradient(circle, rgba(245,158,11,0.3) 0%, rgba(245,158,11,0) 70%)",
+                  zIndex: -1
                 }}
               />
             </div>
@@ -255,11 +318,14 @@ const Home = () => {
 
         {/* Career & Education Summary */}
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="mb-16 max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-8"
         >
           {/* Education Summary */}
-          <div className={`p-6 rounded-2xl ${isDarkMode ? "bg-gray-800/20 border border-gray-700" : "bg-white/40 border border-gray-100 shadow-sm"}`}>
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className={`p-6 rounded-2xl backdrop-blur-md transition-all duration-300 ${isDarkMode ? "bg-gray-800/40 border border-gray-700 hover:shadow-xl hover:shadow-black/50 hover:border-amber-500/30" : "bg-white/60 border border-white hover:shadow-xl hover:shadow-amber-100"}`}>
             <div className="flex items-center gap-3 mb-4">
               <div className={`p-2 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -274,10 +340,10 @@ const Home = () => {
               <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Guru Ghasidas University (2025 - 2027)</p>
               <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>Developing expertise in Advanced Computing & AI integration.</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Experience Summary */}
-          <div className={`p-6 rounded-2xl ${isDarkMode ? "bg-gray-800/20 border border-gray-700" : "bg-white/40 border border-gray-100 shadow-sm"}`}>
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className={`p-6 rounded-2xl backdrop-blur-md transition-all duration-300 ${isDarkMode ? "bg-gray-800/40 border border-gray-700 hover:shadow-xl hover:shadow-black/50 hover:border-amber-500/30" : "bg-white/60 border border-white hover:shadow-xl hover:shadow-amber-100"}`}>
             <div className="flex items-center gap-3 mb-4">
               <div className={`p-2 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -291,20 +357,23 @@ const Home = () => {
               <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Hybrowlabs / Akkuraa IT Services</p>
               <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>Specialized in MERN stack and Frappe + React applications.</p>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Tech Stack Section */}
         <motion.div
-          variants={itemVariants}
-          className={`mb-16 py-8 px-8 rounded-xl backdrop-blur-sm max-w-5xl w-full ${isDarkMode ? "bg-gray-800/50" : "bg-white/70"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className={`mb-16 py-8 px-8 rounded-xl backdrop-blur-md max-w-5xl w-full ${isDarkMode ? "bg-gray-800/40 border border-gray-700" : "bg-white/70 border border-white"
             } shadow-lg`}
         >
           <h2 className={`text-xl md:text-2xl font-semibold mb-8 text-center ${isDarkMode ? "text-amber-400" : "text-amber-600"
             }`}>Tech Stack</h2>
 
           {/* Tech Icons Grid */}
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-4 mb-8">
+          <div className="grid grid-cols-5 md:grid-cols-10 gap-4 mb-8">
             {[
               { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
               { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
@@ -360,11 +429,12 @@ const Home = () => {
                     {item.level}%
                   </span>
                 </div>
-                <div className={`w-full h-2 rounded-full ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}>
+                <div className={`w-full h-2 rounded-full overflow-hidden ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}>
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${item.level}%` }}
-                    transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
+                    whileInView={{ width: `${item.level}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 + index * 0.1 }}
                     className="h-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-600"
                   />
                 </div>
@@ -375,7 +445,10 @@ const Home = () => {
 
         {/* Stats Counter Section */}
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="mb-16 max-w-5xl w-full"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -404,7 +477,8 @@ const Home = () => {
                 <motion.span
                   className={`text-2xl md:text-3xl font-bold block mb-1 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}
                 >
-                  {stat.number}
+                  <AnimatedCounter from={0} to={parseInt(stat.number)} duration={2.5} />
+                  {stat.number.includes('+') && '+'}
                 </motion.span>
                 <span className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                   {stat.label}
@@ -417,9 +491,13 @@ const Home = () => {
         {/* Featured Project - EliteBoards */}
         <motion.div
           variants={itemVariants}
-          className={`mb-16 max-w-5xl w-full rounded-2xl overflow-hidden ${isDarkMode
-            ? "bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700"
-            : "bg-gradient-to-r from-amber-50 to-white border border-amber-100 shadow-xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          whileHover={{ y: -5, boxShadow: isDarkMode ? "0 20px 25px -5px rgba(0,0,0,0.5)" : "0 20px 25px -5px rgba(245,158,11,0.2)" }}
+          className={`mb-16 max-w-5xl w-full rounded-2xl overflow-hidden transition-all duration-300 ${isDarkMode
+            ? "bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 hover:border-amber-500/50"
+            : "bg-gradient-to-r from-amber-50 to-white border border-amber-200 shadow-xl hover:shadow-2xl"
             }`}
         >
           <div className="p-8">
@@ -520,7 +598,10 @@ const Home = () => {
 
         {/* Services Section */}
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="mb-16 max-w-5xl w-full"
         >
           <h2 className={`text-2xl md:text-3xl font-bold text-center mb-8 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
@@ -552,16 +633,14 @@ const Home = () => {
             ].map((service, index) => (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                className={`p-6 rounded-xl text-center ${isDarkMode
-                  ? "bg-gray-800/30"
-                  : "bg-white/50 shadow-sm"
-                  } transition-all duration-300`}
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className={`p-6 rounded-xl text-center group cursor-pointer ${isDarkMode
+                  ? "bg-gray-800/40 border border-gray-700 hover:border-amber-500/30 hover:shadow-lg hover:shadow-black/50"
+                  : "bg-white/60 border border-white hover:border-amber-200 hover:shadow-xl hover:shadow-amber-100"
+                  } transition-all duration-300 backdrop-blur-md`}
               >
-                <div className={`w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center ${isDarkMode ? "bg-gray-700/50" : "bg-amber-50"}`}>
+                <div className={`w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:rotate-12 ${isDarkMode ? "bg-gray-700/50 group-hover:bg-amber-500/20" : "bg-amber-50 group-hover:bg-amber-100"}`}>
                   <svg className={`w-7 h-7 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={service.iconPath} />
                   </svg>
@@ -578,7 +657,10 @@ const Home = () => {
         </motion.div>
         {/* Achievements & Milestones Section */}
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="mb-16 max-w-5xl w-full"
         >
           <h2 className={`text-2xl md:text-3xl font-bold text-center mb-8 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
@@ -627,11 +709,22 @@ const Home = () => {
                   iconPath: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 }
               ].map((achievement, index) => (
-                <div key={index} className="flex gap-4 md:gap-6 relative group">
+                <motion.div key={index} variants={itemVariants} className="flex gap-4 md:gap-6 relative group">
                   {index !== 4 && (
-                    <div className={`absolute left-5 top-10 bottom-[-32px] w-0.5 ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}></div>
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      whileInView={{ height: "calc(100% + 32px)" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
+                      className={`absolute left-5 top-10 w-0.5 ${isDarkMode ? "bg-amber-500/30" : "bg-amber-200"}`}
+                    ></motion.div>
                   )}
-                  <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center z-10 ${isDarkMode ? "bg-gray-700 text-amber-400" : "bg-amber-100 text-amber-600"
+                  <motion.div 
+                    variants={{
+                      hidden: { scale: 0, opacity: 0 },
+                      visible: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 260, damping: 20 } }
+                    }}
+                    className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center z-10 ${isDarkMode ? "bg-gray-700 text-amber-400 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.2)]" : "bg-amber-100 text-amber-600 border border-white shadow-lg"
                     } group-hover:scale-110 transition-transform duration-300`}>
                     {achievement.iconPath ? (
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -640,7 +733,7 @@ const Home = () => {
                     ) : (
                       <span className="text-xl">{achievement.icon}</span>
                     )}
-                  </div>
+                  </motion.div>
                   <div className="flex-1 pb-4">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-1">
                       <h3 className={`text-lg font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
@@ -658,7 +751,7 @@ const Home = () => {
                       {achievement.description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -666,7 +759,10 @@ const Home = () => {
 
         {/* Contact Section */}
         <motion.div
-          variants={itemVariants}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="mb-16 max-w-5xl w-full"
         >
           <h2 className={`text-2xl md:text-3xl font-bold text-center mb-12 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
@@ -679,7 +775,7 @@ const Home = () => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className={`flex items-start gap-4 p-6 rounded-xl ${isDarkMode ? "bg-gray-800/30" : "bg-white/50 shadow-sm"}`}>
+              <motion.div variants={itemVariants} whileHover={{ y: -5 }} className={`flex items-start gap-4 p-6 rounded-xl backdrop-blur-md border transition-all duration-300 ${isDarkMode ? "bg-gray-800/40 border-gray-700 hover:border-amber-500/30 hover:shadow-lg hover:shadow-black/50" : "bg-white/60 border-white hover:shadow-xl shadow-sm"}`}>
                 <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -689,9 +785,9 @@ const Home = () => {
                   <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Email</h4>
                   <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>parasmanikhunte@gmail.com</p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className={`flex items-start gap-4 p-6 rounded-xl ${isDarkMode ? "bg-gray-800/30" : "bg-white/50 shadow-sm"}`}>
+              <motion.div variants={itemVariants} whileHover={{ y: -5 }} className={`flex items-start gap-4 p-6 rounded-xl backdrop-blur-md border transition-all duration-300 ${isDarkMode ? "bg-gray-800/40 border-gray-700 hover:border-amber-500/30 hover:shadow-lg hover:shadow-black/50" : "bg-white/60 border-white hover:shadow-xl shadow-sm"}`}>
                 <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -702,16 +798,24 @@ const Home = () => {
                   <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Location</h4>
                   <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>Bilaspur, Chhattisgarh, India</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             <div className="flex justify-center mt-8">
               <motion.button
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: isDarkMode ? "0 0 20px rgba(245,158,11,0.4)" : "0 0 20px rgba(245,158,11,0.3)" }}
                 whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0.8 }}
+                animate={{ 
+                  opacity: [0.8, 1, 0.8],
+                  boxShadow: isDarkMode 
+                    ? ["0 0 0px rgba(245,158,11,0)", "0 0 20px rgba(245,158,11,0.3)", "0 0 0px rgba(245,158,11,0)"]
+                    : ["0 0 0px rgba(245,158,11,0)", "0 0 15px rgba(245,158,11,0.2)", "0 0 0px rgba(245,158,11,0)"]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 onClick={handleHireMeClick}
                 className={`px-10 py-4 rounded-xl font-bold shadow-lg transition-all ${isDarkMode
-                  ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
+                  ? "bg-amber-400 text-gray-900 hover:bg-amber-300"
                   : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
                   }`}
               >
@@ -907,12 +1011,14 @@ const Home = () => {
       </AnimatePresence>
 
       {/* Project Preview Modal */}
-      <ProjectPreviewModal
-        isOpen={isPreviewModalOpen}
-        onClose={() => setIsPreviewModalOpen(false)}
-        project={selectedProject}
-        isDarkMode={isDarkMode}
-      />
+      <React.Suspense fallback={null}>
+        <ProjectPreviewModal
+          isOpen={isPreviewModalOpen}
+          onClose={() => setIsPreviewModalOpen(false)}
+          project={selectedProject}
+          isDarkMode={isDarkMode}
+        />
+      </React.Suspense>
 
       {/* Custom Name Prompt Modal */}
       <AnimatePresence>

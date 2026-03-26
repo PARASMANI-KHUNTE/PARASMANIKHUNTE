@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useTheme } from "../context/ThemeContext";
 import EducationCard from "../components/EducationCard";
 import { GraduationCap, Award, BookOpen } from "lucide-react";
+import BackgroundParticles from "../components/common/BackgroundParticles";
 
 const educationData = [
   {
@@ -105,33 +106,10 @@ const Education = () => {
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute rounded-full blur-3xl opacity-20 ${isDarkMode ? "bg-amber-600" : "bg-amber-400"
-              }`}
-            style={{
-              width: `${Math.random() * 15 + 10}rem`,
-              height: `${Math.random() * 15 + 10}rem`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              zIndex: 0
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{
-              scale: 1,
-              opacity: isDarkMode ? 0.1 : 0.2,
-              x: [0, Math.random() * 10 - 5],
-              y: [0, Math.random() * 10 - 5],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: i * 0.4
-            }}
-          />
-        ))}
+        <BackgroundParticles />
+        <div className={`absolute blur -top-32 -right-32 w-96 h-96 rounded-full ${isDarkMode ? "bg-amber-900/10" : "bg-amber-200/30"}`}></div>
+        <div className={`absolute blur top-1/4 -left-16 w-64 h-64 rounded-full ${isDarkMode ? "bg-amber-800/10" : "bg-amber-100/50"}`}></div>
+        <div className={`absolute blur bottom-1/4 right-1/3 w-48 h-48 rounded-full ${isDarkMode ? "bg-amber-700/10" : "bg-amber-300/20"}`}></div>
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
@@ -177,7 +155,15 @@ const Education = () => {
           className="mb-16"
         >
           <div className="mb-10 flex items-center gap-3">
-            <GraduationCap className={`h-6 w-6 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              className={`p-2 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-500"}`}
+            >
+              <GraduationCap className="h-6 w-6" />
+            </motion.div>
             <h3 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
               Academic Education
             </h3>

@@ -9,14 +9,14 @@ const EducationCard = ({ education }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className={`relative overflow-hidden rounded-xl ${
+      className={`relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300 ${
         isDarkMode
-          ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-          : "bg-gradient-to-br from-white to-gray-50 border border-gray-100 shadow-lg"
+          ? "bg-gray-800/40 border border-gray-700 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-black/50"
+          : "bg-white/60 border border-white shadow-lg hover:shadow-2xl hover:shadow-amber-100"
       }`}
     >
       {/* Left accent border */}

@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React from "react";
+import { useAnimation, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTheme } from "../context/ThemeContext";
 import ProjectCard from "../components/ProjectCard";
-import { Code, ArrowRight } from "lucide-react";
+import { Code, ExternalLink, Github, Layers } from "lucide-react";
 import ProjectPreviewModal from "../components/ProjectPreviewModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import BackgroundParticles from "../components/common/BackgroundParticles";
+
 
 const projects = [
   // 🏆 EliteBoards
@@ -149,18 +151,29 @@ const projects = [
 
 const Projects = () => {
   const { isDarkMode } = useTheme();
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
   const handleOpenPreview = (project) => {
     setSelectedProject(project);
     setIsPreviewModalOpen(true);
+  };
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
   };
 
   // Pagination Logic
@@ -182,15 +195,7 @@ const Projects = () => {
     }
   }, [controls, inView]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
+
 
   return (
     <section
@@ -282,12 +287,14 @@ const Projects = () => {
         </motion.div>
 
         {/* Project Preview Modal */}
-        <ProjectPreviewModal
-          isOpen={isPreviewModalOpen}
-          onClose={() => setIsPreviewModalOpen(false)}
-          project={selectedProject}
-          isDarkMode={isDarkMode}
-        />
+        <React.Suspense fallback={null}>
+          <ProjectPreviewModal
+            isOpen={isPreviewModalOpen}
+            onClose={() => setIsPreviewModalOpen(false)}
+            project={selectedProject}
+            isDarkMode={isDarkMode}
+          />
+        </React.Suspense>
 
         {/* Pagination Controls */}
         {totalPages > 1 && (

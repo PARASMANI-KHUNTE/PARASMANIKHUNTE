@@ -5,6 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 import ExperienceCard, { ExperienceGroupCard } from "../components/ExperienceCard";
 import ProjectPreviewModal from "../components/ProjectPreviewModal";
 import { Briefcase, ChevronDown } from "lucide-react";
+import BackgroundParticles from "../components/common/BackgroundParticles";
 
 const experienceData = [
   {
@@ -125,33 +126,10 @@ const Experience = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {Array(8).fill().map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute rounded-full blur-3xl opacity-20 ${isDarkMode ? "bg-amber-600" : "bg-amber-400"
-              }`}
-            style={{
-              width: `${Math.random() * 15 + 10}rem`,
-              height: `${Math.random() * 15 + 10}rem`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              zIndex: 0
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{
-              scale: 1,
-              opacity: isDarkMode ? 0.15 : 0.2,
-              x: [0, Math.random() * 10 - 5],
-              y: [0, Math.random() * 10 - 5],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: i * 0.2
-            }}
-          />
-        ))}
+        <BackgroundParticles />
+        <div className={`absolute blur -top-32 -right-32 w-96 h-96 rounded-full ${isDarkMode ? "bg-amber-900/10" : "bg-amber-200/30"}`}></div>
+        <div className={`absolute blur top-1/4 -left-16 w-64 h-64 rounded-full ${isDarkMode ? "bg-amber-800/10" : "bg-amber-100/50"}`}></div>
+        <div className={`absolute blur bottom-1/4 right-1/3 w-48 h-48 rounded-full ${isDarkMode ? "bg-amber-700/10" : "bg-amber-300/20"}`}></div>
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
@@ -215,8 +193,12 @@ const Experience = () => {
           className="space-y-12 relative"
         >
           {/* Timeline Connector */}
-          <div
-            className={`absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 ${isDarkMode ? "bg-gray-700" : "bg-gray-200"
+          <motion.div
+            initial={{ height: 0 }}
+            whileInView={{ height: "100%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className={`absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 ${isDarkMode ? "bg-gradient-to-b from-amber-500/50 via-amber-500 to-amber-500/50" : "bg-amber-500/30"
               }`}
           />
 
@@ -289,12 +271,14 @@ const Experience = () => {
       </div>
 
       {/* Certificate Preview Modal */}
-      <ProjectPreviewModal
-        isOpen={isPreviewModalOpen}
-        onClose={() => setIsPreviewModalOpen(false)}
-        project={selectedRole}
-        isDarkMode={isDarkMode}
-      />
+      <React.Suspense fallback={null}>
+        <ProjectPreviewModal
+          isOpen={isPreviewModalOpen}
+          onClose={() => setIsPreviewModalOpen(false)}
+          project={selectedRole}
+          isDarkMode={isDarkMode}
+        />
+      </React.Suspense>
     </section>
   );
 };

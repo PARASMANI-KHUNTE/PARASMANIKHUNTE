@@ -55,14 +55,15 @@ const ExperienceCard = ({ experience, onPreview }) => {
   return (
     <motion.div
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true }}
       whileHover="hover"
       variants={cardVariants}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className={`relative overflow-hidden rounded-xl ${isDarkMode
-        ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700"
-        : "bg-gradient-to-br from-white to-gray-50 border-gray-100"
-        } border p-6 shadow-lg`}
+      className={`relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300 ${isDarkMode
+        ? "bg-gray-800/40 border border-gray-700 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-black/50"
+        : "bg-white/60 border border-white shadow-lg hover:shadow-2xl hover:shadow-amber-100"
+        } p-6`}
     >
       {/* Accent border */}
       <div className={`absolute left-0 top-0 h-full w-1 ${experience.isCurrent ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-amber-500"}`}></div>
@@ -205,14 +206,15 @@ export const ExperienceGroupCard = ({ company, logoUrl, companyUrl, roles, onPre
   return (
     <motion.div
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true }}
       whileHover="hover"
       variants={cardVariants}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className={`relative overflow-hidden rounded-xl ${isDarkMode
-        ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700"
-        : "bg-gradient-to-br from-white to-gray-50 border-gray-100"
-        } border p-6 shadow-lg`}
+      className={`relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300 ${isDarkMode
+        ? "bg-gray-800/40 border border-gray-700 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-black/50"
+        : "bg-white/60 border border-white shadow-lg hover:shadow-2xl hover:shadow-amber-100"
+        } p-6`}
     >
       {/* Accent border */}
       <div className={`absolute left-0 top-0 h-full w-0.5 ${roles.some(r => r.isCurrent) ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-amber-500"}`}></div>

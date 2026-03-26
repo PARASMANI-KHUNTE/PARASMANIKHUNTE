@@ -204,36 +204,7 @@ const Projects = () => {
         : "bg-gradient-to-br from-white to-gray-50 text-gray-800"
         }`}
     >
-      {/* Animated background shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute rounded-full blur-3xl opacity-10 ${isDarkMode ? "bg-amber-600" : "bg-amber-400"
-              }`}
-            style={{
-              width: `${Math.random() * 20 + 10}rem`,
-              height: `${Math.random() * 20 + 10}rem`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              zIndex: 0
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{
-              scale: 1,
-              opacity: isDarkMode ? 0.1 : 0.15,
-              x: [0, Math.random() * 20 - 10],
-              y: [0, Math.random() * 20 - 10],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: i * 0.3
-            }}
-          />
-        ))}
-      </div>
+      <BackgroundParticles count={15} />
 
       <div className="container mx-auto max-w-6xl relative z-10">
         {/* Section Header */}

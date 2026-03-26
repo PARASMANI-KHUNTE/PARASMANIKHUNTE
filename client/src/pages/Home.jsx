@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "f
 import { useTheme } from "../context/ThemeContext";
 import { X, Maximize2, Eye, Monitor } from "lucide-react";
 const ProjectPreviewModal = React.lazy(() => import("../components/ProjectPreviewModal"));
+import { sounds } from "../utils/SoundManager";
 
 import BackgroundParticles from "../components/common/BackgroundParticles";
 
@@ -57,6 +58,31 @@ const Home = () => {
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
   const [visitorName, setVisitorName] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
+
+  // Magnetic Button Logic for Hero
+  const hireX = useMotionValue(0);
+  const hireY = useMotionValue(0);
+  const springHireX = useSpring(hireX, { stiffness: 350, damping: 25 });
+  const springHireY = useSpring(hireY, { stiffness: 350, damping: 25 });
+
+  const cvX = useMotionValue(0);
+  const cvY = useMotionValue(0);
+  const springCvX = useSpring(cvX, { stiffness: 350, damping: 25 });
+  const springCvY = useSpring(cvY, { stiffness: 350, damping: 25 });
+
+  const handleMagneticMove = (e, mX, mY) => {
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    mX.set((clientX - centerX) * 0.3);
+    mY.set((clientY - centerY) * 0.3);
+  };
+
+  const handleMagneticLeave = (mX, mY) => {
+    mX.set(0);
+    mY.set(0);
+  };
 
   const handleOpenPreview = (project) => {
     setSelectedProject(project);
@@ -141,6 +167,11 @@ const Home = () => {
     visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
+  useEffect(() => {
+    // Play sci-fi intro on first render
+    sounds.playInit();
+  }, []);
+
   const fadeInLeft = {
     hidden: { x: -40, opacity: 0 },
     visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
@@ -199,6 +230,9 @@ const Home = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
+                  onMouseMove={(e) => handleMagneticMove(e, hireX, hireY)}
+                  onMouseLeave={() => handleMagneticLeave(hireX, hireY)}
+                  style={{ x: springHireX, y: springHireY }}
                   onClick={handleHireMeClick}
                   className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg ${isDarkMode
                     ? "bg-amber-500 text-gray-900 hover:bg-amber-400 hover:shadow-amber-500/50"
@@ -227,6 +261,9 @@ const Home = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
+                  onMouseMove={(e) => handleMagneticMove(e, cvX, cvY)}
+                  onMouseLeave={() => handleMagneticLeave(cvX, cvY)}
+                  style={{ x: springCvX, y: springCvY }}
                   onClick={handleDownloadCV}
                   className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 ${isDarkMode
                     ? "bg-transparent border-2 border-amber-500 text-amber-400 hover:bg-amber-900/30 hover:shadow-[0_0_15px_rgba(245,158,11,0.3)]"

@@ -9,20 +9,24 @@ import Experience from "./pages/Experience";
 import Admin from "./pages/Admin";
 import { ThemeProvider } from "./context/ThemeContext"; // Import ThemeProvider
 
+import Layout from "./components/common/Layout";
+
 const App = () => {
   return (
     <ThemeProvider>
       <Router>
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/admin" element={<Admin />} />
-          </Routes>
-
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/education" element={<Education />} />
+              <Route path="/experience" element={<Experience />} />
+              <Route path="/admin" element={<Admin />} />
+            </Routes>
+          </Layout>
+          <Footer />
         </div>
       </Router>
     </ThemeProvider>

@@ -18,6 +18,33 @@ const projects = [
     year: "2026",
     isLatest: true
   },
+  // ⚡ SYNAPSE
+  {
+    title: "SYNAPSE - Neural Interface AI",
+    description: "A local-first AI ecosystem featuring a glassmorphic interface, dynamic neural routing across multiple LLMs (Qwen2.5, DeepSeek, Llama), local RAG memory (FAISS), and dual multi-modal hubs.",
+    tech: "React, Vite, Tailwind CSS, Node.js, Express, Python, Socket.io, Ollama, FAISS",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
+    year: "2026"
+  },
+  // 🧠 Kimiko AI
+  {
+    title: "Kimiko AI",
+    description: "A local-first, privacy-centric AI agent with multimodal vision, a three-tier cognitive memory system (Redis, Qdrant, PostgreSQL), and OS-level automation for proactive intelligence.",
+    tech: "LangGraph, Ollama, FastAPI, Celery, Redis, PostgreSQL, Electron",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/Kimiko",
+    year: "2026"
+  },
+  // 👁️ EyesforAi
+  {
+    title: "EyesforAi - Vision AI Assistant",
+    description: "A continuous, voice-controlled vision assistant that captures images from an ESP32-CAM and processes them with Ollama's Llava model for vivid audio descriptions. Features contextual memory and text-to-speech feedback.",
+    tech: "Python, Ollama, Llava, ESP32",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/EyesforAi",
+    year: "2026"
+  },
   // 🥇 TOP PROJECT - MyCircle
   {
     title: "MyCircle",
@@ -136,6 +163,19 @@ const Projects = () => {
     setIsPreviewModalOpen(true);
   };
 
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 6;
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    controls.start("hidden").then(() => controls.start("visible"));
+  };
+
   useEffect(() => {
     if (inView) {
       controls.start("visible");
@@ -232,9 +272,9 @@ const Projects = () => {
           animate={controls}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-visible"
         >
-          {projects.map((project, index) => (
+          {currentProjects.map((project, index) => (
             <ProjectCard
-              key={index}
+              key={index + indexOfFirstProject}
               project={project}
               onPreview={handleOpenPreview}
             />
@@ -249,31 +289,62 @@ const Projects = () => {
           isDarkMode={isDarkMode}
         />
 
-        {/* View More Projects Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-          className="flex justify-center mt-12"
-        >
-          <motion.a
-            href="https://github.com/PARASMANI-KHUNTE"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`group flex items-center gap-2 rounded-full px-6 py-3 font-medium transition-all ${isDarkMode
-              ? "bg-gray-800 text-white hover:bg-gray-700"
-              : "bg-white text-gray-800 shadow-md hover:shadow-lg"
-              }`}
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="flex justify-center items-center mt-12 space-x-2"
           >
-            View All Projects
-            <motion.span
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+            <button
+              onClick={() => paginate(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className={`p-2 rounded-full transition-all ${
+                currentPage === 1
+                  ? "opacity-30 cursor-not-allowed"
+                  : isDarkMode
+                  ? "hover:bg-gray-800 text-amber-400"
+                  : "hover:bg-amber-100 text-amber-600"
+              }`}
             >
-              <ArrowRight className={`h-4 w-4 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
-            </motion.span>
-          </motion.a>
-        </motion.div>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                onClick={() => paginate(i + 1)}
+                className={`w-10 h-10 rounded-full font-bold transition-all ${
+                  currentPage === i + 1
+                    ? isDarkMode
+                      ? "bg-amber-400 text-gray-900 shadow-lg shadow-amber-900/20"
+                      : "bg-amber-500 text-white shadow-lg shadow-amber-200/50"
+                    : isDarkMode
+                    ? "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-amber-400"
+                    : "bg-white text-gray-500 hover:bg-amber-50 hover:text-amber-600 shadow-sm"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className={`p-2 rounded-full transition-all ${
+                currentPage === totalPages
+                  ? "opacity-30 cursor-not-allowed"
+                  : isDarkMode
+                  ? "hover:bg-gray-800 text-amber-400"
+                  : "hover:bg-amber-100 text-amber-600"
+              }`}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </motion.div>
+        )}
+
       </div>
     </section>
   );

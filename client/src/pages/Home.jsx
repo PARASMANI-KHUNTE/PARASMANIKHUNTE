@@ -590,6 +590,13 @@ const Home = () => {
             <div className="space-y-8">
               {[
                 {
+                  date: "2026",
+                  title: "AI & LLM Engineering",
+                  organization: "RAG, LLM Orchestration & Agentic AI",
+                  description: "Engineered SYNAPSE & Kimiko — local-first AI ecosystems with intelligent neural routing across Qwen2.5, DeepSeek & Llama models, RAG pipelines (FAISS) with hallucination filtering, multi-modal vision & voice hubs, interactive code sandbox, and emotion-aware TTS synthesis.",
+                  icon: "🤖"
+                },
+                {
                   date: "2025",
                   title: "Full Stack Software Engineer",
                   organization: "React Native & MERN Stack",
@@ -619,7 +626,7 @@ const Home = () => {
                 }
               ].map((achievement, index) => (
                 <div key={index} className="flex gap-4 md:gap-6 relative group">
-                  {index !== 3 && (
+                  {index !== 4 && (
                     <div className={`absolute left-5 top-10 bottom-[-32px] w-0.5 ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}></div>
                   )}
                   <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center z-10 ${isDarkMode ? "bg-gray-700 text-amber-400" : "bg-amber-100 text-amber-600"

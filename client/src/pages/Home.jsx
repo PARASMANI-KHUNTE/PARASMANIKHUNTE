@@ -67,7 +67,7 @@ const Home = () => {
     document.body.removeChild(link);
   };
   // Profile image URL - you can replace this with your actual image URL
-  const profileImageUrl = "https://storage.googleapis.com/ggvians-2c0ed.appspot.com/posts/a5b56b9f-6ddc-4436-8280-8b6add03cc33_newone.jpg?GoogleAccessId=firebase-adminsdk-a9cow%40ggvians-2c0ed.iam.gserviceaccount.com&Expires=16730323200&Signature=DawoUCaE0kJeyn4vAp42qThfHw7uzDerhJ4TiwZPBIXY7xcDADPEiLb7OdfdlVmKstYEbPEFigminbhf48G%2F9pPjpMrG51wQrM46uEsSa01oRFArMAkQmBMieeimnkGHjCuPuwn0udJSsdxEG%2FSyL9c1ObgpnQTF%2BasxxqVyIOoRZdX9KSHcy%2FPR03vV%2BFU4YxS01uQdHciagB2jtCigCAagR5vThtr7nyGcf%2By5GPKkYWZfnmd%2BQhYKNnCciicg%2BqujvWZaYkh2F0Ax2Zv62uWwh7G5jwFQHdIZmLlxf4OV2h6qyfg6SqPArRveh%2Fnx14VmATwVEeeCGB6xPBIOVQ%3D%3D";
+  const profileImageUrl = "/profilepic.jpg";
   // Set to null or empty string to show the default icon avatar
 
   // Animation variants

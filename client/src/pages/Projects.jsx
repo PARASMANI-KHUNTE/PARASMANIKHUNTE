@@ -8,6 +8,16 @@ import ProjectPreviewModal from "../components/ProjectPreviewModal";
 import { useState } from "react";
 
 const projects = [
+  // 🏆 EliteBoards
+  {
+    title: "EliteBoards",
+    description: "A high-performance, real-time leaderboard platform designed for students and educational cohorts. It features a premium glassmorphic UI, real-time socket updates, and robust handling of student rankings including tie-breaking logic.",
+    tech: "React, Vite, React Native, Expo, Node.js, Express, Socket.io, MongoDB",
+    link: "https://leaderboard-xgi1.onrender.com/",
+    github: "https://github.com/PARASMANI-KHUNTE/Leaderboard",
+    year: "2026",
+    isLatest: true
+  },
   // 🥇 TOP PROJECT - MyCircle
   {
     title: "MyCircle",
@@ -15,8 +25,7 @@ const projects = [
     tech: "React Native, React 19, Node.js, MongoDB, Socket.io, Gemini AI",
     link: "https://mycircle-9gm5.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
-    year: "2025",
-    isLatest: true
+    year: "2025"
   },
   // 🥈 Modern Developer Portfolio
   {

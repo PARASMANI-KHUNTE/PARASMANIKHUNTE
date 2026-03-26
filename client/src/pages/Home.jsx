@@ -412,7 +412,7 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Featured Project - MyCircle */}
+        {/* Featured Project - EliteBoards */}
         <motion.div
           variants={itemVariants}
           className={`mb-16 max-w-5xl w-full rounded-2xl overflow-hidden ${isDarkMode
@@ -438,18 +438,16 @@ const Home = () => {
             </div>
 
             <h4 className={`text-2xl md:text-3xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-              MyCircle - Hyperlocal Exchange Platform
+              EliteBoards - Premium Leaderboard System
             </h4>
 
             <p className={`mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-              A full-stack platform connecting neighbors for jobs, services, and local commerce.
-              Built with React Native for mobile, React for web, and Node.js backend with real-time
-              chat, AI content moderation, and trust scoring system.
+              A high-performance, real-time leaderboard platform designed for students and educational cohorts. It features a premium glassmorphic UI, real-time socket updates, and robust handling of student rankings including tie-breaking logic.
             </p>
 
             {/* Tech badges */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {["React Native", "React", "Node.js", "MongoDB", "Socket.io", "Gemini AI"].map((tech) => (
+              {["React", "Vite", "React Native", "Expo", "Node.js", "Express", "MongoDB", "Socket.io", "Framer Motion"].map((tech) => (
                 <span
                   key={tech}
                   className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode
@@ -465,7 +463,7 @@ const Home = () => {
             {/* Action buttons */}
             <div className="flex flex-wrap gap-4">
               <motion.a
-                href="https://mycircle-9gm5.onrender.com"
+                href="https://leaderboard-xgi1.onrender.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -483,9 +481,9 @@ const Home = () => {
 
               <motion.button
                 onClick={() => handleOpenPreview({
-                  title: "MyCircle",
-                  link: "https://mycircle-9gm5.onrender.com",
-                  github: "https://github.com/PARASMANI-KHUNTE/MyCircle"
+                  title: "EliteBoards",
+                  link: "https://leaderboard-xgi1.onrender.com/",
+                  github: "https://github.com/PARASMANI-KHUNTE/Leaderboard"
                 })}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -499,7 +497,7 @@ const Home = () => {
               </motion.button>
 
               <motion.a
-                href="https://github.com/PARASMANI-KHUNTE/MyCircle"
+                href="https://github.com/PARASMANI-KHUNTE/Leaderboard"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}

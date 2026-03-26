@@ -314,6 +314,8 @@ const Home = () => {
               { name: "Tailwind", icon: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" },
               { name: "Express", icon: isDarkMode ? "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" : "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
               { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+              { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+              { name: "Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
             ].map((tech, index) => (
               <motion.div
                 key={tech.name}
@@ -345,9 +347,9 @@ const Home = () => {
           <div className="space-y-4">
             {[
               { skill: "Frontend (React, React Native)", level: 90 },
-              { skill: "Backend (Node.js, Express)", level: 85 },
-              { skill: "Database (MongoDB, SQL)", level: 80 },
-              { skill: "AI & Machine Learning", level: 70 },
+              { skill: "Backend (Node.js, Express, FastAPI)", level: 85 },
+              { skill: "Database (MongoDB, SQL, Redis)", level: 80 },
+              { skill: "AI / LLM & RAG Systems", level: 85 },
             ].map((item, index) => (
               <div key={item.skill}>
                 <div className="flex justify-between mb-1">
@@ -539,13 +541,13 @@ const Home = () => {
               },
               {
                 iconPath: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-                title: "AI Integration",
-                description: "Integrate AI/ML models including Gemini, OpenAI for smart features"
+                title: "LLM & RAG Systems",
+                description: "Local-first AI agents with multi-model routing (Ollama), RAG pipelines (FAISS), and multi-modal vision & voice integration"
               },
               {
                 iconPath: "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01",
                 title: "Backend & APIs",
-                description: "Scalable Node.js/Express APIs with MongoDB, real-time with Socket.io"
+                description: "Scalable Node.js/Express & FastAPI backends with MongoDB, Redis, and real-time Socket.io"
               }
             ].map((service, index) => (
               <motion.div

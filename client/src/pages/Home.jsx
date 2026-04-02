@@ -59,6 +59,7 @@ const Home = () => {
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
   const [visitorName, setVisitorName] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isMilestonesExpanded, setIsMilestonesExpanded] = useState(false);
 
   // Magnetic Button Logic for Hero
   const hireX = useMotionValue(0);
@@ -494,7 +495,7 @@ const Home = () => {
               { number: `${projects.length}+`, label: "Projects", iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" },
               { number: "5+", label: "Internships", iconPath: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
               { number: "3+", label: "Certifications", iconPath: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
-              { number: "1", label: "ISRO Hackathon", iconPath: "M13 10V3L4 14h7v7l9-11h-7z" },
+              { number: "2", label: "Hackathons", iconPath: "M13 10V3L4 14h7v7l9-11h-7z" },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -709,95 +710,152 @@ const Home = () => {
             ? "bg-gray-800/30 border border-gray-700"
             : "bg-white/50 border border-gray-100 shadow-lg"
             }`}>
-            <div className="space-y-8">
-              {[
-                {
-                  date: "2026",
-                  title: "LinkUp - Communication Platform",
-                  organization: "Full Stack Development & Real-time Systems",
-                  description: "Developed a premium, modular real-time chat ecosystem featuring 1-to-1/group messaging, media sharing via Cloudinary, and weighted social relationships. Built with React 19, TypeScript, and Socket.io for high-concurrency event handling.",
-                  icon: "💬"
-                },
-                {
-                  date: "2026",
-                  title: "AI & LLM Engineering",
-                  organization: "RAG, LLM Orchestration & Agentic AI",
-                  description: "Engineered SYNAPSE & Kimiko — local-first AI ecosystems with intelligent neural routing across Qwen2.5, DeepSeek & Llama models, RAG pipelines (FAISS) with hallucination filtering, multi-modal vision & voice hubs, interactive code sandbox, and emotion-aware TTS synthesis.",
-                  icon: "🤖"
-                },
-                {
-                  date: "2025",
-                  title: "Full Stack Software Engineer",
-                  organization: "React Native & MERN Stack",
-                  description: "Mastered React Native and successfully built cross-platform applications, becoming a proficient Full Stack Software Engineer.",
-                  icon: "📱"
-                },
-                {
-                  date: "2025",
-                  title: "Bharatiya Antariksh Hackathon 2025",
-                  organization: "ISRO - Indian Space Research Organization",
-                  description: "Successfully participated in the prestigious national-level space technology hackathon.",
-                  icon: "🚀"
-                },
-                {
-                  date: "2024",
-                  title: "IoT Executive",
-                  organization: "GeeksforGeeks Student Chapter",
-                  description: "Led technical initiatives and mentored students in Internet of Things and web integration.",
-                  icon: "🌐"
-                },
-                {
-                  date: "2024",
-                  title: "GPS Tracking Implementation",
-                  organization: "Hybrowlabs Technologies",
-                  description: "Successfully created and implemented a real-time GPS tracking feature for a key project during the internship.",
-                  iconPath: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                }
-              ].map((achievement, index) => (
-                <motion.div key={index} variants={itemVariants} className="flex gap-4 md:gap-6 relative group">
-                  {index !== 4 && (
-                    <motion.div 
-                      initial={{ height: 0 }}
-                      whileInView={{ height: "calc(100% + 32px)" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
-                      className={`absolute left-5 top-10 w-0.5 ${isDarkMode ? "bg-amber-500/30" : "bg-amber-200"}`}
-                    ></motion.div>
-                  )}
-                  <motion.div 
-                    variants={{
-                      hidden: { scale: 0, opacity: 0 },
-                      visible: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 260, damping: 20 } }
-                    }}
-                    className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center z-10 ${isDarkMode ? "bg-gray-700 text-amber-400 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.2)]" : "bg-amber-100 text-amber-600 border border-white shadow-lg"
-                    } group-hover:scale-110 transition-transform duration-300`}>
-                    {achievement.iconPath ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={achievement.iconPath} />
-                      </svg>
-                    ) : (
-                      <span className="text-xl">{achievement.icon}</span>
+            <div className="space-y-8">              <AnimatePresence mode="popLayout">
+                {[
+                  {
+                    date: "2026",
+                    title: "AITHON Hackathon 2026",
+                    organization: "Finalist & MyCircle Project Lead",
+                    description: "Led the development of MyCircle, a hyperlocal exchange platform, and achieved Finalist status in the AITHON competitive hackathon.",
+                    icon: "🏆",
+                    certificateUrl: "/aithon.jpg"
+                  },
+                  {
+                    date: "2026",
+                    title: "LinkUp - Communication Platform",
+                    organization: "Full Stack Development & Real-time Systems",
+                    description: "Developed a premium, modular real-time chat ecosystem featuring 1-to-1/group messaging, media sharing via Cloudinary, and weighted social relationships.",
+                    icon: "💬"
+                  },
+                  {
+                    date: "2026",
+                    title: "AI & LLM Engineering",
+                    organization: "RAG, LLM Orchestration & Agentic AI",
+                    description: "Engineered SYNAPSE & Kimiko — local-first AI ecosystems with neural routing, RAG pipelines, and multi-modal vision & voice hubs.",
+                    icon: "🤖"
+                  },
+                  {
+                    date: "2025",
+                    title: "Full Stack Software Engineer",
+                    organization: "React Native & MERN Stack",
+                    description: "Mastered React Native and successfully built cross-platform applications, becoming a proficient Full Stack Software Engineer.",
+                    icon: "📱"
+                  },
+                  {
+                    date: "2025",
+                    title: "Bharatiya Antariksh Hackathon 2025",
+                    organization: "ISRO - Indian Space Research Organization",
+                    description: "Successfully participated in the prestigious national-level space technology hackathon.",
+                    icon: "🚀",
+                    certificateUrl: "/isocertificate.jpg"
+                  },
+                  {
+                    date: "2024",
+                    title: "IoT Executive",
+                    organization: "GeeksforGeeks Student Chapter",
+                    description: "Led technical initiatives and mentored students in Internet of Things and web integration.",
+                    icon: "📡"
+                  },
+                  {
+                    date: "2024",
+                    title: "GPS Tracking Implementation",
+                    organization: "Hybrowlabs Technologies",
+                    description: "Successfully created and implemented a real-time GPS tracking feature for a key project during the internship.",
+                    iconPath: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  }
+                ].slice(0, isMilestonesExpanded ? undefined : 4).map((achievement, index, array) => (
+                  <motion.div
+                    key={achievement.title}
+                    layout
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={itemVariants}
+                    className="flex gap-4 md:gap-6 relative group"
+                  >
+                    {index !== array.length - 1 && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: "calc(100% + 32px)" }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        className={`absolute left-5 top-10 w-0.5 ${isDarkMode ? "bg-amber-500/30" : "bg-amber-200"}`}
+                      ></motion.div>
                     )}
-                  </motion.div>
-                  <div className="flex-1 pb-4">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-1">
-                      <h3 className={`text-lg font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-                        {achievement.title}
-                      </h3>
-                      <span className={`text-sm font-semibold px-2 py-1 rounded ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"
-                        }`}>
-                        {achievement.date}
-                      </span>
+                    <motion.div
+                      variants={{
+                        hidden: { scale: 0, opacity: 0 },
+                        visible: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 260, damping: 20 } }
+                      }}
+                      className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center z-10 ${isDarkMode ? "bg-gray-700 text-amber-400 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.2)]" : "bg-amber-100 text-amber-600 border border-white shadow-lg"
+                        } group-hover:scale-110 transition-transform duration-300`}>
+                      {achievement.iconPath ? (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={achievement.iconPath} />
+                        </svg>
+                      ) : (
+                        <span className="text-xl">{achievement.icon}</span>
+                      )}
+                    </motion.div>
+                    <div className="flex-1 pb-4">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-1">
+                        <h3 className={`text-lg font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                          {achievement.title}
+                        </h3>
+                        <span className={`text-sm font-semibold px-2 py-1 rounded ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"
+                          }`}>
+                          {achievement.date}
+                        </span>
+                      </div>
+                      <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-amber-400/80" : "text-amber-500"}`}>
+                        {achievement.organization}
+                      </p>
+                      <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                        {achievement.description}
+                      </p>
+                      {achievement.certificateUrl && (
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleOpenPreview({
+                            title: achievement.title,
+                            link: achievement.certificateUrl
+                          })}
+                          className={`mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${isDarkMode
+                            ? "bg-amber-400/10 text-amber-400 border border-amber-500/20 hover:bg-amber-400/20"
+                            : "bg-amber-50 text-amber-600 border border-amber-200 hover:bg-amber-100"
+                            }`}
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          View Certificate
+                        </motion.button>
+                      )}
                     </div>
-                    <p className={`text-sm font-medium mb-2 ${isDarkMode ? "text-amber-400/80" : "text-amber-500"}`}>
-                      {achievement.organization}
-                    </p>
-                    <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-                      {achievement.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {/* View More / Less Button */}
+            <div className="mt-8 pt-4 border-t border-gray-100/10 flex justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsMilestonesExpanded(!isMilestonesExpanded)}
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 ${isDarkMode 
+                  ? "bg-gray-700 text-amber-400 border border-amber-500/30 hover:bg-gray-600" 
+                  : "bg-amber-100 text-amber-600 border border-white hover:bg-amber-200"
+                } shadow-lg`}
+              >
+                <span>{isMilestonesExpanded ? "Show Less" : "Show All Milestones"}</span>
+                <motion.span
+                  animate={{ rotate: isMilestonesExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </motion.span>
+              </motion.button>
             </div>
           </div>
         </motion.div>
@@ -1145,6 +1203,16 @@ const Home = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Preview Modals */}
+      <React.Suspense fallback={null}>
+        <ProjectPreviewModal
+          isOpen={isPreviewModalOpen}
+          onClose={() => setIsPreviewModalOpen(false)}
+          project={selectedProject}
+          isDarkMode={isDarkMode}
+        />
+      </React.Suspense>
     </motion.div>
   );
 };

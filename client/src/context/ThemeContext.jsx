@@ -6,25 +6,21 @@ const ThemeContext = createContext();
 // Theme Provider Component
 export const ThemeProvider = ({ children }) => {
   // State to manage dark/light theme
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // State to manage dark/light theme, initialized from localStorage
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark";
+  });
 
   // Toggle theme function
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
   };
 
-  // Save theme preference to localStorage
+  // Save theme preference to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }, [isDarkMode]);
-
-  // Load theme preference from localStorage on initial render
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setIsDarkMode(true);
-    }
-  }, []);
 
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>

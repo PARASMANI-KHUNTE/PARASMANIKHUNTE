@@ -3,6 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTheme } from "../context/ThemeContext";
 import EducationCard from "../components/EducationCard";
+import ProjectPreviewModal from "../components/ProjectPreviewModal";
 import { GraduationCap, Award, BookOpen } from "lucide-react";
 import BackgroundParticles from "../components/common/BackgroundParticles";
 
@@ -49,7 +50,17 @@ const educationData = [
     year: "2025",
     description: "Participated in India's premier space technology hackathon organized by ISRO.",
     credentialId: "2025H2S06BAH25-P07763",
+    certificateUrl: "/isocertificate.jpg",
     achievements: []
+  },
+  {
+    type: "certification",
+    degree: "AITHON Hackathon Finalist",
+    institution: "AITHON Hackathon 2026",
+    year: "2026",
+    description: "Led the 'MyCircle' team to the finalists' stage in the AITHON competitive hackathon, developing a hyperlocal resource exchange platform.",
+    certificateUrl: "/aithon.jpg",
+    achievements: ["Finalist Award", "Project Lead"]
   },
   {
     type: "certification",
@@ -76,6 +87,13 @@ const Education = () => {
     threshold: 0.1,
     triggerOnce: true
   });
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = React.useState(false);
+  const [selectedCert, setSelectedCert] = React.useState(null);
+
+  const handleOpenPreview = (cert) => {
+    setSelectedCert(cert);
+    setIsPreviewModalOpen(true);
+  };
 
   useEffect(() => {
     if (inView) {
@@ -171,7 +189,7 @@ const Education = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {formalEducation.map((education, index) => (
-              <EducationCard key={index} education={education} />
+              <EducationCard key={index} education={education} onPreview={handleOpenPreview} />
             ))}
           </div>
         </motion.div>
@@ -192,7 +210,7 @@ const Education = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {certifications.map((certification, index) => (
-                <EducationCard key={index} education={certification} />
+                <EducationCard key={index} education={certification} onPreview={handleOpenPreview} />
               ))}
             </div>
           </motion.div>
@@ -217,6 +235,16 @@ const Education = () => {
           </p>
         </motion.div>
       </div>
+
+      {/* Certificate Preview Modal */}
+      <React.Suspense fallback={null}>
+        <ProjectPreviewModal
+          isOpen={isPreviewModalOpen}
+          onClose={() => setIsPreviewModalOpen(false)}
+          project={selectedCert}
+          isDarkMode={isDarkMode}
+        />
+      </React.Suspense>
     </section>
   );
 };

@@ -16,8 +16,7 @@ const experienceData = [
     duration: "March 2025 - May 2025 · 3 mos",
     location: "Remote",
     description: "Developed scalable web applications using React and Frappe frameworks.",
-    skills: ["React", "Redux", "Frappe", "Python", "React.js", "Google Maps"],
-    certificateUrl: "/certificates/hybrowlabs.pdf"
+    skills: ["React", "Redux", "Frappe", "Python", "React.js", "Google Maps"]
   },
   {
     role: "Full Stack Developer Freelancer",
@@ -50,7 +49,7 @@ const experienceData = [
     location: "Remote",
     description: "Built modern UI/UX designs using HTML, CSS, JavaScript, and Jinja templates. Improved site performance by 40% through code optimization.",
     skills: ["Python", "Django", "CSS", "JavaScript", "HTML", "Jinja"],
-    certificateUrl: "/certificates/bluestock.pdf"
+    certificateUrl: "/bluestock.jpg"
   },
   {
     role: "Full Stack Developer Intern",
@@ -60,8 +59,7 @@ const experienceData = [
     duration: "Oct 2024 - Nov 2024 · 2 mos",
     location: "Remote",
     description: "Built a fully functional social media application 'Photoshare' leveraging React and Node.js. Focused on user engagement through post creation, updates, and interactivity features.",
-    skills: ["React", "Tailwind CSS", "JavaScript", "Express", "MongoDB"],
-    certificateUrl: "/certificates/elitetech.pdf"
+    skills: ["React", "Tailwind CSS", "JavaScript", "Express", "MongoDB"]
   },
 ];
 

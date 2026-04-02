@@ -136,7 +136,6 @@ const ExperienceCard = ({ experience, onPreview }) => {
           {experience.description}
         </p>
 
-        {/* Skills/Technologies (if available) */}
         {experience.skills && experience.skills.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
             {experience.skills.map((skill, index) => {
@@ -155,6 +154,19 @@ const ExperienceCard = ({ experience, onPreview }) => {
               );
             })}
           </div>
+        )}
+
+        {/* Certificate button */}
+        {experience.certificateUrl && (
+          <button
+            onClick={handleViewCertificate}
+            className={`mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg font-bold text-xs transition-all duration-300 shadow-md ${isDarkMode
+              ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
+              : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
+              }`}
+          >
+            <FileText className="h-4 w-4" /> View Certificate
+          </button>
         )}
       </div>
     </motion.div>

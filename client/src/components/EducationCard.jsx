@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { GraduationCap, Calendar, MapPin, Award, BookOpen } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
-const EducationCard = ({ education }) => {
+const EducationCard = ({ education, onPreview }) => {
   const { isDarkMode } = useTheme();
 
   return (
@@ -121,6 +121,22 @@ const EducationCard = ({ education }) => {
               ))}
             </ul>
           </div>
+        )}
+
+        {/* Certificate button */}
+        {education.certificateUrl && (
+          <button
+            onClick={() => onPreview && onPreview({
+              title: education.degree,
+              link: education.certificateUrl
+            })}
+            className={`mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all duration-300 shadow-md ${isDarkMode
+              ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
+              : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
+              }`}
+          >
+            <Award className="h-4 w-4" /> View Certificate
+          </button>
         )}
       </div>
     </motion.div>

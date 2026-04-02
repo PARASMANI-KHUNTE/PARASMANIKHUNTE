@@ -15,7 +15,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <Router>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen font-inter overflow-x-hidden">
           <Navbar />
           <Layout>
             <Routes>
@@ -26,7 +26,6 @@ const App = () => {
               <Route path="/admin" element={<Admin />} />
             </Routes>
           </Layout>
-          <Footer />
         </div>
       </Router>
     </ThemeProvider>

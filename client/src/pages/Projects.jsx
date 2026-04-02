@@ -18,7 +18,8 @@ export const projects = [
     link: "https://vaani-11o3.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/Vaani",
     year: "2026",
-    isLatest: true
+    isLatest: true,
+    categories: ["Full Stack", "Mobile Apps"]
   },
   // 🏆 EliteBoards
   {
@@ -28,7 +29,8 @@ export const projects = [
     link: "https://leaderboard-xgi1.onrender.com/",
     github: "https://github.com/PARASMANI-KHUNTE/Leaderboard",
     year: "2026",
-    isLatest: true
+    isLatest: true,
+    categories: ["Full Stack", "Mobile Apps"]
   },
   // ⚡ SYNAPSE
   {
@@ -37,7 +39,8 @@ export const projects = [
     tech: "React, Vite, Tailwind CSS, Node.js, Express, Python, Socket.io, Ollama, FAISS",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
-    year: "2026"
+    year: "2026",
+    categories: ["AI & Machine Learning"]
   },
   // 🧠 Kimiko AI
   {
@@ -46,7 +49,8 @@ export const projects = [
     tech: "LangGraph, Ollama, FastAPI, Celery, Redis, PostgreSQL, Electron",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/Kimiko",
-    year: "2026"
+    year: "2026",
+    categories: ["AI & Machine Learning"]
   },
   // 👁️ EyesforAi
   {
@@ -55,7 +59,8 @@ export const projects = [
     tech: "Python, Ollama, Llava, ESP32",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/EyesforAi",
-    year: "2026"
+    year: "2026",
+    categories: ["AI & Machine Learning"]
   },
   // 🥇 TOP PROJECT - MyCircle
   {
@@ -64,7 +69,8 @@ export const projects = [
     tech: "React Native, React 19, Node.js, MongoDB, Socket.io, Gemini AI",
     link: "https://mycircle-9gm5.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
-    year: "2025"
+    year: "2025",
+    categories: ["Mobile Apps"]
   },
   // 🥈 Modern Developer Portfolio
   {
@@ -74,7 +80,8 @@ export const projects = [
     link: "https://parasmanikhunte.onrender.com/",
     github: "https://github.com/PARASMANI-KHUNTE/PARASMANIKHUNTE",
     year: "2025",
-    isLatest: true
+    isLatest: true,
+    categories: ["UI/UX & Portfolio"]
   },
   // 🥉 Admin Dashboard
   {
@@ -83,7 +90,8 @@ export const projects = [
     tech: "React, Node.js, Express, MongoDB, JWT, Tailwind CSS",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/Admin-Dashboard",
-    year: "2025"
+    year: "2025",
+    categories: ["Full Stack"]
   },
   // 🥉 Warehouse Management System
   {
@@ -92,7 +100,8 @@ export const projects = [
     tech: "React, Vite, Node.js, MongoDB, Recharts, Tailwind CSS",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/Warehouse-Management-system",
-    year: "2024"
+    year: "2024",
+    categories: ["Full Stack"]
   },
   // OrgSync
   {
@@ -101,7 +110,8 @@ export const projects = [
     tech: "JavaScript, Node.js, Express, React, MongoDB",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/orgSync",
-    year: "2024"
+    year: "2024",
+    categories: ["Full Stack"]
   },
   // CafeAutomation
   {
@@ -110,7 +120,8 @@ export const projects = [
     tech: "React, Node.js, Express, MongoDB",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/CafeAutomation",
-    year: "2024"
+    year: "2024",
+    categories: ["Full Stack"]
   },
   // Chat Application
   {
@@ -119,7 +130,8 @@ export const projects = [
     tech: "React, Node.js, Socket.io, Google OAuth",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/ChatApplication",
-    year: "2024"
+    year: "2024",
+    categories: ["Full Stack"]
   },
   // FaceTrack
   {
@@ -128,7 +140,8 @@ export const projects = [
     tech: "React, Redux, Machine Learning, TailwindCSS, Express, MongoDB",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/FaceTrack",
-    year: "2025"
+    year: "2025",
+    categories: ["AI & Machine Learning"]
   },
   // FRAS
   {
@@ -137,7 +150,8 @@ export const projects = [
     tech: "Python, OpenCV, Deep Learning, Flask",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/FRAS",
-    year: "2024"
+    year: "2024",
+    categories: ["AI & Machine Learning"]
   },
   // HRMS
   {
@@ -146,7 +160,8 @@ export const projects = [
     tech: "React, Node.js, Express, MongoDB",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/HRMS",
-    year: "2024"
+    year: "2024",
+    categories: ["Full Stack"]
   },
   // Resume Builder
   {
@@ -155,7 +170,8 @@ export const projects = [
     tech: "React, JavaScript, CSS",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/Resume-Builder",
-    year: "2024"
+    year: "2024",
+    categories: ["Full Stack"]
   }
 ];
 
@@ -163,6 +179,9 @@ const Projects = () => {
   const { isDarkMode } = useTheme();
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const categories = ["All", "Full Stack", "AI & Machine Learning", "Mobile Apps", "UI/UX & Portfolio"];
 
   const handleOpenPreview = (project) => {
     setSelectedProject(project);
@@ -186,18 +205,28 @@ const Projects = () => {
     }
   };
 
+  // Filtering Logic
+  const filteredProjects = selectedCategory === "All" 
+    ? projects 
+    : projects.filter(project => project.categories.includes(selectedCategory));
+
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 6;
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
-  const totalPages = Math.ceil(projects.length / projectsPerPage);
+  const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     controls.start("hidden").then(() => controls.start("visible"));
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
 
   useEffect(() => {
     if (inView) {
@@ -248,6 +277,35 @@ const Projects = () => {
           <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
             A collection of my recent work, spanning from web applications to design systems.
           </p>
+        </motion.div>
+
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
+        >
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                selectedCategory === category
+                  ? isDarkMode
+                    ? "bg-amber-400 text-gray-900 shadow-lg shadow-amber-900/20"
+                    : "bg-amber-500 text-white shadow-lg shadow-amber-200/50"
+                  : isDarkMode
+                  ? "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-amber-400 border border-gray-700/50"
+                  : "bg-white text-gray-500 hover:bg-amber-50 hover:text-amber-600 border border-gray-100 shadow-sm"
+              }`}
+            >
+              {category}
+              <span className={`ml-2 text-xs opacity-60`}>
+                ({category === "All" ? projects.length : projects.filter(p => p.categories.includes(category)).length})
+              </span>
+            </button>
+          ))}
         </motion.div>
 
         {/* Projects Grid */}

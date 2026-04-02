@@ -60,6 +60,7 @@ const Home = () => {
   const [visitorName, setVisitorName] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
   const [isMilestonesExpanded, setIsMilestonesExpanded] = useState(false);
+  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
 
   // Magnetic Button Logic for Hero
   const hireX = useMotionValue(0);
@@ -220,11 +221,11 @@ const Home = () => {
                 Hi, I'm <span className={`${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Paras</span>
               </h1>
               <TypewriterText 
-                text="Software Development Engineer | MCA Student" 
-                className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+                text="Full-Stack Systems Engineer | Scalable Architecture Specialist | AI-Enabled Product Builder | Cross-Ecosystem Web & Mobile Lead" 
+                className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-amber-400/90" : "text-amber-600"}`}
               />
-              <p className={`text-base md:text-lg mb-8 max-w-lg ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                Building scalable full-stack applications with React, Node.js & AI integration. ISRO Hackathon participant. Passionate about creating impactful tech solutions.
+              <p className={`text-base md:text-lg mb-8 max-w-xl ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                I build production-ready systems designed around real-world constraints. With experience across 6+ internships, I focus on architecture, performance, and long-term maintainability.
               </p>
 
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -353,6 +354,97 @@ const Home = () => {
               />
             </div>
           </motion.div>
+        </motion.div>
+        {/* Professional Manifesto / About Section */}
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className={`w-full max-w-5xl mx-auto mb-16 rounded-3xl overflow-hidden backdrop-blur-xl border transition-all duration-500 ${isDarkMode 
+            ? "bg-gray-800/30 border-gray-700 shadow-2xl" 
+            : "bg-white/60 border-amber-100 shadow-xl"
+            }`}
+        >
+          <div className="p-8 md:p-12">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+              <div>
+                <h2 className={`text-2xl md:text-3xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                  The <span className="text-amber-500">Engineer's Manifesto</span>
+                </h2>
+                <div className={`flex items-center gap-2 text-sm font-medium ${isDarkMode ? "text-amber-400/80" : "text-amber-500"}`}>
+                  <span>Ecosystem-Flexible</span>
+                  <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
+                  <span>IoT & AI Practitioners</span>
+                </div>
+              </div>
+              <motion.div 
+                whileHover={{ rotate: 10 }}
+                className={`w-14 h-14 rounded-2xl flex items-center justify-center ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}
+              >
+                <Monitor className="w-7 h-7" />
+              </motion.div>
+            </div>
+
+            <div className={`space-y-6 text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+              <p>
+                I build production-ready systems designed around real-world constraints, not just frameworks. With experience across 6+ internships in startups, research teams, and engineering labs, I’ve contributed to turning early-stage concepts into scalable, usable products. Those environments trained me to think in terms of architecture, trade-offs, performance, and long-term maintainability—not just feature delivery.
+              </p>
+
+              <AnimatePresence>
+                {isAboutExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="space-y-6 pt-6 border-t border-amber-500/10">
+                      <p>
+                        My primary stack is <strong>MERN</strong>, where I design clean, high-performance interfaces using React, React Native, and Tailwind CSS, and architect reliable backend services with Node.js, Express, and MongoDB. But I don’t tie myself to a single ecosystem. I focus on fundamentals—data structures, system design, networking, concurrency, and database modeling—so I can adapt to Python/Django, Next.js, or Spring Boot when the problem demands it.
+                      </p>
+                      <p className="font-bold italic text-amber-500 text-lg">
+                        "Frameworks are tools. Requirements decide the stack."
+                      </p>
+                      <p>
+                        Beyond web systems, I work at the hardware–software boundary using <strong>Arduino and Raspberry Pi</strong>, building sensor-driven automation systems and connecting edge devices to cloud dashboards. That naturally extended into AI/ML workflows, where I’ve handled data preprocessing, model integration, and embedding intelligent capabilities into applications to enhance decision-making.
+                      </p>
+                      <p>
+                        I’m comfortable with cloud deployments, backend infrastructure, and real-time systems. I think in terms of scalability, caching strategies, failure handling, and clean service boundaries. Building systems that remain stable under growth—and refactoring them when they don’t—is part of the craft.
+                      </p>
+                      <p>
+                        I value teams that prioritize clean architecture, thoughtful technical discussions, and measurable impact. I aim to contribute as an engineer who can evaluate constraints, choose the right ecosystem, and deliver solutions that scale.
+                      </p>
+                      <div className={`p-6 rounded-2xl ${isDarkMode ? "bg-amber-400/5 text-amber-400" : "bg-amber-50 text-amber-700"} border border-amber-500/10`}>
+                        <p className="text-sm font-bold mb-1">CURRENTLY:</p>
+                        <p className="text-sm">Pursuing an <strong>MCA at Guru Ghasidas University (GGU)</strong> while actively building production-focused systems and expanding cross-ecosystem expertise.</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-gray-100/10 flex justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+                className={`inline-flex items-center gap-2 font-bold px-6 py-2.5 rounded-full transition-all duration-300 ${isDarkMode 
+                  ? "bg-amber-400/10 text-amber-400 border border-amber-500/20 hover:bg-amber-400/20" 
+                  : "bg-amber-50 text-amber-600 border border-amber-200 hover:bg-amber-100"
+                  }`}
+              >
+                {isAboutExpanded ? "Hide Full Manifesto" : "Read Full Manifesto"}
+                <motion.div animate={{ rotate: isAboutExpanded ? 180 : 0 }}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </motion.div>
+              </motion.button>
+            </div>
+          </div>
         </motion.div>
 
         {/* Career & Education Summary */}

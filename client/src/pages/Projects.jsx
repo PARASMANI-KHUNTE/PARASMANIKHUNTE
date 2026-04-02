@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import BackgroundParticles from "../components/common/BackgroundParticles";
 
 
-const projects = [
+export const projects = [
   // 🚀 LinkUp
   {
     title: "LinkUp",

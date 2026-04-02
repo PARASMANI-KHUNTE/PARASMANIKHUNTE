@@ -10,6 +10,16 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 
 
 const projects = [
+  // 🚀 LinkUp
+  {
+    title: "LinkUp",
+    description: "A premium, full-stack real-time communication platform featuring 1-to-1 and group messaging, media sharing, and social relationship management. Built with a modular monorepo architecture and real-time Socket.io integration.",
+    tech: "React 19, TypeScript, Vite, Tailwind CSS, Zustand, Socket.io, Node.js, Express, MongoDB, Cloudinary",
+    link: "https://vaani-11o3.onrender.com",
+    github: "https://github.com/PARASMANI-KHUNTE/Vaani",
+    year: "2026",
+    isLatest: true
+  },
   // 🏆 EliteBoards
   {
     title: "EliteBoards",

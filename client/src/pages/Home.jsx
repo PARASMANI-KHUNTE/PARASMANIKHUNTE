@@ -525,7 +525,7 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Featured Project - EliteBoards */}
+        {/* Featured Project - LinkUp */}
         <motion.div
           variants={itemVariants}
           initial="hidden"
@@ -555,16 +555,16 @@ const Home = () => {
             </div>
 
             <h4 className={`text-2xl md:text-3xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-              EliteBoards - Premium Leaderboard System
+              LinkUp - Real-Time Communication Platform
             </h4>
 
             <p className={`mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-              A high-performance, real-time leaderboard platform designed for students and educational cohorts. It features a premium glassmorphic UI, real-time socket updates, and robust handling of student rankings including tie-breaking logic.
+              A premium, full-stack real-time communication platform featuring 1-to-1 and group messaging, media sharing, and social relationship management. Built with a modular monorepo architecture and real-time Socket.io integration.
             </p>
 
             {/* Tech badges */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {["React", "Vite", "React Native", "Expo", "Node.js", "Express", "MongoDB", "Socket.io", "Framer Motion"].map((tech) => (
+              {["React 19", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "Socket.io", "Node.js", "Express", "MongoDB", "Cloudinary"].map((tech) => (
                 <span
                   key={tech}
                   className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode
@@ -580,7 +580,7 @@ const Home = () => {
             {/* Action buttons */}
             <div className="flex flex-wrap gap-4">
               <motion.a
-                href="https://leaderboard-xgi1.onrender.com/"
+                href="https://vaani-11o3.onrender.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -598,9 +598,9 @@ const Home = () => {
 
               <motion.button
                 onClick={() => handleOpenPreview({
-                  title: "EliteBoards",
-                  link: "https://leaderboard-xgi1.onrender.com/",
-                  github: "https://github.com/PARASMANI-KHUNTE/Leaderboard"
+                  title: "LinkUp",
+                  link: "https://vaani-11o3.onrender.com",
+                  github: "https://github.com/PARASMANI-KHUNTE/Vaani"
                 })}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -614,7 +614,7 @@ const Home = () => {
               </motion.button>
 
               <motion.a
-                href="https://github.com/PARASMANI-KHUNTE/Leaderboard"
+                href="https://github.com/PARASMANI-KHUNTE/Vaani"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -710,6 +710,13 @@ const Home = () => {
             }`}>
             <div className="space-y-8">
               {[
+                {
+                  date: "2026",
+                  title: "LinkUp - Communication Platform",
+                  organization: "Full Stack Development & Real-time Systems",
+                  description: "Developed a premium, modular real-time chat ecosystem featuring 1-to-1/group messaging, media sharing via Cloudinary, and weighted social relationships. Built with React 19, TypeScript, and Socket.io for high-concurrency event handling.",
+                  icon: "💬"
+                },
                 {
                   date: "2026",
                   title: "AI & LLM Engineering",

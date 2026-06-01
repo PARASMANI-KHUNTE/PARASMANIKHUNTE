@@ -10,67 +10,46 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 
 
 export const projects = [
-  // 🚀 LinkUp
+  // 🥇 MyCircle
   {
-    title: "LinkUp",
-    description: "A premium, full-stack real-time communication platform featuring 1-to-1 and group messaging, media sharing, and social relationship management. Built with a modular monorepo architecture and real-time Socket.io integration.",
-    tech: "React 19, TypeScript, Vite, Tailwind CSS, Zustand, Socket.io, Node.js, Express, MongoDB, Cloudinary",
-    link: "https://vaani-11o3.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/Vaani",
-    year: "2026",
+    title: "MyCircle - Hyperlocal Exchange Platform",
+    description: "Built a web/mobile/backend monorepo for local jobs, services, selling/renting, maps, contact requests, trust score, post lifecycle, real-time chat, AI moderation, push notifications, JWT/OAuth, Cloudinary uploads, Redis caching, and BullMQ queues.",
+    tech: "React 19, React Native, Node.js, MongoDB, Socket.io, Redis, Groq AI",
+    link: "https://mycircle-9gm5.onrender.com",
+    github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
+    year: "2025-2026",
     isLatest: true,
-    categories: ["Full Stack", "Mobile Apps"]
-  },
-  // 🏆 EliteBoards
-  {
-    title: "EliteBoards",
-    description: "A high-performance, real-time leaderboard platform designed for students and educational cohorts. It features a premium glassmorphic UI, real-time socket updates, and robust handling of student rankings including tie-breaking logic.",
-    tech: "React, Vite, React Native, Expo, Node.js, Express, Socket.io, MongoDB",
-    link: "https://leaderboard-xgi1.onrender.com/",
-    github: "https://github.com/PARASMANI-KHUNTE/Leaderboard",
-    year: "2026",
-    isLatest: true,
-    categories: ["Full Stack", "Mobile Apps"]
+    categories: ["Mobile Apps", "Full Stack"]
   },
   // ⚡ SYNAPSE
   {
-    title: "SYNAPSE - Neural Interface AI",
-    description: "A local-first AI ecosystem featuring a glassmorphic interface, dynamic neural routing across multiple LLMs (Qwen2.5, DeepSeek, Llama), local RAG memory (FAISS), and dual multi-modal hubs.",
-    tech: "React, Vite, Tailwind CSS, Node.js, Express, Python, Socket.io, Ollama, FAISS",
+    title: "SYNAPSE - Neural Interface AI System",
+    description: "Engineered a multi-model AI system with local LLM routing, RAG retrieval, vector search, context-aware response control, real-time streaming, multimodal features, and sandboxed code execution for AI assistant workflows.",
+    tech: "MERN, LLMs, RAG, FAISS, WebSockets",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
     year: "2026",
     categories: ["AI & Machine Learning"]
   },
-  // 🧠 Kimiko AI
+  // 📍 NearMe
   {
-    title: "Kimiko AI",
-    description: "A local-first, privacy-centric AI agent with multimodal vision, a three-tier cognitive memory system (Redis, Qdrant, PostgreSQL), and OS-level automation for proactive intelligence.",
-    tech: "LangGraph, Ollama, FastAPI, Celery, Redis, PostgreSQL, Electron",
+    title: "NearMe - Location-Based Social Networking",
+    description: "Developed privacy-first proximity features including friend requests, live location updates, nearby users, real-time alerts, JWT/OAuth, map discovery, geospatial queries, Redis caching, rate limiting, validation, and offline queues.",
+    tech: "TypeScript, Node.js, React Native, MongoDB, Redis",
     link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Kimiko",
+    github: "https://github.com/PARASMANI-KHUNTE/NearMe",
     year: "2026",
-    categories: ["AI & Machine Learning"]
+    categories: ["Mobile Apps", "Full Stack"]
   },
-  // 👁️ EyesforAi
+  // 💬 Vaani
   {
-    title: "EyesforAi - Vision AI Assistant",
-    description: "A continuous, voice-controlled vision assistant that captures images from an ESP32-CAM and processes them with Ollama's Llava model for vivid audio descriptions. Features contextual memory and text-to-speech feedback.",
-    tech: "Python, Ollama, Llava, ESP32",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/EyesforAi",
+    title: "Vaani - Real-Time Messaging Platform",
+    description: "Built production-style chat workflows for 1-to-1/group messaging, typing indicators, presence, read/delivered states, media/file/voice sharing, reactions, replies, friend requests, blocking, and group administration.",
+    tech: "React, Node.js, Express, Socket.io, MongoDB, Cloudinary",
+    link: "https://vaani-11o3.onrender.com",
+    github: "https://github.com/PARASMANI-KHUNTE/Vaani",
     year: "2026",
-    categories: ["AI & Machine Learning"]
-  },
-  // 🥇 TOP PROJECT - MyCircle
-  {
-    title: "MyCircle",
-    description: "A hyperlocal exchange platform for neighbors to post and discover jobs, services, and items for sale/rent. Features real-time chat, AI moderation, trust system, and interactive map view.",
-    tech: "React Native, React 19, Node.js, MongoDB, Socket.io, Gemini AI",
-    link: "https://mycircle-9gm5.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
-    year: "2025",
-    categories: ["Mobile Apps"]
+    categories: ["Full Stack"]
   },
   // 🥈 Modern Developer Portfolio
   {

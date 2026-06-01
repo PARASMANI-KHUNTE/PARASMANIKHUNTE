@@ -10,37 +10,25 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 const educationData = [
   {
     degree: "Master of Computer Applications (MCA)",
-    institution: "Guru Ghasidas University",
+    institution: "Guru Ghasidas Vishwavidyalaya",
     year: "2025 - 2027",
     location: "Bilaspur, C.G",
     gpa: null,
-    description: "Pursuing advanced studies in Computer Science with focus on software engineering, distributed systems, and advanced algorithms.",
-    courses: ["Advanced Algorithms", "Distributed Systems", "Software Engineering", "Cloud Computing", "Data Science"],
+    description: "Pursuing advanced studies in Computer Science & Technology.",
+    courses: [],
     achievements: []
   },
   {
     degree: "Bachelor of Computer Application (BCA)",
-    institution: "Guru Ghasidas University",
+    institution: "Guru Ghasidas Vishwavidyalaya",
     year: "2022 - 2025",
     location: "Bilaspur, C.G",
     gpa: 8.2,
-    description: "Specialized in Artificial Intelligence and Machine Learning with a minor in Human-Computer Interaction.",
-    courses: ["Data Structures", "Algorithms", "Machine Learning", "Web Development", "Database Systems"],
+    description: "Completed undergraduate degree in Computer Science.",
+    courses: [],
     achievements: [
-      "IOT Executive GFG Student chapter",
-      "Teaching Assistant for IOT course"
-    ]
-  },
-  {
-    degree: "Higher Secondary School",
-    institution: "Kendriya Vidyalaya ",
-    year: "2020 - 2021",
-    location: "Raigrah , C.G",
-    gpa: 82.2,
-    description: "PCB - Physic , Chemistry , Biology with Computer Science & English",
-    courses: ["Physic", "Chemistry", "Biology", "Computer Science", "English"],
-    achievements: [
-      "School Discipline Captian"
+      "IoT Executive, GFG Student Chapter GGV: led IoT workshops for 50+ students using Arduino/Raspberry Pi",
+      "Participated in Smart India Hackathon and college-level hackathons"
     ]
   },
   {

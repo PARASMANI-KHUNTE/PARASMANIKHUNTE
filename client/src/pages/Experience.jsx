@@ -10,56 +10,45 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 const experienceData = [
   {
     role: "Technical Intern",
-    company: "hybrowlabs",
+    company: "Hybrowlabs Technologies",
     companyUrl: "https://hybrowlabs.com/",
     logoUrl: "/logos/hybrowlabs.png",
-    duration: "March 2025 - May 2025 · 3 mos",
+    duration: "Mar 2025 - May 2025",
     location: "Remote",
-    description: "Developed scalable web applications using React and Frappe frameworks.",
-    skills: ["React", "Redux", "Frappe", "Python", "React.js", "Google Maps"]
-  },
-  {
-    role: "Full Stack Developer Freelancer",
-    company: "Akkuraa it services",
-    companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
-    logoUrl: "/akkuraItLogo.png",
-    duration: "April 2025 - April 2025 · 1 mo",
-    location: "Remote",
-    description: "Developed scalable web applications using the MERN stack as a freelancer.",
-    skills: ["React", "Node.js", "MongoDB", "Express", "Redux", "Machine Learning"],
-    certificateUrl: "/IntershipCertificate.pdf"
+    description: "Built React applications, integrated REST APIs, and developed a GPS tracking prototype for location-based product functionality.",
+    skills: ["React", "REST APIs", "GPS Tracking"]
   },
   {
     role: "Web Developer Intern",
-    company: "Akkuraa it services",
+    company: "Akkuraa IT Services",
     companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
     logoUrl: "/akkuraItLogo.png",
-    duration: "Jan 2025 - April 2025 · 4 mos",
+    duration: "Jan 2025 - Apr 2025",
     location: "Remote",
-    description: "Developed scalable web applications using the MERN stack.",
-    skills: ["React", "Node.js", "MongoDB", "Express", "Redux", "Machine Learning"],
+    description: "Developed MERN applications, backend APIs, React/React Native interfaces, deployment workflows on Render/Vercel, and reusable frontend components.",
+    skills: ["MERN", "React Native", "Render", "Vercel"],
     certificateUrl: "/IntershipCertificate.pdf"
   },
   {
-    role: "Software Engineer Intern",
-    company: "Bluestock™🔺",
+    role: "SDE Intern",
+    company: "Bluestock Fintech",
     companyUrl: "https://bluestock.in/",
     logoUrl: "/logos/bluestock.png",
-    duration: "Nov 2024 - Dec 2024 · 2 mos",
+    duration: "Nov 2024 - Dec 2024",
     location: "Remote",
-    description: "Built modern UI/UX designs using HTML, CSS, JavaScript, and Jinja templates. Improved site performance by 40% through code optimization.",
-    skills: ["Python", "Django", "CSS", "JavaScript", "HTML", "Jinja"],
+    description: "Built secure REST APIs, debugged authentication/authorization flows, and improved backend reliability for fintech application workflows.",
+    skills: ["REST APIs", "Authentication", "Backend Reliability"],
     certificateUrl: "/bluestock.jpg"
   },
   {
-    role: "Full Stack Developer Intern",
-    company: "ELiteTech Intern",
+    role: "Full Stack Development Intern",
+    company: "Elite Tech Intern",
     companyUrl: "https://www.linkedin.com/company/elite-tech-intern/posts/?feedView=all",
     logoUrl: "/logos/elitetech.png",
-    duration: "Oct 2024 - Nov 2024 · 2 mos",
+    duration: "Oct 2024 - Nov 2024",
     location: "Remote",
-    description: "Built a fully functional social media application 'Photoshare' leveraging React and Node.js. Focused on user engagement through post creation, updates, and interactivity features.",
-    skills: ["React", "Tailwind CSS", "JavaScript", "Express", "MongoDB"]
+    description: "Built Photoshare social platform with authentication, post creation, likes/comments, profile updates, image upload, and MongoDB-backed API architecture.",
+    skills: ["React", "Node.js", "MongoDB", "Authentication"]
   },
 ];
 

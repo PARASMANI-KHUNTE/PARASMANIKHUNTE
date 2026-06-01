@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { X, Maximize2, Eye, Monitor } from "lucide-react";
 const ProjectPreviewModal = React.lazy(() => import("../components/ProjectPreviewModal"));
@@ -221,11 +222,11 @@ const Home = () => {
                 Hi, I'm <span className={`${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Paras</span>
               </h1>
               <TypewriterText 
-                text="Full-Stack Systems Engineer | Scalable Architecture Specialist | AI-Enabled Product Builder | Cross-Ecosystem Web & Mobile Lead" 
+                text="Full-Stack / Backend Engineer | MERN + Java | Real-Time Systems | AI/RAG & Cloud-Deployed Products" 
                 className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-amber-400/90" : "text-amber-600"}`}
               />
               <p className={`text-base md:text-lg mb-8 max-w-xl ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                I build production-ready systems designed around real-world constraints. With experience across 6+ internships, I focus on architecture, performance, and long-term maintainability.
+                Full-stack/backend engineer with a strong Java/OOP/DSA foundation and hands-on experience building MERN, real-time, cloud-deployed, and AI/RAG applications. Experienced in owning features end-to-end and building scalable systems.
               </p>
 
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -491,87 +492,34 @@ const Home = () => {
           </motion.div>
         </motion.div>
 
-        {/* Tech Stack Section */}
+        {/* Tech Stack CTA Section */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className={`mb-16 py-8 px-8 rounded-xl backdrop-blur-md max-w-5xl w-full ${isDarkMode ? "bg-gray-800/40 border border-gray-700" : "bg-white/70 border border-white"
+          className={`mb-16 py-12 px-8 rounded-xl backdrop-blur-md max-w-5xl w-full flex flex-col items-center justify-center text-center ${isDarkMode ? "bg-gray-800/40 border border-gray-700" : "bg-white/70 border border-white"
             } shadow-lg`}
         >
-          <h2 className={`text-xl md:text-2xl font-semibold mb-8 text-center ${isDarkMode ? "text-amber-400" : "text-amber-600"
-            }`}>Tech Stack</h2>
-
-          {/* Tech Icons Grid */}
-          <div className="grid grid-cols-5 md:grid-cols-10 gap-4 mb-8">
-            {[
-              { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-              { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-              { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-              { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-              { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-              { name: "Tailwind", icon: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" },
-              { name: "Express", icon: isDarkMode ? "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" : "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
-              { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-              { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-              { name: "Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
-            ].map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1, y: -5 }}
-                className={`p-3 rounded-xl text-center cursor-pointer transition-all flex flex-col items-center justify-center ${isDarkMode ? "bg-gray-700/30 hover:bg-gray-600/50" : "bg-amber-50/50 hover:bg-amber-100"
-                  } border border-transparent hover:border-amber-500/30`}
-              >
-                <div className="w-10 h-10 mb-2 flex items-center justify-center">
-                  <img
-                    src={tech.icon}
-                    alt={tech.name}
-                    className={`w-full h-full object-contain ${tech.name === 'Express' && isDarkMode ? 'brightness-200 grayscale-0' : ''}`}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                </div>
-                <span className={`text-xs font-medium ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-                  {tech.name}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Skills Progress Bars */}
-          <div className="space-y-4">
-            {[
-              { skill: "Frontend (React, React Native)", level: 90 },
-              { skill: "Backend (Node.js, Express, FastAPI)", level: 85 },
-              { skill: "Database (MongoDB, SQL, Redis)", level: 80 },
-              { skill: "AI / LLM & RAG Systems", level: 85 },
-            ].map((item, index) => (
-              <div key={item.skill}>
-                <div className="flex justify-between mb-1">
-                  <span className={`text-sm font-medium ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
-                    {item.skill}
-                  </span>
-                  <span className={`text-sm font-medium ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
-                    {item.level}%
-                  </span>
-                </div>
-                <div className={`w-full h-2 rounded-full overflow-hidden ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${item.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 + index * 0.1 }}
-                    className="h-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-600"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 className={`text-3xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"
+            }`}>Explore My Technical Arsenal</h2>
+          <p className={`text-lg mb-8 max-w-2xl ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+            Dive deep into the languages, frameworks, AI/ML tools, and cloud infrastructure I use to build production-ready applications.
+          </p>
+          <Link to="/skills">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl flex items-center gap-2 ${
+                isDarkMode 
+                  ? "bg-amber-500 text-gray-900 hover:bg-amber-400 shadow-amber-500/20" 
+                  : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-500/30"
+              }`}
+            >
+              <Monitor className="w-5 h-5" />
+              View Full Skills Matrix
+            </motion.button>
+          </Link>
         </motion.div>
 
         {/* Stats Counter Section */}

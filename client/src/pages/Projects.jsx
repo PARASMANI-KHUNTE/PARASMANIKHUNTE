@@ -51,6 +51,17 @@ export const projects = [
     year: "2026",
     categories: ["Full Stack"]
   },
+  // 🎓 CampusCompare
+  {
+    title: "CampusCompare",
+    description: "A full-stack web platform helping students discover, evaluate, and compare colleges. Features advanced search filters, side-by-side comparisons, student reviews, personalized shortlisting, JWT authentication, and an admin dashboard.",
+    tech: "React, Node.js, PostgreSQL, Prisma, Cloudinary",
+    link: "https://campuscompare-app.onrender.com",
+    github: "https://github.com/PARASMANI-KHUNTE/CampusCompare",
+    year: "2026",
+    isLatest: true,
+    categories: ["Full Stack"]
+  },
   // 🥈 Modern Developer Portfolio
   {
     title: "Modern Developer Portfolio",

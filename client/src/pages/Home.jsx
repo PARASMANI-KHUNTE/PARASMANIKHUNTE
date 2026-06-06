@@ -132,7 +132,7 @@ const Home = () => {
 
   // Download CV Handler
   const handleDownloadCV = () => {
-    const cvPath = "/Parasmani_Khunte_Resume_ATS.pdf"; // Updated ATS Resume in 'public' folder
+    const cvPath = "/Parasmani_Khunte_Resume.pdf"; // Updated ATS Resume in 'public' folder
     const link = document.createElement("a");
     link.href = cvPath;
     link.download = "Parasmani_Khunte_Resume_ATS_2025.pdf";

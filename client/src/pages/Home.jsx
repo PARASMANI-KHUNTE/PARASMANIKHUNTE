@@ -135,7 +135,7 @@ const Home = () => {
     const cvPath = "/Parasmani_Khunte_Resume.pdf"; // Updated ATS Resume in 'public' folder
     const link = document.createElement("a");
     link.href = cvPath;
-    link.download = "Parasmani_Khunte_Resume_ATS_2025.pdf";
+    link.download = "Parasmani_Khunte_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

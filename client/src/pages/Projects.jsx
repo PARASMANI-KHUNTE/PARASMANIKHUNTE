@@ -13,19 +13,39 @@ export const projects = [
   // 🥇 MyCircle
   {
     title: "MyCircle - Hyperlocal Exchange Platform",
-    description: "Built a web/mobile/backend monorepo for local jobs, services, selling/renting, maps, contact requests, trust score, post lifecycle, real-time chat, AI moderation, push notifications, JWT/OAuth, Cloudinary uploads, Redis caching, and BullMQ queues.",
-    tech: "React 19, React Native, Node.js, MongoDB, Socket.io, Redis, Groq AI",
+    description: "Web + mobile + backend monorepo for local jobs, services, and goods exchange. Features real-time chat, geospatial discovery, trust scoring, contact-request workflow, Groq AI content moderation, Redis caching + BullMQ queues for push notifications and post lifecycle. JWT/Google OAuth, Cloudinary media uploads.",
+    tech: "React 19, React Native, Node.js, MongoDB, Socket.io, Redis, BullMQ, Groq AI",
     link: "https://mycircle-9gm5.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
     year: "2025-2026",
     isLatest: true,
     categories: ["Mobile Apps", "Full Stack"]
   },
+  // ⚡ Zuvo - NEW
+  {
+    title: "Zuvo - Distributed Microservices Platform",
+    description: "8-service architecture (API Gateway, Auth, Blog, Media, Interactions, Real-time, Worker, Feed & Search) communicating via Redis Streams. Full OpenTelemetry distributed tracing with Prometheus metrics and Jaeger UI. Circuit breakers, exponential backoff, dead-letter queues, GDPR-compliant audit logging.",
+    tech: "Node.js, TypeScript, Redis Streams, MongoDB, OpenTelemetry, Prometheus, Jaeger, Docker",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/Zuvo",
+    year: "2026",
+    categories: ["Full Stack", "Backend"]
+  },
+  // 🤖 Gravitor - NEW
+  {
+    title: "Gravitor - Privacy-First Local AI Coding IDE",
+    description: "VS Code extension with ghost-text code completions powered entirely by local Ollama LLMs — zero data exfiltration by design. Context-aware intelligence via heuristic AST parsing + cosine similarity search over local codebase embeddings. Sandboxed CLI execution.",
+    tech: "VS Code Extension API, TypeScript, Node.js, Ollama, Vector Search, AST Parsing",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/Gravitor",
+    year: "2026",
+    categories: ["AI & Machine Learning"]
+  },
   // ⚡ SYNAPSE
   {
     title: "SYNAPSE - Neural Interface AI System",
-    description: "Engineered a multi-model AI system with local LLM routing, RAG retrieval, vector search, context-aware response control, real-time streaming, multimodal features, and sandboxed code execution for AI assistant workflows.",
-    tech: "MERN, LLMs, RAG, FAISS, WebSockets",
+    description: "Engineered a multi-model AI system with local LLM routing, RAG retrieval, vector search, context-aware response control, real-time streaming, multimodal features, and sandboxed code execution.",
+    tech: "MERN, LLMs, RAG, FAISS, WebSockets, Ollama, LangGraph",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
     year: "2026",
@@ -34,8 +54,8 @@ export const projects = [
   // 📍 NearMe
   {
     title: "NearMe - Location-Based Social Networking",
-    description: "Developed privacy-first proximity features including friend requests, live location updates, nearby users, real-time alerts, JWT/OAuth, map discovery, geospatial queries, Redis caching, rate limiting, validation, and offline queues.",
-    tech: "TypeScript, Node.js, React Native, MongoDB, Redis",
+    description: "Developed privacy-first proximity features including friend requests, live location updates, nearby users, real-time alerts, JWT/OAuth, map discovery, geospatial queries, Redis caching.",
+    tech: "TypeScript, Node.js, React Native, MongoDB, Redis, Geospatial Queries",
     link: "",
     github: "https://github.com/PARASMANI-KHUNTE/NearMe",
     year: "2026",
@@ -44,7 +64,7 @@ export const projects = [
   // 💬 Vaani
   {
     title: "Vaani - Real-Time Messaging Platform",
-    description: "Built production-style chat workflows for 1-to-1/group messaging, typing indicators, presence, read/delivered states, media/file/voice sharing, reactions, replies, friend requests, blocking, and group administration.",
+    description: "Built production-style chat workflows for 1-to-1/group messaging, typing indicators, presence, read/delivered states, media/file/voice sharing, reactions, replies, friend requests, group admin controls.",
     tech: "React, Node.js, Express, Socket.io, MongoDB, Cloudinary",
     link: "https://vaani-11o3.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/Vaani",
@@ -54,7 +74,7 @@ export const projects = [
   // 🎓 CampusCompare
   {
     title: "CampusCompare",
-    description: "A full-stack web platform helping students discover, evaluate, and compare colleges. Features advanced search filters, side-by-side comparisons, student reviews, personalized shortlisting, JWT authentication, and an admin dashboard.",
+    description: "A full-stack web platform helping students discover, evaluate, and compare colleges. Features advanced search filters, side-by-side comparisons, student reviews, personalized showcase.",
     tech: "React, Node.js, PostgreSQL, Prisma, Cloudinary",
     link: "https://campuscompare-app.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/CampusCompare",
@@ -171,7 +191,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = ["All", "Full Stack", "AI & Machine Learning", "Mobile Apps", "UI/UX & Portfolio"];
+  const categories = ["All", "Full Stack", "Backend", "AI & Machine Learning", "Mobile Apps", "UI/UX & Portfolio"];
 
   const handleOpenPreview = (project) => {
     setSelectedProject(project);
@@ -228,9 +248,10 @@ const Projects = () => {
 
   return (
     <section
-      className={`min-h-screen relative py-20 px-6 overflow-hidden transition-all duration-500 ${isDarkMode
-        ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white"
-        : "bg-gradient-to-br from-white to-gray-50 text-gray-800"
+      className={`min-h-screen relative py-20 px-6 overflow-hidden transition-all duration-500 ${
+        isDarkMode
+          ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+          : "bg-gradient-to-br from-white to-gray-50 text-gray-800"
         }`}
     >
       <BackgroundParticles count={15} />
@@ -247,7 +268,8 @@ const Projects = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-            className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${isDarkMode ? "bg-gray-800" : "bg-white shadow-md"
+            className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${
+              isDarkMode ? "bg-gray-800" : "bg-white shadow-md"
               }`}
           >
             <Code className={`h-8 w-8 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
@@ -265,7 +287,7 @@ const Projects = () => {
           />
 
           <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-            A collection of my recent work, spanning from web applications to design systems.
+            A collection of my recent work, spanning from web applications to distributed systems and AI/ML solutions.
           </p>
         </motion.div>
 

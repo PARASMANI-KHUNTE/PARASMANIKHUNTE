@@ -77,7 +77,9 @@ const skillCategories = [
       { name: "API Security", level: 80 },
       { name: "Rate Limiting", level: 85 },
       { name: "Zod Validation", level: 85 },
-      { name: "Queues / Redis", level: 75 },
+      { name: "Redis Streams & Pub/Sub", level: 85 },
+      { name: "BullMQ (Job Queues)", level: 85 },
+      { name: "Circuit Breakers", level: 80 },
       { name: "Microservices", level: 70 }
     ]
   },
@@ -91,7 +93,7 @@ const skillCategories = [
       { name: "MongoDB", level: 95 },
       { name: "PostgreSQL", level: 80 },
       { name: "MySQL", level: 80 },
-      { name: "Redis", level: 80 },
+      { name: "Redis", level: 85 },
       { name: "Schema Design", level: 85 },
       { name: "Indexing", level: 75 },
       { name: "Geospatial Queries", level: 70 },
@@ -111,10 +113,13 @@ const skillCategories = [
       { name: "Computer Vision", level: 70 },
       { name: "TensorFlow / PyTorch", level: 65 },
       { name: "RAG Pipelines", level: 85 },
-      { name: "Vector Search", level: 85 },
+      { name: "Vector Search (FAISS, Qdrant)", level: 85 },
       { name: "LangGraph", level: 80 },
-      { name: "Ollama", level: 85 },
-      { name: "Prompt Engineering", level: 90 }
+      { name: "Ollama (Local LLMs)", level: 85 },
+      { name: "Groq API", level: 85 },
+      { name: "Prompt Engineering", level: 90 },
+      { name: "STT / TTS Integration", level: 80 },
+      { name: "Vision AI (LLaVA)", level: 75 }
     ]
   },
   {
@@ -124,13 +129,13 @@ const skillCategories = [
     color: "from-sky-500 to-blue-400",
     shadow: "shadow-sky-500/20",
     skills: [
-      { name: "AWS Basics", level: 40 },
-      { name: "EC2 & S3", level: 45 },
-      { name: "Lambda", level: 35 },
-      { name: "API Gateway", level: 35 },
-      { name: "Docker", level: 45 },
+      { name: "AWS (EC2, S3, IAM, Lambda)", level: 45 },
+      { name: "Docker", level: 50 },
       { name: "Kubernetes Basics", level: 30 },
-      { name: "CI/CD & GitHub Actions", level: 45 },
+      { name: "CI/CD & GitHub Actions", level: 50 },
+      { name: "OpenTelemetry", level: 80 },
+      { name: "Prometheus", level: 75 },
+      { name: "Jaeger (Distributed Tracing)", level: 75 },
       { name: "Render / Vercel", level: 85 },
       { name: "Firebase", level: 70 },
       { name: "Cloudinary", level: 85 }
@@ -147,6 +152,8 @@ const skillCategories = [
       { name: "Postman", level: 95 },
       { name: "Linux / Bash", level: 75 },
       { name: "Cursor / Copilot", level: 95 },
+      { name: "Windsurf", level: 85 },
+      { name: "VS Code Extension API", level: 80 },
       { name: "Technical Docs", level: 85 },
       { name: "Problem-solving", level: 90 }
     ]

@@ -9,6 +9,16 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 
 const experienceData = [
   {
+    role: "Full-stack Developer (Freelance)",
+    company: "Akkuraa IT Services",
+    companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
+    logoUrl: "/akkuraItLogo.png",
+    duration: "Jun 2025 - Aug 2025",
+    location: "Bengaluru, Karnataka, India · Remote",
+    description: "Developed full-stack web applications using the MERN stack.",
+    skills: ["MERN Stack"]
+  },
+  {
     role: "Technical Intern",
     company: "Hybrowlabs Technologies",
     companyUrl: "https://hybrowlabs.com/",
@@ -40,16 +50,7 @@ const experienceData = [
     skills: ["REST APIs", "Authentication", "Backend Reliability"],
     certificateUrl: "/bluestock.jpg"
   },
-  {
-    role: "Full Stack Development Intern",
-    company: "Elite Tech Intern",
-    companyUrl: "https://www.linkedin.com/company/elite-tech-intern/posts/?feedView=all",
-    logoUrl: "/logos/elitetech.png",
-    duration: "Oct 2024 - Nov 2024",
-    location: "Remote",
-    description: "Built Photoshare social platform with authentication, post creation, likes/comments, profile updates, image upload, and MongoDB-backed API architecture.",
-    skills: ["React", "Node.js", "MongoDB", "Authentication"]
-  },
+
 ];
 
 // Group experiences by company
@@ -162,7 +163,7 @@ const Experience = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              1.4+ Years of Professional Experience
+              1+ Year of Professional Experience
             </span>
           </motion.div>
 
@@ -207,7 +208,7 @@ const Experience = () => {
                         }`}
                     />
                     <div className={`mt-10 md:mt-0 ${first.isCurrent ? (isDarkMode ? "text-emerald-400" : "text-emerald-600") : (isDarkMode ? "text-amber-400" : "text-amber-500")} font-bold text-xl`}>
-                      {first.duration.split(" - ")[0]}
+                      {first.duration}
                     </div>
                   </div>
 
@@ -237,7 +238,7 @@ const Experience = () => {
                         }`}
                     />
                     <div className={`mt-10 md:mt-0 ${first.isCurrent ? (isDarkMode ? "text-emerald-400" : "text-emerald-600") : (isDarkMode ? "text-amber-400" : "text-amber-500")} font-bold text-xl`}>
-                      {roles[0].duration.split(" - ")[0]}
+                      {roles[0].duration}
                     </div>
                   </div>
                   <div className="md:w-1/2 md:pl-8">

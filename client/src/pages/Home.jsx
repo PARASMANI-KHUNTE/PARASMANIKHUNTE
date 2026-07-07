@@ -385,7 +385,7 @@ const Home = () => {
 
             <div className={`space-y-6 text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
               <p>
-                I build production-ready systems designed around real-world constraints, not just frameworks. With 16+ months of experience across internships in startups, fintech, and engineering labs, I specialize in shipping complete end-to-end systems across fintech, social, and IoT domains.
+                I build production-ready systems designed around real-world constraints, not just frameworks. With 12+ months of experience across internships in startups, fintech, and engineering labs, I specialize in shipping complete end-to-end systems across fintech, social, and IoT domains.
               </p>
 
               <AnimatePresence>

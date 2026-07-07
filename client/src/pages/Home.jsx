@@ -220,11 +220,11 @@ const Home = () => {
                 Hi, I'm <span className={`${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Paras</span>
               </h1>
               <TypewriterText 
-                text="Full-Stack / Backend Engineer | 16+ Months | MERN + Local LLM Systems | Distributed Architecture | Real-Time Systems" 
+                text="Full-Stack / Backend Engineer | 12+ Months | MERN + Local LLM Systems | Distributed Architecture | Real-Time Systems" 
                 className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-amber-400/90" : "text-amber-600"}`}
               />
               <p className={`text-base md:text-lg mb-8 max-w-xl ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                Full-stack/backend engineer with 16+ months of internship experience building production-grade MERN systems, real-time architectures, distributed microservices, and AI-integrated applications. Specialized in backend engineering, microservices, WebSockets, and local LLM pipelines.
+                Full-stack/backend engineer with 12+ months of internship experience building production-grade MERN systems, real-time architectures, distributed microservices, and AI-integrated applications. Specialized in backend engineering, microservices, WebSockets, and local LLM pipelines.
               </p>
 
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -474,7 +474,7 @@ const Home = () => {
               <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Experience</h3>
             </div>
             <div className="space-y-2">
-              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>16+ Months Professional</h4>
+              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>12+ Months Professional</h4>
               <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Fintech, Social, IoT domains</p>
               <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>MERN, Microservices, Real-time systems, AI/LLM pipelines.</p>
             </div>

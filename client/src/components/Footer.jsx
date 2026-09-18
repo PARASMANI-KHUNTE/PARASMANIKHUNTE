@@ -37,7 +37,7 @@ const Footer = () => {
               PARASMANI KHUNTE
             </h2>
             <p className={`text-sm mb-6 max-w-sm leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-              Full-Stack Systems Engineer specializing in scalable architecture and AI-enabled product lifecycles. 
+              Full-Stack & AI Systems Engineer specializing in scalable architecture, real-time systems, and AI-enabled product lifecycles. 
               Designing clean interface logic and resilient backend ecosystems.
             </p>
             

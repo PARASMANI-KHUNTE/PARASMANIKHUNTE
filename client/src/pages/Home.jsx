@@ -220,11 +220,11 @@ const Home = () => {
                 Hi, I'm <span className={`${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Paras</span>
               </h1>
               <TypewriterText 
-                text="Full-Stack / Backend Engineer | 12+ Months | MERN + Local LLM Systems | Distributed Architecture | Real-Time Systems" 
+                text="Full-Stack & AI Engineer | Project-Based | MERN + Local LLM Systems | Distributed Architecture | Real-Time Systems" 
                 className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-amber-400/90" : "text-amber-600"}`}
               />
               <p className={`text-base md:text-lg mb-8 max-w-xl ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                Full-stack/backend engineer with 12+ months of internship experience building production-grade MERN systems, real-time architectures, distributed microservices, and AI-integrated applications. Specialized in backend engineering, microservices, WebSockets, and local LLM pipelines.
+                Project-driven Full-Stack and AI Engineer building production-grade MERN systems, real-time architectures, distributed microservices, and AI-integrated applications. Specialized in end-to-end full-stack engineering, microservices, WebSockets, and local LLM pipelines.
               </p>
 
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -370,9 +370,9 @@ const Home = () => {
                   The <span className="text-amber-500">Engineer's Manifesto</span>
                 </h2>
                 <div className={`flex items-center gap-2 text-sm font-medium ${isDarkMode ? "text-amber-400/80" : "text-amber-500"}`}>
-                  <span>Backend-Focused</span>
+                  <span>Full-Stack & AI Systems</span>
                   <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
-                  <span>Production-Grade Systems</span>
+                  <span>Project-Driven Engineering</span>
                 </div>
               </div>
               <motion.div 
@@ -385,7 +385,7 @@ const Home = () => {
 
             <div className={`space-y-6 text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
               <p>
-                I build production-ready systems designed around real-world constraints, not just frameworks. With 12+ months of experience across internships in startups, fintech, and engineering labs, I specialize in shipping complete end-to-end systems across fintech, social, and IoT domains.
+                I build production-ready systems designed around real-world constraints, not just frameworks. Through extensive project-based engineering across fintech, social platforms, and intelligent systems, I specialize in shipping complete end-to-end applications from architecture to deployment.
               </p>
 
               <AnimatePresence>
@@ -408,7 +408,7 @@ const Home = () => {
                         Specialties: <strong>Local LLM systems</strong> (Ollama, LangGraph, RAG pipelines), <strong>distributed tracing</strong> (OpenTelemetry, Prometheus, Jaeger), <strong>real-time systems</strong> (Socket.io, Redis Streams), and <strong>job queue systems</strong> (BullMQ). I value clean architecture, thoughtful technical discussions, and measurable impact.
                       </p>
                       <p>
-                        Currently pursuing an <strong>MCA at Guru Ghasidas University</strong> while actively building production-focused systems. Open to backend-heavy, AI product engineering, and founding engineer roles.
+                        Currently pursuing an <strong>MCA at Guru Ghasidas University</strong> while actively building project-based production systems. Open to Full-Stack, AI engineering, and founding engineer roles.
                       </p>
                     </div>
                   </motion.div>
@@ -463,19 +463,19 @@ const Home = () => {
             </div>
           </motion.div>
 
-          {/* Experience Summary */}
+          {/* Engineering Focus Summary */}
           <motion.div variants={itemVariants} whileHover={{ y: -5 }} className={`p-6 rounded-2xl backdrop-blur-md transition-all duration-300 ${isDarkMode ? "bg-gray-800/40 border border-gray-700 hover:shadow-xl hover:shadow-black/50 hover:border-amber-500/30" : "bg-white/60 border border-white hover:shadow-xl hover:shadow-amber-100"}`}>
             <div className="flex items-center gap-3 mb-4">
               <div className={`p-2 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
               </div>
-              <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Experience</h3>
+              <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Engineering Focus</h3>
             </div>
             <div className="space-y-2">
-              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>12+ Months Professional</h4>
-              <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Fintech, Social, IoT domains</p>
+              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Full-Stack & AI Systems</h4>
+              <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Project-Based Architecture</p>
               <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>MERN, Microservices, Real-time systems, AI/LLM pipelines.</p>
             </div>
           </motion.div>
@@ -520,7 +520,7 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { number: `${projects.length}+`, label: "Projects", iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.42 0 2.7.477 3.5 1.253v13c-.8.776-2.08 1.253-3.5 1.253s-2.82-.477-3.5-1.253" },
-              { number: "4", label: "Internships", iconPath: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+              { number: "8+", label: "Core Architectures", iconPath: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
               { number: "4", label: "Certifications", iconPath: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
               { number: "2", label: "Hackathons", iconPath: "M13 10V3L4 14h7v7l9-11h-7z" },
             ].map((stat, index) => (

@@ -9,13 +9,15 @@ import Experience from "./pages/Experience";
 import Skills from "./pages/Skills";
 import Admin from "./pages/Admin";
 import { ThemeProvider } from "./context/ThemeContext"; // Import ThemeProvider
+import { ToastProvider } from "./context/ToastContext";
 
 import Layout from "./components/common/Layout";
 
 const App = () => {
   return (
     <ThemeProvider>
-      <Router>
+      <ToastProvider>
+        <Router>
         <div className="flex flex-col min-h-screen font-inter overflow-x-hidden">
           <Navbar />
           <Layout>
@@ -30,6 +32,7 @@ const App = () => {
           </Layout>
         </div>
       </Router>
+      </ToastProvider>
     </ThemeProvider>
   );
 };

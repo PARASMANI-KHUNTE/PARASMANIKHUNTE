@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { X, Maximize2, Eye, Monitor, Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { X, Maximize2, Eye, Monitor, Github, Linkedin, Instagram, Mail, Copy, Check } from "lucide-react";
 const ProjectPreviewModal = React.lazy(() => import("../components/ProjectPreviewModal"));
 import { sounds } from "../utils/SoundManager";
 import { projects } from "./Projects";
+import { useToast } from "../context/ToastContext";
 
 import BackgroundParticles from "../components/common/BackgroundParticles";
 
@@ -53,6 +54,7 @@ const TypewriterText = ({ text, className }) => {
 
 const Home = () => {
   const { isDarkMode } = useTheme();
+  const { showToast } = useToast();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isCvPreviewOpen, setIsCvPreviewOpen] = useState(false);
@@ -62,6 +64,16 @@ const Home = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isMilestonesExpanded, setIsMilestonesExpanded] = useState(false);
   const [isAboutExpanded, setIsAboutExpanded] = useState(false);
+  const [hasCopiedHeroEmail, setHasCopiedHeroEmail] = useState(false);
+
+  const handleCopyEmailHero = () => {
+    const email = "parasmanikhunte@gmail.com";
+    navigator.clipboard.writeText(email);
+    setHasCopiedHeroEmail(true);
+    sounds.playBloop();
+    showToast("Email copied: parasmanikhunte@gmail.com");
+    setTimeout(() => setHasCopiedHeroEmail(false), 2000);
+  };
 
   // Magnetic Button Logic for Hero
   const hireX = useMotionValue(0);
@@ -863,14 +875,20 @@ const Home = () => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div variants={itemVariants} whileHover={{ y: -5 }} className={`flex items-start gap-4 p-6 rounded-xl backdrop-blur-md border transition-all duration-300 ${isDarkMode ? "bg-gray-800/40 border-gray-700 hover:border-amber-500/30" : "bg-white/60 border-amber-100 hover:border-amber-200"}`}>
-                <div className={`p-3 rounded-lg ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
+              <motion.div 
+                variants={itemVariants} 
+                whileHover={{ y: -5, scale: 1.02 }} 
+                onClick={handleCopyEmailHero}
+                className={`flex items-start gap-4 p-6 rounded-xl backdrop-blur-md border transition-all duration-300 cursor-pointer group ${isDarkMode ? "bg-gray-800/40 border-gray-700 hover:border-amber-500/50 hover:shadow-lg hover:shadow-black/50" : "bg-white/60 border-amber-100 hover:border-amber-300 hover:shadow-lg hover:shadow-amber-100"}`}
+                title="Click to copy email"
+              >
+                <div className={`p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
+                  <Copy className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Email</h4>
+                  <h4 className={`font-bold flex items-center gap-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                    Email <span className="text-[10px] text-amber-500 font-semibold uppercase tracking-wider">(Click to copy)</span>
+                  </h4>
                   <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>parasmanikhunte@gmail.com</p>
                 </div>
               </motion.div>

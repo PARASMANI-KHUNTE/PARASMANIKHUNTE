@@ -1,12 +1,24 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Github, Linkedin, Instagram, Twitter, Heart, Activity, Globe, MessageSquare } from "lucide-react";
+import { Github, Linkedin, Instagram, Twitter, Heart, Activity, Globe, MessageSquare, Copy, Check } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { useToast } from "../context/ToastContext";
 import BackgroundParticles from "./common/BackgroundParticles";
 
 const Footer = () => {
   const { isDarkMode } = useTheme();
+  const { showToast } = useToast();
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    const email = "parasmanikhunte@gmail.com";
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    showToast("Email copied: parasmanikhunte@gmail.com");
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const socialLinks = [
     { name: "GitHub", icon: Github, href: "https://github.com/PARASMANI-KHUNTE" },
@@ -100,13 +112,17 @@ const Footer = () => {
               ))}
             </div>
             
-            <a 
-              href="mailto:parasmanikhunte@gmail.com"
-              className={`inline-flex items-center gap-2 text-sm font-bold transition-all ${isDarkMode ? "text-gray-400 hover:text-amber-400" : "text-gray-500 hover:text-amber-600"}`}
+            <button 
+              onClick={handleCopyEmail}
+              className={`inline-flex items-center gap-2 text-sm font-bold transition-all cursor-pointer ${isDarkMode ? "text-gray-400 hover:text-amber-400" : "text-gray-500 hover:text-amber-600"}`}
+              title="Click to copy email: parasmanikhunte@gmail.com"
             >
-              <MessageSquare className="w-4 h-4" />
-              parasmanikhunte@gmail.com
-            </a>
+              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              <span>parasmanikhunte@gmail.com</span>
+              <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${isDarkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-100 text-amber-700"}`}>
+                {copied ? "Copied!" : "Copy"}
+              </span>
+            </button>
           </div>
         </div>
 

@@ -83,7 +83,7 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className={`flex items-center gap-6 px-6 py-2 rounded-full border backdrop-blur-xl shadow-2xl transition-all duration-500 ${isDarkMode
+        className={`flex items-center gap-4 md:gap-6 px-4 md:px-6 py-2 rounded-full border backdrop-blur-xl shadow-2xl transition-all duration-500 ${isDarkMode
           ? "bg-gray-900/40 border-white/10 shadow-black/50"
           : "bg-white/60 border-black/5 shadow-amber-500/5"
           }`}
@@ -138,6 +138,7 @@ const Navbar = () => {
               ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"
               : "bg-amber-100 text-amber-600 hover:bg-amber-200"
               }`}
+            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {isDarkMode ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
           </motion.button>

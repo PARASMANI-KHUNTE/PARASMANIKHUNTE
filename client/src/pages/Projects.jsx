@@ -3,7 +3,7 @@ import { useAnimation, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useTheme } from "../context/ThemeContext";
 import ProjectCard from "../components/ProjectCard";
-import { Code, ExternalLink, Github, Layers } from "lucide-react";
+import { Code, ExternalLink, Github, Layers, Search, Zap } from "lucide-react";
 import ProjectPreviewModal from "../components/ProjectPreviewModal";
 import { useState, useEffect } from "react";
 import BackgroundParticles from "../components/common/BackgroundParticles";
@@ -198,6 +198,8 @@ const Projects = () => {
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [onlyLiveDemos, setOnlyLiveDemos] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const categories = ["All", "Full Stack", "Backend", "AI & Machine Learning", "Mobile Apps", "UI/UX & Portfolio"];
 
@@ -224,9 +226,18 @@ const Projects = () => {
   };
 
   // Filtering Logic
-  const filteredProjects = selectedCategory === "All" 
-    ? projects 
-    : projects.filter(project => project.categories.includes(selectedCategory));
+  const filteredProjects = projects.filter((project) => {
+    const matchesCategory =
+      selectedCategory === "All" || project.categories.includes(selectedCategory);
+    const matchesLive = !onlyLiveDemos || (project.link && project.link.trim() !== "");
+    const matchesSearch =
+      !searchQuery.trim() ||
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tech.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchesCategory && matchesLive && matchesSearch;
+  });
 
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -244,7 +255,7 @@ const Projects = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory]);
+  }, [selectedCategory, onlyLiveDemos, searchQuery]);
 
   useEffect(() => {
     if (inView) {
@@ -299,6 +310,63 @@ const Projects = () => {
           </p>
         </motion.div>
 
+        {/* Controls: Search & Live Demos Toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="max-w-2xl mx-auto mb-8 space-y-4"
+        >
+          {/* Search Input */}
+          <div className="relative">
+            <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search projects by name, tech stack, or description... (e.g. Socket.io, Redis, AI)"
+              className={`w-full pl-12 pr-10 py-3.5 rounded-2xl text-sm font-medium transition-all outline-none border ${
+                isDarkMode
+                  ? "bg-gray-800/60 border-gray-700 focus:border-amber-400 text-white placeholder-gray-500 focus:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
+                  : "bg-white/80 border-amber-200 focus:border-amber-500 text-gray-800 placeholder-gray-400 focus:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
+              }`}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold px-2 py-1 rounded-md ${
+                  isDarkMode ? "bg-gray-700 text-gray-300 hover:text-white" : "bg-gray-200 text-gray-600 hover:text-black"
+                }`}
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          {/* Quick Filter: Live Demos Toggle */}
+          <div className="flex justify-center">
+            <button
+              onClick={() => setOnlyLiveDemos(!onlyLiveDemos)}
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-all duration-300 border cursor-pointer ${
+                onlyLiveDemos
+                  ? "bg-emerald-500 text-gray-950 border-emerald-400 shadow-lg shadow-emerald-500/25 scale-105"
+                  : isDarkMode
+                  ? "bg-gray-800/60 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/10"
+                  : "bg-white text-emerald-700 border-emerald-300 hover:bg-emerald-50 shadow-sm"
+              }`}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${onlyLiveDemos ? "bg-gray-900 opacity-75" : "bg-emerald-400 opacity-75"}`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${onlyLiveDemos ? "bg-gray-900" : "bg-emerald-500"}`}></span>
+              </span>
+              <span>Live Interactive Demos Only</span>
+              <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${onlyLiveDemos ? "bg-black/20 text-gray-950" : isDarkMode ? "bg-emerald-500/20 text-emerald-300" : "bg-emerald-100 text-emerald-800"}`}>
+                {projects.filter((p) => p.link && p.link.trim() !== "").length}
+              </span>
+            </button>
+          </div>
+        </motion.div>
+
         {/* Category Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -310,11 +378,11 @@ const Projects = () => {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+              className={`px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 selectedCategory === category
                   ? isDarkMode
-                    ? "bg-amber-400 text-gray-900 shadow-lg shadow-amber-900/20"
-                    : "bg-amber-500 text-white shadow-lg shadow-amber-200/50"
+                    ? "bg-amber-400 text-gray-900 shadow-lg shadow-amber-900/20 font-bold"
+                    : "bg-amber-500 text-white shadow-lg shadow-amber-200/50 font-bold"
                   : isDarkMode
                   ? "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-amber-400 border border-gray-700/50"
                   : "bg-white text-gray-500 hover:bg-amber-50 hover:text-amber-600 border border-gray-100 shadow-sm"
@@ -328,22 +396,54 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-visible"
-        >
-          {currentProjects.map((project, index) => (
-            <ProjectCard
-              key={index + indexOfFirstProject}
-              project={project}
-              onPreview={handleOpenPreview}
-            />
-          ))}
-        </motion.div>
+        {/* Projects Grid or Empty State */}
+        {currentProjects.length > 0 ? (
+          <motion.div
+            ref={ref}
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-visible"
+          >
+            {currentProjects.map((project, index) => (
+              <ProjectCard
+                key={index + indexOfFirstProject}
+                project={project}
+                onPreview={handleOpenPreview}
+              />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className={`p-12 text-center rounded-3xl border ${
+              isDarkMode ? "bg-gray-800/30 border-gray-700" : "bg-white/60 border-amber-100"
+            }`}
+          >
+            <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center ${isDarkMode ? "bg-gray-700 text-gray-400" : "bg-amber-50 text-amber-500"}`}>
+              <Search className="w-7 h-7" />
+            </div>
+            <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+              No matching projects found
+            </h3>
+            <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+              Try clearing your search query "{searchQuery}" or turning off filters.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedCategory("All");
+                setOnlyLiveDemos(false);
+              }}
+              className={`mt-6 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${
+                isDarkMode ? "bg-amber-400 text-gray-900 hover:bg-amber-300" : "bg-amber-500 text-white hover:bg-amber-600"
+              }`}
+            >
+              Reset Filters
+            </button>
+          </motion.div>
+        )}
 
         {/* Project Preview Modal */}
         <React.Suspense fallback={null}>

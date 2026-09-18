@@ -1,173 +1,140 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import BackgroundParticles from "../components/common/BackgroundParticles";
 import {
+  Cpu,
   Code2,
-  Terminal,
-  Layout,
   Server,
-  Database,
   BrainCircuit,
+  Database,
   Cloud,
-  Wrench,
-  ChevronRight
+  Terminal,
+  Search,
+  Zap,
+  CheckCircle2,
+  Sparkles,
+  Layers,
+  Activity,
+  Workflow
 } from "lucide-react";
 
-// Helper to assign levels. Cloud skills = beginner (~30-45). Others = intermediate/advanced (~75-95).
-const skillCategories = [
+// Curated skill domains aligned with Full-Stack and AI Engineering
+const skillDomains = [
   {
-    id: "languages",
-    title: "Languages",
+    id: "fullstack",
+    title: "Full-Stack & Frontend",
+    category: "Full-Stack",
     icon: Code2,
-    color: "from-blue-500 to-cyan-400",
-    shadow: "shadow-cyan-500/20",
+    tagline: "High-performance reactive interfaces & cross-platform apps",
     skills: [
-      { name: "JavaScript", level: 90 },
-      { name: "TypeScript", level: 85 },
-      { name: "Java", level: 85 },
-      { name: "Python", level: 80 },
-      { name: "SQL", level: 80 }
-    ]
-  },
-  {
-    id: "cscore",
-    title: "CS Core",
-    icon: Terminal,
-    color: "from-purple-500 to-fuchsia-400",
-    shadow: "shadow-fuchsia-500/20",
-    skills: [
-      { name: "DSA", level: 85 },
-      { name: "OOP", level: 90 },
-      { name: "DBMS", level: 85 },
-      { name: "OS", level: 75 },
-      { name: "Computer Networks", level: 75 },
-      { name: "System Design Basics", level: 70 }
-    ]
-  },
-  {
-    id: "frontend",
-    title: "Frontend",
-    icon: Layout,
-    color: "from-orange-500 to-amber-400",
-    shadow: "shadow-amber-500/20",
-    skills: [
-      { name: "React", level: 95 },
-      { name: "Next.js", level: 85 },
-      { name: "React Native", level: 85 },
-      { name: "Vite", level: 90 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "Redux / Zustand", level: 85 },
-      { name: "Framer Motion", level: 75 },
-      { name: "Responsive UI", level: 90 }
+      { name: "React 19", level: "Production", highlight: true },
+      { name: "Next.js", level: "Advanced", highlight: true },
+      { name: "React Native", level: "Advanced", highlight: true },
+      { name: "TypeScript", level: "Advanced", highlight: true },
+      { name: "JavaScript (ES6+)", level: "Production", highlight: true },
+      { name: "Tailwind CSS", level: "Production", highlight: false },
+      { name: "Redux Toolkit / Zustand", level: "Advanced", highlight: false },
+      { name: "Framer Motion", level: "Advanced", highlight: false },
+      { name: "Vite", level: "Production", highlight: false },
+      { name: "Responsive UI/UX", level: "Production", highlight: false }
     ]
   },
   {
     id: "backend",
-    title: "Backend",
+    title: "Backend & Distributed Systems",
+    category: "Backend & Systems",
     icon: Server,
-    color: "from-green-500 to-emerald-400",
-    shadow: "shadow-emerald-500/20",
+    tagline: "Event-driven microservices, real-time protocols & APIs",
     skills: [
-      { name: "Node.js", level: 90 },
-      { name: "Express", level: 90 },
-      { name: "REST APIs", level: 95 },
-      { name: "WebSockets/Socket.io", level: 85 },
-      { name: "JWT / OAuth", level: 90 },
-      { name: "API Security", level: 80 },
-      { name: "Rate Limiting", level: 85 },
-      { name: "Zod Validation", level: 85 },
-      { name: "Redis Streams & Pub/Sub", level: 85 },
-      { name: "BullMQ (Job Queues)", level: 85 },
-      { name: "Circuit Breakers", level: 80 },
-      { name: "Microservices", level: 70 }
+      { name: "Node.js", level: "Production", highlight: true },
+      { name: "Express.js", level: "Production", highlight: true },
+      { name: "WebSockets / Socket.io", level: "Production", highlight: true },
+      { name: "Redis Streams & Pub/Sub", level: "Advanced", highlight: true },
+      { name: "BullMQ (Job Queues)", level: "Advanced", highlight: true },
+      { name: "Microservices Architecture", level: "Advanced", highlight: true },
+      { name: "RESTful API Design", level: "Production", highlight: false },
+      { name: "JWT & OAuth 2.0", level: "Production", highlight: false },
+      { name: "Rate Limiting & Security", level: "Advanced", highlight: false },
+      { name: "Circuit Breakers & Resiliency", level: "Advanced", highlight: false },
+      { name: "Zod Schema Validation", level: "Production", highlight: false }
+    ]
+  },
+  {
+    id: "ai-llm",
+    title: "AI, Local LLMs & RAG",
+    category: "AI & LLM Pipelines",
+    icon: BrainCircuit,
+    tagline: "Autonomous AI agents, vector embeddings & local inference",
+    skills: [
+      { name: "Local LLMs (Ollama)", level: "Advanced", highlight: true },
+      { name: "LangGraph Multi-Agent Workflows", level: "Advanced", highlight: true },
+      { name: "RAG Retrieval Pipelines", level: "Advanced", highlight: true },
+      { name: "Vector Databases (FAISS, Qdrant)", level: "Advanced", highlight: true },
+      { name: "Groq AI High-Speed APIs", level: "Production", highlight: true },
+      { name: "Multi-Modal Vision (LLaVA)", level: "Proficient", highlight: false },
+      { name: "STT / TTS Voice Systems", level: "Proficient", highlight: false },
+      { name: "Prompt Engineering & AST Parsing", level: "Advanced", highlight: false },
+      { name: "Context Window Optimization", level: "Advanced", highlight: false },
+      { name: "Python AI Scripting", level: "Advanced", highlight: false }
     ]
   },
   {
     id: "databases",
-    title: "Databases & Data",
+    title: "Databases & Data Engineering",
+    category: "Databases",
     icon: Database,
-    color: "from-red-500 to-rose-400",
-    shadow: "shadow-rose-500/20",
+    tagline: "Optimized transactional, relational & cache stores",
     skills: [
-      { name: "MongoDB", level: 95 },
-      { name: "PostgreSQL", level: 80 },
-      { name: "MySQL", level: 80 },
-      { name: "Redis", level: 85 },
-      { name: "Schema Design", level: 85 },
-      { name: "Indexing", level: 75 },
-      { name: "Geospatial Queries", level: 70 },
-      { name: "Pandas", level: 75 },
-      { name: "Data Visualization", level: 70 }
+      { name: "MongoDB", level: "Production", highlight: true },
+      { name: "PostgreSQL", level: "Advanced", highlight: true },
+      { name: "Redis (Caching & In-Memory)", level: "Production", highlight: true },
+      { name: "MySQL", level: "Advanced", highlight: false },
+      { name: "Schema Design & Indexing", level: "Production", highlight: false },
+      { name: "Geospatial Queries (GeoJSON)", level: "Advanced", highlight: true },
+      { name: "Aggregation Pipelines", level: "Production", highlight: false },
+      { name: "Prisma ORM", level: "Advanced", highlight: false }
     ]
   },
   {
-    id: "aiml",
-    title: "AI & ML",
-    icon: BrainCircuit,
-    color: "from-indigo-500 to-violet-400",
-    shadow: "shadow-violet-500/20",
-    skills: [
-      { name: "Machine Learning", level: 75 },
-      { name: "NLP", level: 70 },
-      { name: "Computer Vision", level: 70 },
-      { name: "TensorFlow / PyTorch", level: 65 },
-      { name: "RAG Pipelines", level: 85 },
-      { name: "Vector Search (FAISS, Qdrant)", level: 85 },
-      { name: "LangGraph", level: 80 },
-      { name: "Ollama (Local LLMs)", level: 85 },
-      { name: "Groq API", level: 85 },
-      { name: "Prompt Engineering", level: 90 },
-      { name: "STT / TTS Integration", level: 80 },
-      { name: "Vision AI (LLaVA)", level: 75 }
-    ]
-  },
-  {
-    id: "cloud",
-    title: "Cloud & DevOps",
+    id: "cloud-devops",
+    title: "DevOps & Observability",
+    category: "Cloud & DevOps",
     icon: Cloud,
-    color: "from-sky-500 to-blue-400",
-    shadow: "shadow-sky-500/20",
+    tagline: "Containerization, telemetry metrics & cloud deployment",
     skills: [
-      { name: "AWS (EC2, S3, IAM, Lambda)", level: 45 },
-      { name: "Docker", level: 50 },
-      { name: "Kubernetes Basics", level: 30 },
-      { name: "CI/CD & GitHub Actions", level: 50 },
-      { name: "OpenTelemetry", level: 80 },
-      { name: "Prometheus", level: 75 },
-      { name: "Jaeger (Distributed Tracing)", level: 75 },
-      { name: "Render / Vercel", level: 85 },
-      { name: "Firebase", level: 70 },
-      { name: "Cloudinary", level: 85 }
+      { name: "Docker & Containerization", level: "Advanced", highlight: true },
+      { name: "OpenTelemetry Tracing", level: "Advanced", highlight: true },
+      { name: "Prometheus Metrics", level: "Advanced", highlight: true },
+      { name: "Jaeger Distributed Tracing", level: "Advanced", highlight: true },
+      { name: "CI/CD & GitHub Actions", level: "Advanced", highlight: false },
+      { name: "AWS (EC2, S3, IAM)", level: "Proficient", highlight: false },
+      { name: "Render & Vercel Deployments", level: "Production", highlight: false },
+      { name: "Cloudinary Media Pipelines", level: "Production", highlight: false }
     ]
   },
   {
-    id: "tools",
-    title: "Tools & Pro",
-    icon: Wrench,
-    color: "from-slate-500 to-gray-400",
-    shadow: "shadow-gray-500/20",
+    id: "cs-tools",
+    title: "CS Core & Developer Tools",
+    category: "CS & Tools",
+    icon: Terminal,
+    tagline: "Engineering fundamentals, toolchains & developer workflows",
     skills: [
-      { name: "Git & GitHub", level: 90 },
-      { name: "Postman", level: 95 },
-      { name: "Linux / Bash", level: 75 },
-      { name: "Cursor / Copilot", level: 95 },
-      { name: "Windsurf", level: 85 },
-      { name: "VS Code Extension API", level: 80 },
-      { name: "Technical Docs", level: 85 },
-      { name: "Problem-solving", level: 90 }
+      { name: "Data Structures & Algorithms", level: "Advanced", highlight: true },
+      { name: "System Design Principles", level: "Advanced", highlight: true },
+      { name: "Object-Oriented Programming (OOP)", level: "Production", highlight: false },
+      { name: "Operating Systems & Concurrency", level: "Advanced", highlight: false },
+      { name: "Computer Networks & Protocols", level: "Advanced", highlight: false },
+      { name: "Git & GitHub Version Control", level: "Production", highlight: false },
+      { name: "Linux / Bash Shell", level: "Advanced", highlight: false },
+      { name: "Postman API Testing", level: "Production", highlight: false },
+      { name: "VS Code Extension API", level: "Advanced", highlight: true }
     ]
   }
 ];
 
-const getProficiencyText = (level) => {
-  if (level < 50) return "Beginner";
-  if (level < 80) return "Intermediate";
-  return "Advanced";
-};
-
-// Spotlight wrapper with progress bar
-const SpotlightCard = ({ skill, isDarkMode, colorClass }) => {
+// Spotlight interactive card component matching portfolio theme
+const DomainCard = ({ domain, isDarkMode, searchQuery }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -177,67 +144,105 @@ const SpotlightCard = ({ skill, isDarkMode, colorClass }) => {
     mouseY.set(clientY - top);
   }
 
-  const profText = getProficiencyText(skill.level);
+  const IconComponent = domain.icon;
 
   return (
     <motion.div
       onMouseMove={handleMouseMove}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className={`group relative overflow-hidden rounded-2xl border ${
-        isDarkMode 
-          ? "border-gray-700 bg-gray-800/40" 
-          : "border-amber-200 bg-white/60"
-      } p-5 shadow-lg backdrop-blur-sm w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]`}
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: -5 }}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border transition-all duration-300 backdrop-blur-xl ${
+        isDarkMode
+          ? "bg-gray-800/40 border-gray-700/80 hover:border-amber-500/40 hover:shadow-2xl hover:shadow-black/50"
+          : "bg-white/70 border-amber-100 hover:border-amber-300 hover:shadow-xl hover:shadow-amber-500/10"
+      } p-6 md:p-8`}
     >
+      {/* Subtle radial spotlight glow on hover */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
-              250px circle at ${mouseX}px ${mouseY}px,
-              ${isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(245,158,11,0.1)'},
+              320px circle at ${mouseX}px ${mouseY}px,
+              ${isDarkMode ? "rgba(245, 158, 11, 0.15)" : "rgba(245, 158, 11, 0.12)"},
               transparent 80%
             )
-          `,
+          `
         }}
       />
-      
-      <div className="relative z-10 flex flex-col h-full justify-between">
-        <div className="flex justify-between items-start mb-4">
-          <span className={`font-bold text-lg leading-tight ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
-            {skill.name}
-          </span>
-          <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md ${
-            profText === 'Beginner' ? (isDarkMode ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-100 text-blue-700') :
-            profText === 'Intermediate' ? (isDarkMode ? 'bg-amber-500/20 text-amber-400' : 'bg-amber-100 text-amber-700') :
-            (isDarkMode ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700')
-          }`}>
-            {profText}
-          </span>
+
+      <div className="relative z-10">
+        {/* Card Header */}
+        <div className="flex items-start justify-between gap-4 mb-5">
+          <div className="flex items-center gap-3.5">
+            <div
+              className={`p-3 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${
+                isDarkMode
+                  ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.15)]"
+                  : "bg-amber-50 text-amber-600 border border-amber-200/80 shadow-sm"
+              }`}
+            >
+              <IconComponent className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                {domain.title}
+              </h3>
+              <p className={`text-xs mt-0.5 ${isDarkMode ? "text-amber-400/80" : "text-amber-600"}`}>
+                {domain.skills.length} core technologies
+              </p>
+            </div>
+          </div>
         </div>
-        
-        <div className="w-full">
-          <div className="flex justify-between items-end mb-1">
-            <span className={`text-xs font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Proficiency
-            </span>
-            <span className={`text-xs font-bold bg-clip-text text-transparent bg-gradient-to-r ${colorClass}`}>
-              {skill.level}%
-            </span>
-          </div>
-          
-          <div className={`h-1.5 w-full rounded-full overflow-hidden ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}`}>
-            <motion.div 
-              initial={{ width: 0 }}
-              animate={{ width: `${skill.level}%` }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
-              className={`h-full rounded-full bg-gradient-to-r ${colorClass}`}
-            />
-          </div>
+
+        {/* Tagline / Architectural Description */}
+        <p className={`text-sm mb-6 leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+          {domain.tagline}
+        </p>
+
+        {/* Skills Pills Grid */}
+        <div className="flex flex-wrap gap-2">
+          {domain.skills.map((skill) => {
+            const isMatch =
+              searchQuery &&
+              skill.name.toLowerCase().includes(searchQuery.toLowerCase());
+
+            return (
+              <motion.div
+                key={skill.name}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.98 }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 border ${
+                  isMatch
+                    ? "bg-amber-500 text-gray-950 font-bold border-amber-400 shadow-md"
+                    : skill.highlight
+                    ? isDarkMode
+                      ? "bg-amber-500/10 text-amber-300 border-amber-500/30 hover:bg-amber-500/20"
+                      : "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"
+                    : isDarkMode
+                    ? "bg-gray-800/80 text-gray-300 border-gray-700 hover:bg-gray-700/80 hover:text-white"
+                    : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                }`}
+              >
+                {skill.highlight && (
+                  <Sparkles className={`w-3 h-3 shrink-0 ${isMatch ? "text-gray-900" : "text-amber-400"}`} />
+                )}
+                <span>{skill.name}</span>
+                {skill.level === "Production" && (
+                  <span
+                    className={`ml-1 text-[9px] px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider ${
+                      isDarkMode ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-100 text-emerald-700"
+                    }`}
+                  >
+                    PROD
+                  </span>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
@@ -246,143 +251,301 @@ const SpotlightCard = ({ skill, isDarkMode, colorClass }) => {
 
 const Skills = () => {
   const { isDarkMode } = useTheme();
-  const [activeCategory, setActiveCategory] = useState(skillCategories[0]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const categories = [
+    "All",
+    "Full-Stack",
+    "Backend & Systems",
+    "AI & LLM Pipelines",
+    "Databases",
+    "Cloud & DevOps",
+    "CS & Tools"
+  ];
+
+  // Filter skills domains based on category and search query
+  const filteredDomains = useMemo(() => {
+    return skillDomains
+      .filter((domain) => {
+        if (selectedCategory === "All") return true;
+        return domain.category === selectedCategory;
+      })
+      .filter((domain) => {
+        if (!searchQuery.trim()) return true;
+        const query = searchQuery.toLowerCase();
+        const matchesDomain =
+          domain.title.toLowerCase().includes(query) ||
+          domain.tagline.toLowerCase().includes(query);
+        const matchesSkills = domain.skills.some((s) =>
+          s.name.toLowerCase().includes(query)
+        );
+        return matchesDomain || matchesSkills;
+      });
+  }, [selectedCategory, searchQuery]);
 
   return (
-    <div className={`min-h-screen relative overflow-hidden pt-32 pb-16 px-6 ${
-      isDarkMode ? "bg-gray-900 text-white" : "bg-gradient-to-br from-amber-50 to-white text-gray-800"
-    }`}>
-      
-      {/* Background Particles */}
+    <div
+      className={`min-h-screen relative overflow-hidden py-24 px-6 transition-colors duration-500 ${
+        isDarkMode
+          ? "bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white"
+          : "bg-gradient-to-br from-amber-50/70 via-white to-amber-50/50 text-gray-800"
+      }`}
+    >
+      {/* Abstract background ambient particles & glows */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <BackgroundParticles />
-        <div className={`absolute blur -top-32 -right-32 w-96 h-96 rounded-full ${isDarkMode ? "bg-amber-900/10" : "bg-amber-200/30"}`}></div>
-        <div className={`absolute blur top-1/2 -left-32 w-80 h-80 rounded-full ${isDarkMode ? "bg-blue-900/10" : "bg-blue-100/40"}`}></div>
+        <BackgroundParticles count={20} />
+        <div
+          className={`absolute blur -top-32 -right-32 w-96 h-96 rounded-full ${
+            isDarkMode ? "bg-amber-900/10" : "bg-amber-200/30"
+          }`}
+        />
+        <div
+          className={`absolute blur top-1/3 -left-20 w-80 h-80 rounded-full ${
+            isDarkMode ? "bg-amber-800/10" : "bg-amber-100/50"
+          }`}
+        />
+        <div
+          className={`absolute blur bottom-1/4 right-1/4 w-72 h-72 rounded-full ${
+            isDarkMode ? "bg-amber-700/10" : "bg-amber-300/20"
+          }`}
+        />
       </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10 flex flex-col lg:flex-row gap-12">
-        
-        {/* Left Column: Title & Category Selector */}
-        <div className="w-full lg:w-1/3 flex flex-col shrink-0">
+      <div className="container mx-auto max-w-6xl relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-14"
+        >
+          {/* Header Icon Circle */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-10"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+            className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${
+              isDarkMode ? "bg-gray-800 border border-gray-700" : "bg-white shadow-md border border-amber-100"
+            }`}
           >
-            <h1 className={`text-5xl md:text-6xl font-extrabold mb-4 tracking-tight`}>
-              My <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isDarkMode ? "from-amber-400 to-amber-600" : "from-amber-500 to-orange-600"}`}>Arsenal</span>
-            </h1>
-            <p className={`text-lg ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-              The tools, frameworks, and languages I use to build scalable, high-performance systems.
-            </p>
+            <Cpu className={`h-8 w-8 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
           </motion.div>
 
-          <div className="flex flex-col gap-3">
-            {skillCategories.map((cat, idx) => {
-              const isActive = activeCategory.id === cat.id;
-              return (
-                <motion.button
-                  key={cat.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`relative flex items-center justify-between w-full px-5 py-4 rounded-2xl transition-all duration-300 overflow-hidden ${
-                    isActive 
-                      ? isDarkMode 
-                        ? "bg-gray-800/80 border-gray-600 shadow-xl" 
-                        : "bg-white border-amber-200 shadow-[0_10px_30px_rgba(245,158,11,0.15)]"
-                      : isDarkMode
-                        ? "hover:bg-gray-800/40 border-transparent text-gray-400 hover:text-white"
-                        : "hover:bg-white/50 border-transparent text-gray-500 hover:text-gray-900"
-                  } border backdrop-blur-sm group`}
-                >
-                  {/* Active Background Glow */}
-                  {isActive && (
-                    <motion.div 
-                      layoutId="activeCategoryBg"
-                      className={`absolute inset-0 opacity-10 bg-gradient-to-r ${cat.color}`}
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
+          <h1 className={`text-4xl md:text-5xl font-bold tracking-tight ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            Technical <span className={isDarkMode ? "text-amber-400" : "text-amber-500"}>Arsenal</span>
+          </h1>
 
-                  <div className="flex items-center gap-4 relative z-10">
-                    <div className={`p-2.5 rounded-xl transition-colors duration-300 ${
-                      isActive 
-                        ? `bg-gradient-to-br ${cat.color} text-white ${cat.shadow}` 
-                        : isDarkMode ? "bg-gray-700/50" : "bg-amber-50"
-                    }`}>
-                      <cat.icon className="w-5 h-5" />
-                    </div>
-                    <span className={`text-lg font-bold ${isActive ? (isDarkMode ? "text-white" : "text-gray-900") : ""}`}>
-                      {cat.title}
-                    </span>
-                  </div>
-                  
-                  <motion.div
-                    animate={{ x: isActive ? 0 : -5, opacity: isActive ? 1 : 0 }}
-                    className="relative z-10"
-                  >
-                    <ChevronRight className={`w-5 h-5 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
-                  </motion.div>
-                </motion.button>
-              )
-            })}
-          </div>
-        </div>
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "80px" }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className={`h-1 mx-auto mt-4 mb-3 rounded-full ${isDarkMode ? "bg-amber-400" : "bg-amber-500"}`}
+          />
 
-        {/* Right Column: Skill Display Area */}
-        <div className="w-full lg:w-2/3 flex flex-col min-h-[600px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory.id}
-              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
-              transition={{ duration: 0.4, type: "spring", bounce: 0 }}
-              className={`relative p-6 md:p-10 rounded-3xl border backdrop-blur-xl shadow-2xl h-full flex flex-col ${
-                isDarkMode 
-                  ? "bg-gray-800/50 border-gray-700" 
-                  : "bg-white/70 border-amber-100"
+          {/* Badge Tag */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="mb-6"
+          >
+            <span
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm tracking-wide shadow-lg ${
+                isDarkMode
+                  ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                  : "bg-amber-50 text-amber-600 border border-amber-200"
               }`}
             >
-              {/* Massive background icon for flair */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none">
-                <activeCategory.icon className="w-[30rem] h-[30rem]" />
-              </div>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+              </span>
+              Full-Stack • Distributed Systems • Local LLM Pipelines
+            </span>
+          </motion.div>
 
-              <div className="relative z-10 flex-grow">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className={`p-4 rounded-2xl bg-gradient-to-br ${activeCategory.color} ${activeCategory.shadow} text-white`}>
-                    <activeCategory.icon className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h2 className="text-3xl font-extrabold">{activeCategory.title}</h2>
-                    <p className={`mt-1 ${isDarkMode ? "text-gray-400" : "text-amber-600/80"}`}>
-                      {activeCategory.skills.length} technical proficiencies
-                    </p>
-                  </div>
-                </div>
+          <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+            A comprehensive matrix of production languages, cloud architectures, AI models, and real-time infrastructure I engineer with.
+          </p>
+        </motion.div>
 
-                <div className="flex flex-wrap gap-4">
-                  <AnimatePresence>
-                    {activeCategory.skills.map((skill, index) => (
-                      <SpotlightCard 
-                        key={`${activeCategory.id}-${skill.name}`}
-                        skill={skill}
-                        isDarkMode={isDarkMode}
-                        colorClass={activeCategory.color}
-                      />
-                    ))}
-                  </AnimatePresence>
+        {/* Featured Production Stack Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className={`mb-12 p-6 md:p-8 rounded-3xl border backdrop-blur-xl transition-all ${
+            isDarkMode
+              ? "bg-gray-800/30 border-gray-700 shadow-2xl"
+              : "bg-white/60 border-amber-100 shadow-xl"
+          }`}
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-3">
+              <div className={`p-2.5 rounded-xl ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
+                <Zap className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className={`text-lg font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                  Primary Production Stack
+                </h2>
+                <p className={`text-xs ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                  Battle-tested architectural pillars across live production deployments
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${
+                isDarkMode ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-emerald-50 text-emerald-700 border-emerald-200"
+              }`}>
+                ⚡ End-to-End Ready
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            {[
+              { title: "MERN Stack", subtitle: "React 19 & Node.js" },
+              { title: "Real-Time Engine", subtitle: "Socket.io & Redis" },
+              { title: "Local AI & RAG", subtitle: "Ollama & LangGraph" },
+              { title: "Microservices", subtitle: "Redis Streams & Queues" },
+              { title: "Observability", subtitle: "OpenTelemetry & Jaeger" },
+              { title: "Containerization", subtitle: "Docker & Cloud Deploy" }
+            ].map((pillar) => (
+              <div
+                key={pillar.title}
+                className={`p-4 rounded-2xl text-center border transition-transform hover:scale-105 duration-300 ${
+                  isDarkMode
+                    ? "bg-gray-900/60 border-gray-700/60 hover:border-amber-500/30"
+                    : "bg-white/80 border-amber-100 hover:border-amber-300 shadow-sm"
+                }`}
+              >
+                <div className={`text-sm font-bold mb-1 ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
+                  {pillar.title}
+                </div>
+                <div className={`text-[11px] ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                  {pillar.subtitle}
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Search Bar & Category Filter Bar */}
+        <div className="mb-10 space-y-6">
+          {/* Search Input */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="relative max-w-xl mx-auto"
+          >
+            <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search technologies... (e.g., Redis, Ollama, Docker, React, Socket.io)"
+              className={`w-full pl-12 pr-10 py-3.5 rounded-2xl text-sm font-medium transition-all outline-none border ${
+                isDarkMode
+                  ? "bg-gray-800/60 border-gray-700 focus:border-amber-400 text-white placeholder-gray-500 focus:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
+                  : "bg-white/80 border-amber-200 focus:border-amber-500 text-gray-800 placeholder-gray-400 focus:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
+              }`}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold px-2 py-1 rounded-md ${
+                  isDarkMode ? "bg-gray-700 text-gray-300 hover:text-white" : "bg-gray-200 text-gray-600 hover:text-black"
+                }`}
+              >
+                Clear
+              </button>
+            )}
+          </motion.div>
+
+          {/* Category Filter Pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap justify-center gap-2 md:gap-3"
+          >
+            {categories.map((cat) => {
+              const isSelected = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                    isSelected
+                      ? isDarkMode
+                        ? "bg-amber-500 text-gray-900 shadow-lg shadow-amber-500/20 font-bold"
+                        : "bg-amber-500 text-white shadow-lg shadow-amber-500/25 font-bold"
+                      : isDarkMode
+                      ? "bg-gray-800/60 text-gray-400 hover:text-white hover:bg-gray-700/60 border border-gray-700/60"
+                      : "bg-white/70 text-gray-600 hover:text-gray-900 hover:bg-white border border-amber-100/80 shadow-sm"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </motion.div>
         </div>
 
+        {/* Skills Grid */}
+        <AnimatePresence mode="wait">
+          {filteredDomains.length > 0 ? (
+            <motion.div
+              key={`${selectedCategory}-${searchQuery}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {filteredDomains.map((domain) => (
+                <DomainCard
+                  key={domain.id}
+                  domain={domain}
+                  isDarkMode={isDarkMode}
+                  searchQuery={searchQuery}
+                />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className={`p-12 text-center rounded-3xl border ${
+                isDarkMode ? "bg-gray-800/30 border-gray-700" : "bg-white/60 border-amber-100"
+              }`}
+            >
+              <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center ${isDarkMode ? "bg-gray-700 text-gray-400" : "bg-amber-50 text-amber-500"}`}>
+                <Search className="w-7 h-7" />
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                No matching technologies found
+              </h3>
+              <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                Try adjusting your search query "{searchQuery}" or switch categories.
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("All");
+                }}
+                className={`mt-6 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${
+                  isDarkMode ? "bg-amber-400 text-gray-900 hover:bg-amber-300" : "bg-amber-500 text-white hover:bg-amber-600"
+                }`}
+              >
+                Reset Filters
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

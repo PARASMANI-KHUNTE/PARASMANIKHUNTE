@@ -733,6 +733,13 @@ const Home = () => {
                   },
                   {
                     date: "2026",
+                    title: "Whiteboard.io - Collaborative AI Canvas",
+                    organization: "Multi-User Real-Time Whiteboard with AI Interaction",
+                    description: "Built real-time collaborative workspace with live WebSocket synchronization, multi-user sketch/drawing canvas, and integrated AI assistant.",
+                    icon: "🎨"
+                  },
+                  {
+                    date: "2026",
                     title: "Zuvo - Distributed Microservices Platform",
                     organization: "8-Service Architecture with Distributed Tracing",
                     description: "Built 8-service microservices ecosystem with Redis Streams, OpenTelemetry, Prometheus, Jaeger UI. Circuit breakers, exponential backoff, GDPR-compliant audit logging.",

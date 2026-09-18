@@ -10,6 +10,17 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 
 
 export const projects = [
+  // 🎨 Whiteboard.io - NEW
+  {
+    title: "Whiteboard.io - Collaborative Whiteboard with AI Interactions",
+    description: "Real-time collaborative whiteboard enabling multi-user live sketching, diagramming, and brainstorming with AI-powered interactions. Features instant WebSocket canvas synchronization, interactive drawing tools, and integrated AI assistant for smart diagramming and visual ideation.",
+    tech: "React, Node.js, Express, Socket.io, HTML5 Canvas, Generative AI, Tailwind CSS",
+    link: "https://whiteboard-io-1.onrender.com",
+    github: "https://github.com/PARASMANI-KHUNTE/Whiteboard.io",
+    year: "2026",
+    isLatest: true,
+    categories: ["Full Stack", "AI & Machine Learning"]
+  },
   // 🥇 MyCircle
   {
     title: "MyCircle - Hyperlocal Exchange Platform",
@@ -18,7 +29,6 @@ export const projects = [
     link: "https://mycircle-9gm5.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
     year: "2025-2026",
-    isLatest: true,
     categories: ["Mobile Apps", "Full Stack"]
   },
   // ⚡ Zuvo - NEW
@@ -79,7 +89,6 @@ export const projects = [
     link: "https://campuscompare-app.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/CampusCompare",
     year: "2026",
-    isLatest: true,
     categories: ["Full Stack"]
   },
   // 🥈 Modern Developer Portfolio
@@ -90,7 +99,6 @@ export const projects = [
     link: "https://parasmanikhunte.onrender.com/",
     github: "https://github.com/PARASMANI-KHUNTE/PARASMANIKHUNTE",
     year: "2025",
-    isLatest: true,
     categories: ["UI/UX & Portfolio"]
   },
   // 🥉 Admin Dashboard

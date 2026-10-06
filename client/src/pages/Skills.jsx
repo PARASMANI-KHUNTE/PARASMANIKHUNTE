@@ -19,116 +19,107 @@ import {
   Workflow
 } from "lucide-react";
 
-// Curated skill domains aligned with Full-Stack and AI Engineering
+// Curated skill domains aligned with Resume Technical Skills
 const skillDomains = [
   {
-    id: "fullstack",
-    title: "Full-Stack & Frontend",
-    category: "Full-Stack",
+    id: "languages",
+    title: "Programming Languages",
+    category: "Languages",
     icon: Code2,
-    tagline: "High-performance reactive interfaces & cross-platform apps",
+    tagline: "Core algorithmic foundations & multi-paradigm software development",
     skills: [
-      { name: "React 19", level: "Production", highlight: true },
-      { name: "Next.js", level: "Advanced", highlight: true },
-      { name: "React Native", level: "Advanced", highlight: true },
-      { name: "TypeScript", level: "Advanced", highlight: true },
-      { name: "JavaScript (ES6+)", level: "Production", highlight: true },
-      { name: "Tailwind CSS", level: "Production", highlight: false },
-      { name: "Redux Toolkit / Zustand", level: "Advanced", highlight: false },
-      { name: "Framer Motion", level: "Advanced", highlight: false },
-      { name: "Vite", level: "Production", highlight: false },
-      { name: "Responsive UI/UX", level: "Production", highlight: false }
+      { name: "JavaScript", level: "Production", highlight: true },
+      { name: "TypeScript", level: "Production", highlight: true },
+      { name: "Python", level: "Advanced", highlight: true },
+      { name: "SQL", level: "Advanced", highlight: true },
+      { name: "Java", level: "Proficient", highlight: false },
+      { name: "C", level: "Proficient", highlight: false }
     ]
   },
   {
     id: "backend",
-    title: "Backend & Distributed Systems",
-    category: "Backend & Systems",
+    title: "Backend Engineering",
+    category: "Backend",
     icon: Server,
-    tagline: "Event-driven microservices, real-time protocols & APIs",
+    tagline: "Scalable REST APIs, event-driven services, microservices & authentication",
     skills: [
       { name: "Node.js", level: "Production", highlight: true },
       { name: "Express.js", level: "Production", highlight: true },
+      { name: "REST APIs", level: "Production", highlight: true },
       { name: "WebSockets / Socket.io", level: "Production", highlight: true },
-      { name: "Redis Streams & Pub/Sub", level: "Advanced", highlight: true },
-      { name: "BullMQ (Job Queues)", level: "Advanced", highlight: true },
+      { name: "JWT Authentication", level: "Production", highlight: true },
+      { name: "Google OAuth", level: "Production", highlight: true },
       { name: "Microservices Architecture", level: "Advanced", highlight: true },
-      { name: "RESTful API Design", level: "Production", highlight: false },
-      { name: "JWT & OAuth 2.0", level: "Production", highlight: false },
-      { name: "Rate Limiting & Security", level: "Advanced", highlight: false },
-      { name: "Circuit Breakers & Resiliency", level: "Advanced", highlight: false },
-      { name: "Zod Schema Validation", level: "Production", highlight: false }
+      { name: "Rate Limiting & Security", level: "Advanced", highlight: false }
+    ]
+  },
+  {
+    id: "frontend-mobile",
+    title: "Frontend & Mobile",
+    category: "Frontend & Mobile",
+    icon: Layers,
+    tagline: "Reactive component ecosystems, mobile apps & performance-tuned styling",
+    skills: [
+      { name: "React", level: "Production", highlight: true },
+      { name: "Next.js", level: "Advanced", highlight: true },
+      { name: "React Native", level: "Advanced", highlight: true },
+      { name: "Tailwind CSS", level: "Production", highlight: true },
+      { name: "Redux", level: "Advanced", highlight: true },
+      { name: "Vite", level: "Production", highlight: true }
+    ]
+  },
+  {
+    id: "databases-queues",
+    title: "Databases & Queues",
+    category: "Databases & Queues",
+    icon: Database,
+    tagline: "High-throughput persistence, in-memory caching & distributed event streams",
+    skills: [
+      { name: "MongoDB", level: "Production", highlight: true },
+      { name: "PostgreSQL", level: "Advanced", highlight: true },
+      { name: "Redis", level: "Production", highlight: true },
+      { name: "Redis Streams", level: "Advanced", highlight: true },
+      { name: "BullMQ", level: "Advanced", highlight: true },
+      { name: "Geospatial Queries", level: "Advanced", highlight: false }
     ]
   },
   {
     id: "ai-llm",
-    title: "AI, Local LLMs & RAG",
-    category: "AI & LLM Pipelines",
+    title: "AI / LLM Engineering",
+    category: "AI / LLM",
     icon: BrainCircuit,
-    tagline: "Autonomous AI agents, vector embeddings & local inference",
+    tagline: "Retrieval-augmented generation, vector similarity & local model inference",
     skills: [
-      { name: "Local LLMs (Ollama)", level: "Advanced", highlight: true },
-      { name: "LangGraph Multi-Agent Workflows", level: "Advanced", highlight: true },
-      { name: "RAG Retrieval Pipelines", level: "Advanced", highlight: true },
-      { name: "Vector Databases (FAISS, Qdrant)", level: "Advanced", highlight: true },
-      { name: "Groq AI High-Speed APIs", level: "Production", highlight: true },
-      { name: "Multi-Modal Vision (LLaVA)", level: "Proficient", highlight: false },
-      { name: "STT / TTS Voice Systems", level: "Proficient", highlight: false },
-      { name: "Prompt Engineering & AST Parsing", level: "Advanced", highlight: false },
-      { name: "Context Window Optimization", level: "Advanced", highlight: false },
-      { name: "Python AI Scripting", level: "Advanced", highlight: false }
+      { name: "RAG Pipelines", level: "Advanced", highlight: true },
+      { name: "Vector Search", level: "Advanced", highlight: true },
+      { name: "Qdrant", level: "Advanced", highlight: true },
+      { name: "FAISS", level: "Advanced", highlight: true },
+      { name: "Ollama", level: "Advanced", highlight: true },
+      { name: "Groq API", level: "Production", highlight: true },
+      { name: "Prompt Engineering", level: "Advanced", highlight: true },
+      { name: "LLaVA (Vision)", level: "Proficient", highlight: false },
+      { name: "Whisper (STT)", level: "Proficient", highlight: false },
+      { name: "Qwen-TTS", level: "Proficient", highlight: false }
     ]
   },
   {
-    id: "databases",
-    title: "Databases & Data Engineering",
-    category: "Databases",
-    icon: Database,
-    tagline: "Optimized transactional, relational & cache stores",
-    skills: [
-      { name: "MongoDB", level: "Production", highlight: true },
-      { name: "PostgreSQL", level: "Advanced", highlight: true },
-      { name: "Redis (Caching & In-Memory)", level: "Production", highlight: true },
-      { name: "MySQL", level: "Advanced", highlight: false },
-      { name: "Schema Design & Indexing", level: "Production", highlight: false },
-      { name: "Geospatial Queries (GeoJSON)", level: "Advanced", highlight: true },
-      { name: "Aggregation Pipelines", level: "Production", highlight: false },
-      { name: "Prisma ORM", level: "Advanced", highlight: false }
-    ]
-  },
-  {
-    id: "cloud-devops",
-    title: "DevOps & Observability",
-    category: "Cloud & DevOps",
+    id: "devops-tools",
+    title: "DevOps & Tools",
+    category: "DevOps & Tools",
     icon: Cloud,
-    tagline: "Containerization, telemetry metrics & cloud deployment",
+    tagline: "Containerization, CI/CD pipelines, cloud infrastructure & distributed tracing",
     skills: [
-      { name: "Docker & Containerization", level: "Advanced", highlight: true },
-      { name: "OpenTelemetry Tracing", level: "Advanced", highlight: true },
-      { name: "Prometheus Metrics", level: "Advanced", highlight: true },
-      { name: "Jaeger Distributed Tracing", level: "Advanced", highlight: true },
-      { name: "CI/CD & GitHub Actions", level: "Advanced", highlight: false },
-      { name: "AWS (EC2, S3, IAM)", level: "Proficient", highlight: false },
-      { name: "Render & Vercel Deployments", level: "Production", highlight: false },
-      { name: "Cloudinary Media Pipelines", level: "Production", highlight: false }
-    ]
-  },
-  {
-    id: "cs-tools",
-    title: "CS Core & Developer Tools",
-    category: "CS & Tools",
-    icon: Terminal,
-    tagline: "Engineering fundamentals, toolchains & developer workflows",
-    skills: [
-      { name: "Data Structures & Algorithms", level: "Advanced", highlight: true },
-      { name: "System Design Principles", level: "Advanced", highlight: true },
-      { name: "Object-Oriented Programming (OOP)", level: "Production", highlight: false },
-      { name: "Operating Systems & Concurrency", level: "Advanced", highlight: false },
-      { name: "Computer Networks & Protocols", level: "Advanced", highlight: false },
-      { name: "Git & GitHub Version Control", level: "Production", highlight: false },
-      { name: "Linux / Bash Shell", level: "Advanced", highlight: false },
-      { name: "Postman API Testing", level: "Production", highlight: false },
-      { name: "VS Code Extension API", level: "Advanced", highlight: true }
+      { name: "Docker", level: "Advanced", highlight: true },
+      { name: "GitHub Actions", level: "Advanced", highlight: true },
+      { name: "AWS EC2", level: "Advanced", highlight: true },
+      { name: "AWS S3", level: "Advanced", highlight: true },
+      { name: "OpenTelemetry", level: "Advanced", highlight: true },
+      { name: "Vercel", level: "Production", highlight: true },
+      { name: "Render", level: "Production", highlight: true },
+      { name: "Cloudinary", level: "Production", highlight: true },
+      { name: "Git", level: "Production", highlight: true },
+      { name: "Postman", level: "Production", highlight: true },
+      { name: "Linux", level: "Advanced", highlight: true }
     ]
   }
 ];
@@ -256,12 +247,12 @@ const Skills = () => {
 
   const categories = [
     "All",
-    "Full-Stack",
-    "Backend & Systems",
-    "AI & LLM Pipelines",
-    "Databases",
-    "Cloud & DevOps",
-    "CS & Tools"
+    "Languages",
+    "Backend",
+    "Frontend & Mobile",
+    "Databases & Queues",
+    "AI / LLM",
+    "DevOps & Tools"
   ];
 
   // Filter skills domains based on category and search query

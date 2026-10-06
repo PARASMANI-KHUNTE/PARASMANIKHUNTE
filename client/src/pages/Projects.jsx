@@ -10,7 +10,48 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 
 
 export const projects = [
-  // 🎨 Whiteboard.io - NEW
+  // ⚡ Zuvo - RESUME SELECTED PROJECT
+  {
+    title: "Zuvo - Distributed Microservices Platform",
+    description: "Engineered an 8-service microservices architecture spanning API Gateway, Auth, Blog, Media, Interactions, Real-time, Worker, and Feed & Search services. Implemented Redis Streams for asynchronous inter-service communication and event-driven processing. Added OpenTelemetry distributed tracing with Jaeger to trace requests across multiple backend services. Implemented circuit breakers, dead-letter queues, background workers, and audit logging for failure handling and operational visibility.",
+    tech: "Node.js, TypeScript, Redis Streams, MongoDB, OpenTelemetry, Docker",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/Zuvo",
+    year: "2026",
+    isLatest: true,
+    categories: ["Backend", "Full Stack"]
+  },
+  // 🥇 MyCircle - RESUME SELECTED PROJECT
+  {
+    title: "MyCircle - Hyperlocal Exchange Platform",
+    description: "Built a full-stack hyperlocal platform for discovering and interacting with nearby people and local services through 500m, 1km, and 2km search radii. Developed real-time chat and interaction features using Node.js, Socket.io, and MongoDB. Built web and React Native clients from a shared full-stack codebase and integrated Google OAuth for authentication. Integrated Groq AI for content moderation and used Redis + BullMQ for caching and asynchronous notification processing.",
+    tech: "React 19, React Native, Node.js, MongoDB, Socket.io, Redis, BullMQ, Groq AI",
+    link: "https://mycircle-9gm5.onrender.com",
+    github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
+    year: "2025-2026",
+    categories: ["Mobile Apps", "Full Stack"]
+  },
+  // 🤖 Gravitor - RESUME SELECTED PROJECT
+  {
+    title: "Gravitor - Privacy-First Local AI Coding IDE",
+    description: "Built a VS Code extension providing AI-powered ghost-text code completion using locally hosted Ollama models. Implemented local code-context retrieval using AST-based parsing and vector similarity search over the user's codebase. Designed the system around local inference so source code can remain on the user's machine instead of being sent to a remote AI provider.",
+    tech: "VS Code Extension API, TypeScript, Node.js, Ollama, Vector Search",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/Gravitor",
+    year: "2026",
+    categories: ["AI & Machine Learning"]
+  },
+  // ⚡ SYNAPSE - RESUME SELECTED PROJECT
+  {
+    title: "SYNAPSE - Local Multimodal AI Assistant",
+    description: "Built a local multimodal AI assistant using Qwen2.5 7B, DeepSeek-Coder, and Llama 3.2 3B with model routing based on task requirements. Implemented RAG with FAISS and out-of-distribution rejection to improve retrieval reliability. Integrated LLaVA for image understanding, Whisper for speech recognition, and Qwen-TTS for voice responses. Added web-search triggering and different response/emotion modes to support multi-modal assistant workflows.",
+    tech: "Python, Ollama, FAISS, RAG, LLaVA, Whisper, Qwen-TTS",
+    link: "",
+    github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
+    year: "2026",
+    categories: ["AI & Machine Learning"]
+  },
+  // 🎨 Whiteboard.io
   {
     title: "Whiteboard.io - Collaborative Whiteboard with AI Interactions",
     description: "Real-time collaborative whiteboard enabling multi-user live sketching, diagramming, and brainstorming with AI-powered interactions. Features instant WebSocket canvas synchronization, interactive drawing tools, and integrated AI assistant for smart diagramming and visual ideation.",
@@ -18,48 +59,7 @@ export const projects = [
     link: "https://whiteboard-io-1.onrender.com",
     github: "https://github.com/PARASMANI-KHUNTE/Whiteboard.io",
     year: "2026",
-    isLatest: true,
     categories: ["Full Stack", "AI & Machine Learning"]
-  },
-  // 🥇 MyCircle
-  {
-    title: "MyCircle - Hyperlocal Exchange Platform",
-    description: "Web + mobile + backend monorepo for local jobs, services, and goods exchange. Features real-time chat, geospatial discovery, trust scoring, contact-request workflow, Groq AI content moderation, Redis caching + BullMQ queues for push notifications and post lifecycle. JWT/Google OAuth, Cloudinary media uploads.",
-    tech: "React 19, React Native, Node.js, MongoDB, Socket.io, Redis, BullMQ, Groq AI",
-    link: "https://mycircle-9gm5.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
-    year: "2025-2026",
-    categories: ["Mobile Apps", "Full Stack"]
-  },
-  // ⚡ Zuvo - NEW
-  {
-    title: "Zuvo - Distributed Microservices Platform",
-    description: "8-service architecture (API Gateway, Auth, Blog, Media, Interactions, Real-time, Worker, Feed & Search) communicating via Redis Streams. Full OpenTelemetry distributed tracing with Prometheus metrics and Jaeger UI. Circuit breakers, exponential backoff, dead-letter queues, GDPR-compliant audit logging.",
-    tech: "Node.js, TypeScript, Redis Streams, MongoDB, OpenTelemetry, Prometheus, Jaeger, Docker",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Zuvo",
-    year: "2026",
-    categories: ["Full Stack", "Backend"]
-  },
-  // 🤖 Gravitor - NEW
-  {
-    title: "Gravitor - Privacy-First Local AI Coding IDE",
-    description: "VS Code extension with ghost-text code completions powered entirely by local Ollama LLMs — zero data exfiltration by design. Context-aware intelligence via heuristic AST parsing + cosine similarity search over local codebase embeddings. Sandboxed CLI execution.",
-    tech: "VS Code Extension API, TypeScript, Node.js, Ollama, Vector Search, AST Parsing",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Gravitor",
-    year: "2026",
-    categories: ["AI & Machine Learning"]
-  },
-  // ⚡ SYNAPSE
-  {
-    title: "SYNAPSE - Neural Interface AI System",
-    description: "Engineered a multi-model AI system with local LLM routing, RAG retrieval, vector search, context-aware response control, real-time streaming, multimodal features, and sandboxed code execution.",
-    tech: "MERN, LLMs, RAG, FAISS, WebSockets, Ollama, LangGraph",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
-    year: "2026",
-    categories: ["AI & Machine Learning"]
   },
   // 📍 NearMe
   {

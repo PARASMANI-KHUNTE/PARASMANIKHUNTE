@@ -12,20 +12,21 @@ const ExperienceCard = ({ experience, onPreview }) => {
     if (s.includes("react")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg";
     if (s.includes("node")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg";
     if (s.includes("mongodb")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg";
-    if (s.includes("express")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"; // Note: Express usually needs dark/light handling but Devicon original is ok
+    if (s.includes("express")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg";
     if (s.includes("python")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg";
     if (s.includes("redux")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg";
     if (s.includes("tailwind")) return "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg";
     if (s.includes("javascript") || s === "js") return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg";
     if (s.includes("typescript") || s === "ts") return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg";
+    if (s.includes("docker")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg";
+    if (s.includes("redis")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg";
+    if (s.includes("socket")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg";
+    if (s.includes("postman")) return "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg";
+    if (s.includes("git")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg";
     if (s.includes("html")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg";
     if (s.includes("css")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg";
-    if (s.includes("django")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg";
-    if (s.includes("git")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg";
-    if (s.includes("frappe")) return "https://frappe.io/files/frappe-framework-logo.png"; // Fallback URL for Frappe
-    if (s.includes("machine learning") || s.includes("ai")) return "https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg"; // AI/ML general icon
-    if (s.includes("jinja")) return "https://www.vectorlogo.zone/logos/pocoo_jinja/pocoo_jinja-icon.svg";
-    if (s.includes("google maps") || s.includes("maps")) return "https://www.vectorlogo.zone/logos/google_maps/google_maps-icon.svg";
+    if (s.includes("render")) return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/render/render-original.svg";
+    if (s.includes("vercel")) return "https://www.vectorlogo.zone/logos/vercel/vercel-icon.svg";
     return null;
   };
 
@@ -130,11 +131,22 @@ const ExperienceCard = ({ experience, onPreview }) => {
         )}
       </div>
 
-      {/* Description */}
+      {/* Description / Highlights */}
       <div className="mt-4">
-        <p className={`leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-          {experience.description}
-        </p>
+        {experience.highlights && experience.highlights.length > 0 ? (
+          <ul className="space-y-2 mb-2">
+            {experience.highlights.map((point, pIdx) => (
+              <li key={pIdx} className={`flex items-start gap-2.5 text-sm leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={`leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+            {experience.description}
+          </p>
+        )}
 
         {experience.skills && experience.skills.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -305,7 +317,18 @@ export const ExperienceGroupCard = ({ company, logoUrl, companyUrl, roles, onPre
                   <span className="text-xs text-gray-500">{role.duration}</span>
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">{role.location}</div>
-                <div className="text-sm text-gray-700 dark:text-gray-300 mb-2">{role.description}</div>
+                {role.highlights && role.highlights.length > 0 ? (
+                  <ul className="space-y-1.5 mb-3">
+                    {role.highlights.map((point, pIdx) => (
+                      <li key={pIdx} className="flex items-start gap-2 text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
+                        <span className="mt-1.5 h-1 w-1 rounded-full bg-amber-500 shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="text-sm text-gray-700 dark:text-gray-300 mb-2">{role.description}</div>
+                )}
 
                 {/* Certificate button */}
                 <button

@@ -9,48 +9,62 @@ import BackgroundParticles from "../components/common/BackgroundParticles";
 
 const experienceData = [
   {
-    role: "Full-stack Developer (Freelance)",
-    company: "Akkuraa IT Services",
-    companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
-    logoUrl: "/akkuraItLogo.png",
-    duration: "Jun 2025 - Aug 2025",
-    location: "Bengaluru, Karnataka, India · Remote",
-    description: "Developed full-stack web applications using the MERN stack.",
-    skills: ["MERN Stack"]
-  },
-  {
     role: "Technical Intern",
     company: "Hybrowlabs Technologies",
     companyUrl: "https://hybrowlabs.com/",
-    logoUrl: "/logos/hybrowlabs.png",
-    duration: "Mar 2025 - May 2025",
+    duration: "Mar 2025 – May 2025",
     location: "Remote",
-    description: "Built React applications, integrated REST APIs, and developed a GPS tracking prototype for location-based product functionality.",
-    skills: ["React", "REST APIs", "GPS Tracking"]
+    description: "Delivered 3 client-facing React modules with REST API integration and engineered a live GPS tracking IoT prototype.",
+    highlights: [
+      "Delivered 3 client-facing React modules with REST API integration and contributed to reducing the UI bug backlog by approximately 40%.",
+      "Engineered a GPS tracking prototype that ingested live IoT device feeds and displayed real-time location data through a web dashboard."
+    ],
+    skills: ["React", "REST APIs", "IoT", "GPS Tracking", "JavaScript"]
   },
   {
     role: "Web Developer Intern",
     company: "Akkuraa IT Services",
     companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
     logoUrl: "/akkuraItLogo.png",
-    duration: "Jan 2025 - Apr 2025",
+    duration: "Jan 2025 – Apr 2025",
     location: "Remote",
-    description: "Developed MERN applications, backend APIs, React/React Native interfaces, deployment workflows on Render/Vercel, and reusable frontend components.",
-    skills: ["MERN", "React Native", "Render", "Vercel"],
+    description: "Built and deployed 2 full-stack MERN applications, developed production REST APIs and React Native interfaces, and managed Render/Vercel pipelines.",
+    highlights: [
+      "Built and deployed 2 full-stack MERN applications with Node.js, Express.js, MongoDB, React, and React Native.",
+      "Developed REST APIs and React Native interfaces for production-oriented application workflows and integrated frontend clients with backend services.",
+      "Deployed applications using Render and Vercel, managing environment configuration and release workflows."
+    ],
+    skills: ["Node.js", "Express.js", "MongoDB", "React", "React Native", "Render", "Vercel"],
     certificateUrl: "/IntershipCertificate.pdf"
   },
   {
     role: "SDE Intern",
     company: "Bluestock Fintech",
     companyUrl: "https://bluestock.in/",
-    logoUrl: "/logos/bluestock.png",
-    duration: "Nov 2024 - Dec 2024",
+    duration: "Nov 2024 – Dec 2024",
     location: "Remote",
-    description: "Built secure REST APIs, debugged authentication/authorization flows, and improved backend reliability for fintech application workflows.",
-    skills: ["REST APIs", "Authentication", "Backend Reliability"],
+    description: "Developed REST APIs with JWT authentication, implemented Role-Based Access Control (RBAC), and designed automated Postman API test suites.",
+    highlights: [
+      "Developed REST APIs with JWT authentication and Role-Based Access Control (RBAC) for fintech application workflows.",
+      "Implemented authentication middleware and protected API routes based on user roles and authorization requirements.",
+      "Created Postman API collections and testing workflows to validate authentication, authorization, and endpoint behavior."
+    ],
+    skills: ["REST APIs", "JWT", "RBAC", "Postman", "Node.js"],
     certificateUrl: "/bluestock.jpg"
   },
-
+  {
+    role: "Full Stack Intern",
+    company: "Elite Tech",
+    duration: "Oct 2024 – Nov 2024",
+    location: "Remote",
+    description: "Built Photoshare social platform with JWT authentication, Cloudinary media pipeline, and real-time Socket.io interactions.",
+    highlights: [
+      "Built Photoshare, a social platform with JWT authentication and Cloudinary-powered image upload and storage.",
+      "Implemented real-time Socket.io updates for social interactions and application events.",
+      "Developed REST API integration between the React frontend and Node.js backend for authentication, media, and social features."
+    ],
+    skills: ["React", "Node.js", "Socket.io", "JWT", "Cloudinary", "REST APIs"]
+  }
 ];
 
 // Group experiences by company

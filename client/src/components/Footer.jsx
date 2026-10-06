@@ -22,7 +22,7 @@ const Footer = () => {
 
   const socialLinks = [
     { name: "GitHub", icon: Github, href: "https://github.com/PARASMANI-KHUNTE" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/parasmani-khunte-330488228/" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/parasmani-khunte" },
     { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/ll.__.p.a.r.a.s.__.ll/" },
     { name: "Twitter", icon: Twitter, href: "#" },
   ];
@@ -30,6 +30,7 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
+    { name: "Skills", path: "/skills" },
     { name: "Education", path: "/education" },
     { name: "Experience", path: "/experience" },
   ];
@@ -49,8 +50,7 @@ const Footer = () => {
               PARASMANI KHUNTE
             </h2>
             <p className={`text-sm mb-6 max-w-sm leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-              Full-Stack & AI Systems Engineer specializing in scalable architecture, real-time systems, and AI-enabled product lifecycles. 
-              Designing clean interface logic and resilient backend ecosystems.
+              Backend and Full-Stack Software Engineer specializing in Node.js, TypeScript, MERN, real-time systems, distributed architectures, and AI/LLM-integrated applications.
             </p>
             
             {/* System Status Hub */}

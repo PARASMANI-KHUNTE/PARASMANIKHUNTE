@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { X, Maximize2, Eye, Monitor, Github, Linkedin, Instagram, Mail, Copy, Check } from "lucide-react";
+import { X, Maximize2, Eye, Monitor, Github, Linkedin, Instagram, Mail, Copy, Check, Phone, Layers, Briefcase, Download } from "lucide-react";
 const ProjectPreviewModal = React.lazy(() => import("../components/ProjectPreviewModal"));
 import { sounds } from "../utils/SoundManager";
 import { projects } from "./Projects";
@@ -73,6 +73,13 @@ const Home = () => {
     sounds.playBloop();
     showToast("Email copied: parasmanikhunte@gmail.com");
     setTimeout(() => setHasCopiedHeroEmail(false), 2000);
+  };
+
+  const handleCopyPhone = () => {
+    const phone = "+91 8103713757";
+    navigator.clipboard.writeText(phone);
+    sounds.playBloop();
+    showToast("Phone copied: +91 8103713757");
   };
 
   // Magnetic Button Logic for Hero
@@ -232,11 +239,11 @@ const Home = () => {
                 Hi, I'm <span className={`${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Paras</span>
               </h1>
               <TypewriterText 
-                text="Full-Stack & AI Engineer | Project-Based | MERN + Local LLM Systems | Distributed Architecture | Real-Time Systems" 
+                text="Backend & Full-Stack Software Engineer | Node.js • TypeScript • MERN • Real-Time Systems • AI & RAG Pipelines" 
                 className={`text-xl md:text-2xl mb-6 font-medium ${isDarkMode ? "text-amber-400/90" : "text-amber-600"}`}
               />
               <p className={`text-base md:text-lg mb-8 max-w-xl ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                Project-driven Full-Stack and AI Engineer building production-grade MERN systems, real-time architectures, distributed microservices, and AI-integrated applications. Specialized in end-to-end full-stack engineering, microservices, WebSockets, and local LLM pipelines.
+                Backend and Full-Stack Software Engineer specializing in Node.js, TypeScript, MERN, real-time systems, and AI/LLM-integrated applications. Experienced in building and shipping end-to-end web and mobile applications, REST APIs, WebSocket-based systems, distributed architectures, and RAG pipelines with a strong focus on backend engineering, system design, and scalable application architecture.
               </p>
 
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -254,19 +261,7 @@ const Home = () => {
                     }`}
                 >
                   <span className="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 01"
-                        clipRule="evenodd"
-                      />
-                      <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                    </svg>
+                    <Briefcase className="h-5 w-5 mr-2" />
                     Hire Me
                   </span>
                 </motion.button>
@@ -285,18 +280,7 @@ const Home = () => {
                     }`}
                 >
                   <span className="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <Download className="h-5 w-5 mr-2" />
                     Download CV
                   </span>
                 </motion.button>
@@ -382,9 +366,9 @@ const Home = () => {
                   The <span className="text-amber-500">Engineer's Manifesto</span>
                 </h2>
                 <div className={`flex items-center gap-2 text-sm font-medium ${isDarkMode ? "text-amber-400/80" : "text-amber-500"}`}>
-                  <span>Full-Stack & AI Systems</span>
+                  <span>Backend & Full-Stack Systems</span>
                   <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
-                  <span>Project-Driven Engineering</span>
+                  <span>System Design & Architecture</span>
                 </div>
               </div>
               <motion.div 
@@ -397,7 +381,7 @@ const Home = () => {
 
             <div className={`space-y-6 text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
               <p>
-                I build production-ready systems designed around real-world constraints, not just frameworks. Through extensive project-based engineering across fintech, social platforms, and intelligent systems, I specialize in shipping complete end-to-end applications from architecture to deployment.
+                I specialize in engineering scalable distributed backend systems, event-driven architectures, real-time communication channels, and AI/LLM-integrated workflows. With experience across fintech, hyperlocal platforms, microservices, and AI extensions, I build robust systems from data modeling to cloud release.
               </p>
 
               <AnimatePresence>
@@ -411,16 +395,16 @@ const Home = () => {
                   >
                     <div className="space-y-6 pt-6 border-t border-amber-500/10">
                       <p>
-                        My primary stack is <strong>MERN</strong>, where I design clean, high-performance interfaces using React, React Native, and Tailwind CSS, and architect reliable backend services with Node.js, Express, and MongoDB. I'm equally comfortable with microservices architecture, distributed systems, and real-time WebSocket-based platforms.
+                        Core technical foundations include <strong>Node.js, TypeScript, Express.js, and Python</strong>. On the client side, I build responsive, production-ready interfaces with <strong>React, Next.js, React Native, Redux, and Tailwind CSS</strong>. On the data & messaging layer, I architect with <strong>MongoDB, PostgreSQL, Redis, Redis Streams, and BullMQ</strong>.
                       </p>
                       <p className="font-bold italic text-amber-500 text-lg">
-                        "Frameworks are tools. Requirements decide the stack."
+                        "Strong backend foundations, resilient distributed architectures, and purposeful AI integration."
                       </p>
                       <p>
-                        Specialties: <strong>Local LLM systems</strong> (Ollama, LangGraph, RAG pipelines), <strong>distributed tracing</strong> (OpenTelemetry, Prometheus, Jaeger), <strong>real-time systems</strong> (Socket.io, Redis Streams), and <strong>job queue systems</strong> (BullMQ). I value clean architecture, thoughtful technical discussions, and measurable impact.
+                        Specialties: <strong>Microservices & Observability</strong> (OpenTelemetry, Jaeger, Docker, circuit breakers, dead-letter queues), <strong>Real-Time Systems</strong> (WebSockets, Socket.io), and <strong>AI & RAG Pipelines</strong> (Ollama, FAISS, Qdrant, Groq API, prompt engineering).
                       </p>
                       <p>
-                        Currently pursuing an <strong>MCA at Guru Ghasidas University</strong> while actively building project-based production systems. Open to Full-Stack, AI engineering, and founding engineer roles.
+                        Currently pursuing <strong>Master of Computer Applications (MCA) in Computer Science & Technology at Guru Ghasidas Vishwavidyalaya (2025 – 2027)</strong>. Open to Backend, Full-Stack, and AI Systems Engineering opportunities.
                       </p>
                     </div>
                   </motion.div>
@@ -469,9 +453,9 @@ const Home = () => {
               <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Current Education</h3>
             </div>
             <div className="space-y-2">
-              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>MCA Student</h4>
-              <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Guru Ghasidas University (2025 - 2027)</p>
-              <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>Developing expertise in Advanced Computing & AI integration.</p>
+              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Master of Computer Applications (MCA)</h4>
+              <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Guru Ghasidas Vishwavidyalaya (2025 – 2027) • In Progress</p>
+              <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>Undergraduate: BCA Computer Science (2022 – 2025) • CGPA: 8.20</p>
             </div>
           </motion.div>
 
@@ -486,9 +470,9 @@ const Home = () => {
               <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Engineering Focus</h3>
             </div>
             <div className="space-y-2">
-              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Full-Stack & AI Systems</h4>
-              <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Project-Based Architecture</p>
-              <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>MERN, Microservices, Real-time systems, AI/LLM pipelines.</p>
+              <h4 className={`font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-500"}`}>Backend & Distributed Systems</h4>
+              <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Node.js, TypeScript, MERN, AI Integration</p>
+              <p className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>Microservices (Redis Streams, OpenTelemetry), Real-Time (Socket.io), and RAG Pipelines.</p>
             </div>
           </motion.div>
         </motion.div>
@@ -532,8 +516,8 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { number: `${projects.length}+`, label: "Projects", iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.42 0 2.7.477 3.5 1.253v13c-.8.776-2.08 1.253-3.5 1.253s-2.82-.477-3.5-1.253" },
-              { number: "8+", label: "Core Architectures", iconPath: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
-              { number: "4", label: "Certifications", iconPath: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
+              { number: "4", label: "Industry Internships", iconPath: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+              { number: "8+", label: "Microservices & Tools", iconPath: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
               { number: "2", label: "Hackathons", iconPath: "M13 10V3L4 14h7v7l9-11h-7z" },
             ].map((stat, index) => (
               <motion.div
@@ -566,7 +550,7 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Featured Project - Whiteboard.io */}
+        {/* Featured Project - Zuvo */}
         <motion.div
           variants={itemVariants}
           initial="hidden"
@@ -581,9 +565,9 @@ const Home = () => {
           <div className="p-8">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">⭐</span>
+                <span className="text-2xl">⚡</span>
                 <h3 className={`text-lg font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
-                  Featured Project
+                  Featured System Architecture
                 </h3>
               </div>
               <div className="bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 uppercase tracking-wider">
@@ -591,21 +575,21 @@ const Home = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                 </span>
-                Latest Release
+                8-Service Architecture
               </div>
             </div>
 
             <h4 className={`text-2xl md:text-3xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-              Whiteboard.io - Real-Time Collaborative Canvas with AI
+              Zuvo - Distributed Microservices Platform
             </h4>
 
             <p className={`mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-              Real-time multi-user collaborative digital whiteboard enabling live sketching, diagramming, and brainstorming with AI-powered interactions. Features WebSocket-based instant state synchronization, interactive drawing tools, and an integrated AI assistant for smart diagramming and visual ideation.
+              Engineered an 8-service microservices architecture spanning API Gateway, Auth, Blog, Media, Interactions, Real-time, Worker, and Feed & Search services. Implemented Redis Streams for asynchronous inter-service communication and event-driven processing, full OpenTelemetry distributed tracing with Jaeger, circuit breakers, dead-letter queues, background workers, and audit logging.
             </p>
 
             {/* Tech badges */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {["React", "Node.js", "Express", "Socket.io", "HTML5 Canvas", "Generative AI", "WebSockets", "Tailwind CSS"].map((tech) => (
+              {["Node.js", "TypeScript", "Redis Streams", "MongoDB", "OpenTelemetry", "Jaeger Tracing", "Docker", "Circuit Breakers"].map((tech) => (
                 <span
                   key={tech}
                   className={`px-3 py-1 rounded-full text-xs font-medium ${isDarkMode
@@ -620,25 +604,19 @@ const Home = () => {
 
             {/* Action buttons */}
             <div className="flex flex-wrap gap-4">
-              <motion.a
-                href="https://whiteboard-io-1.onrender.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                to="/projects"
                 className={`px-6 py-3 rounded-lg font-medium flex items-center gap-2 ${isDarkMode
                   ? "bg-amber-500 text-gray-900 hover:bg-amber-400"
                   : "bg-amber-500 text-white hover:bg-amber-600"
                   }`}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                <span>Live Interactive Demo</span>
-              </motion.a>
+                <Layers className="w-4 h-4" />
+                <span>Explore All Projects</span>
+              </Link>
 
               <motion.a
-                href="https://github.com/PARASMANI-KHUNTE/Whiteboard.io"
+                href="https://github.com/PARASMANI-KHUNTE/Zuvo"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -648,9 +626,7 @@ const Home = () => {
                   : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                   }`}
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.08-.729.08-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
+                <Github className="w-4 h-4" />
                 <span>View on GitHub</span>
               </motion.a>
             </div>
@@ -874,7 +850,7 @@ const Home = () => {
               Have a project in mind or just want to say hi? Feel free to reach out. I'm always open to discussing new opportunities and creative ideas.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <motion.div 
                 variants={itemVariants} 
                 whileHover={{ y: -5, scale: 1.02 }} 
@@ -887,9 +863,27 @@ const Home = () => {
                 </div>
                 <div>
                   <h4 className={`font-bold flex items-center gap-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-                    Email <span className="text-[10px] text-amber-500 font-semibold uppercase tracking-wider">(Click to copy)</span>
+                    Email <span className="text-[10px] text-amber-500 font-semibold uppercase tracking-wider">(Copy)</span>
                   </h4>
-                  <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>parasmanikhunte@gmail.com</p>
+                  <p className={`text-sm break-all ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>parasmanikhunte@gmail.com</p>
+                </div>
+              </motion.div>
+
+              <motion.div 
+                variants={itemVariants} 
+                whileHover={{ y: -5, scale: 1.02 }} 
+                onClick={handleCopyPhone}
+                className={`flex items-start gap-4 p-6 rounded-xl backdrop-blur-md border transition-all duration-300 cursor-pointer group ${isDarkMode ? "bg-gray-800/40 border-gray-700 hover:border-amber-500/50 hover:shadow-lg hover:shadow-black/50" : "bg-white/60 border-amber-100 hover:border-amber-300 hover:shadow-lg hover:shadow-amber-100"}`}
+                title="Click to copy phone number"
+              >
+                <div className={`p-3 rounded-lg transition-transform duration-300 group-hover:scale-110 ${isDarkMode ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className={`font-bold flex items-center gap-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                    Phone <span className="text-[10px] text-amber-500 font-semibold uppercase tracking-wider">(Copy)</span>
+                  </h4>
+                  <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>+91 8103713757</p>
                 </div>
               </motion.div>
 
@@ -902,7 +896,7 @@ const Home = () => {
                 </div>
                 <div>
                   <h4 className={`font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>Location</h4>
-                  <p className={isDarkMode ? "text-gray-400" : "text-gray-600"}>Bilaspur, Chhattisgarh, India</p>
+                  <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>Bilaspur, Chhattisgarh, India</p>
                 </div>
               </motion.div>
             </div>
@@ -955,7 +949,7 @@ const Home = () => {
             <motion.a
               whileHover={{ y: -5, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              href="https://www.linkedin.com/in/parasmani-khunte-330488228/"
+              href="https://www.linkedin.com/in/parasmani-khunte"
               target="_blank"
               rel="noopener noreferrer"
               className={`p-3 rounded-full transition-all duration-300 ${isDarkMode

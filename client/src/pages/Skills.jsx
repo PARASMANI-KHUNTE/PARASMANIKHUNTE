@@ -19,22 +19,22 @@ const Skills = () => {
 
   return (
     <div
-      className={`min-h-screen py-24 px-6 transition-colors duration-200 ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
-      }`}
+      className="min-h-screen py-24 px-6"
+      style={{
+        backgroundColor: 'var(--color-paper)',
+        color: 'var(--color-ink)',
+      }}
     >
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-4xl px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="text-xs font-semibold uppercase tracking-wider text-amber-500 mb-2 block">
+          <span className="text-xs font-semibold uppercase tracking-wider mb-2 block" style={{ color: 'var(--color-accent)' }}>
             Technical Proficiency
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--color-ink)' }}>
             Technical Skills
           </h1>
-          <p className={`text-base max-w-xl mx-auto leading-relaxed ${
-            isDarkMode ? "text-gray-300" : "text-gray-600"
-          }`}>
+          <p className="text-base max-w-xl mx-auto leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
             Core languages, distributed data systems, and tooling I use across production and engineering environments.
           </p>
         </div>
@@ -46,21 +46,25 @@ const Skills = () => {
             return (
               <div
                 key={group.category}
-                className={`p-6 rounded-2xl border transition-all ${
-                  isDarkMode
-                    ? "bg-gray-800/50 border-gray-800 hover:border-gray-700"
-                    : "bg-white border-gray-200 hover:border-gray-300 shadow-sm"
-                }`}
+                className="p-6 rounded-2xl border transition-all"
+                style={{
+                  backgroundColor: 'var(--color-paper-2)',
+                  borderColor: 'var(--color-border)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--color-accent)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
               >
                 <div className="flex items-center gap-3 mb-5">
                   <div
-                    className={`p-2.5 rounded-xl ${
-                      isDarkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-50 text-amber-600"
-                    }`}
+                    className="p-2.5 rounded-xl"
+                    style={{
+                      backgroundColor: 'var(--color-accent-subtle)',
+                      color: 'var(--color-accent)',
+                    }}
                   >
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h2 className="text-lg font-bold">
+                  <h2 className="text-lg font-bold" style={{ color: 'var(--color-ink)' }}>
                     {group.category}
                   </h2>
                 </div>
@@ -69,11 +73,10 @@ const Skills = () => {
                   {group.skills.map((skill) => (
                     <li
                       key={skill}
-                      className={`flex items-center gap-2.5 text-sm font-medium ${
-                        isDarkMode ? "text-gray-200" : "text-gray-700"
-                      }`}
+                      className="flex items-center gap-2.5 text-sm font-medium"
+                      style={{ color: 'var(--color-ink-muted)' }}
                     >
-                      <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: 'var(--color-accent)' }} />
                       <span>{skill}</span>
                     </li>
                   ))}

@@ -16,22 +16,22 @@ const Projects = () => {
 
   return (
     <div
-      className={`min-h-screen py-24 px-6 transition-colors duration-200 ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
-      }`}
+      className="min-h-screen py-24 px-6"
+      style={{
+        backgroundColor: 'var(--color-paper)',
+        color: 'var(--color-ink)',
+      }}
     >
-      <div className="container mx-auto max-w-5xl space-y-16">
+      <div className="container mx-auto max-w-6xl space-y-16 px-4">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-semibold uppercase tracking-wider text-amber-500 mb-2 block">
+          <span className="text-xs font-semibold uppercase tracking-wider mb-2 block" style={{ color: 'var(--color-accent)' }}>
             Portfolio
           </span>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--color-ink)' }}>
             Projects & Case Studies
           </h1>
-          <p className={`text-base sm:text-lg leading-relaxed ${
-            isDarkMode ? "text-gray-300" : "text-gray-600"
-          }`}>
+          <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
             Architecture case studies, event-driven backends, and full-stack software applications.
           </p>
         </div>
@@ -40,10 +40,10 @@ const Projects = () => {
         <section>
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight" style={{ color: 'var(--color-ink)' }}>
                 Featured Case Studies
               </h2>
-              <p className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+              <p className="text-xs sm:text-sm" style={{ color: 'var(--color-ink-muted)' }}>
                 Deep-dive architectural implementations with system diagrams
               </p>
             </div>
@@ -61,12 +61,12 @@ const Projects = () => {
         </section>
 
         {/* 2. More Projects */}
-        <section className="pt-10 border-t border-gray-200 dark:border-gray-800">
+        <section className="pt-10 border-t" style={{ borderColor: 'var(--color-border)' }}>
           <div className="mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-1">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-1" style={{ color: 'var(--color-ink)' }}>
               More Projects
             </h2>
-            <p className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+            <p className="text-xs sm:text-sm" style={{ color: 'var(--color-ink-muted)' }}>
               Prototypes, utilities, and applications with available source code or deployments
             </p>
           </div>

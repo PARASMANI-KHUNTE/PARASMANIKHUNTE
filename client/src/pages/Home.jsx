@@ -23,9 +23,11 @@ const Home = () => {
 
   return (
     <div
-      className={`min-h-screen px-4 sm:px-6 transition-colors duration-200 ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
-      }`}
+      className="min-h-screen px-4 sm:px-6"
+      style={{
+        backgroundColor: 'var(--color-paper)',
+        color: 'var(--color-ink)',
+      }}
     >
       <div className="pt-20">
         {/* 1. Hero */}
@@ -56,24 +58,34 @@ const Home = () => {
           onClick={() => setIsCvPreviewOpen(false)}
         >
           <div
-            className="relative max-w-4xl w-full h-[85vh] bg-white rounded-2xl overflow-hidden flex flex-col shadow-2xl"
+            className="relative max-w-4xl w-full h-[85vh] rounded-2xl overflow-hidden flex flex-col shadow-2xl border"
+            style={{
+              backgroundColor: 'var(--color-paper)',
+              borderColor: 'var(--color-border)',
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
-              <h3 className="font-bold text-gray-800 flex items-center gap-2 text-sm sm:text-base">
-                <Eye className="w-4 h-4 text-amber-500" />
+            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-paper-2)' }}>
+              <h3 className="font-bold text-sm sm:text-base flex items-center gap-2" style={{ color: 'var(--color-ink)' }}>
+                <Eye className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
                 Resume Preview - {profile.name}
               </h3>
               <button
                 onClick={() => setIsCvPreviewOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-gray-200 text-gray-600 transition-colors"
+                className="p-1.5 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: 'var(--color-paper-2)',
+                  color: 'var(--color-ink-muted)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-paper-3)'; e.currentTarget.style.color = 'var(--color-ink)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-paper-2)'; e.currentTarget.style.color = 'var(--color-ink-muted)'; }}
                 aria-label="Close CV preview"
                 type="button"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="flex-1 w-full h-full bg-gray-100">
+            <div className="flex-1 w-full h-full" style={{ backgroundColor: 'var(--color-paper-3)' }}>
               <iframe
                 src={`${profile.resumePdf}#toolbar=0`}
                 className="w-full h-full border-none"

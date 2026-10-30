@@ -18,23 +18,29 @@ const Navbar = () => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
+  const navStyle = {
+    backgroundColor: isDarkMode ? 'oklch(0.13 0.005 85 / 0.8)' : 'oklch(0.985 0.002 85 / 0.8)',
+    borderColor: 'var(--color-border)',
+    color: 'var(--color-ink)',
+  };
+
   return (
     <header className="fixed top-4 left-0 w-full z-50 px-4 flex justify-center">
       <nav
         aria-label="Primary Navigation"
-        className={`flex items-center gap-4 md:gap-6 px-5 py-2.5 rounded-full border backdrop-blur-xl shadow-lg transition-colors duration-200 ${
-          isDarkMode
-            ? "bg-gray-900/80 border-gray-800 text-white"
-            : "bg-white/80 border-gray-200 text-gray-900"
-        }`}
+        className="flex items-center gap-4 md:gap-6 px-5 py-2.5 rounded-full border backdrop-blur-xl shadow-lg transition-colors duration-200"
+        style={navStyle}
       >
         {/* Logo */}
         <Link
           to="/"
-          className="text-lg font-bold tracking-tight text-amber-500 hover:text-amber-400 transition-colors"
+          className="text-lg font-bold tracking-tight transition-colors"
+          style={{ color: 'var(--color-accent)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'oklch(0.58 0.18 55)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-accent)'; }}
           aria-label="Parasmani Khunte Home"
         >
-          Parasmani<span className="text-gray-400">.</span>
+          Parasmani<span style={{ color: 'var(--color-ink-muted)' }}>.</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -45,15 +51,24 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-150 ${
-                  isActive
-                    ? isDarkMode
-                      ? "bg-amber-500/10 text-amber-400 font-semibold"
-                      : "bg-amber-50 text-amber-700 font-semibold"
-                    : isDarkMode
-                    ? "text-gray-300 hover:text-white hover:bg-gray-800/60"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100/70"
-                }`}
+                className="relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-150"
+                style={{
+                  color: isActive ? 'var(--color-accent)' : 'var(--color-ink-muted)',
+                  backgroundColor: isActive ? 'var(--color-accent-subtle)' : 'transparent',
+                  fontWeight: isActive ? 600 : 500,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.color = 'var(--color-ink)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-paper-3)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.color = 'var(--color-ink-muted)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
               >
                 {link.name}
               </Link>
@@ -61,17 +76,20 @@ const Navbar = () => {
           })}
         </div>
 
-        <div className="h-5 w-[1px] bg-gray-300 dark:bg-gray-700 hidden md:block" />
+        <div className="h-5 w-[1px] hidden md:block" style={{ backgroundColor: 'var(--color-border)' }} />
 
         {/* Controls: Theme Toggle & Mobile Menu */}
         <div className="flex items-center gap-1.5">
           <button
             onClick={toggleTheme}
-            className={`p-2 rounded-full transition-colors duration-150 ${
-              isDarkMode
-                ? "bg-gray-800 text-amber-400 hover:bg-gray-700"
-                : "bg-gray-100 text-amber-600 hover:bg-gray-200"
-            }`}
+            className="p-2 rounded-full transition-colors duration-150"
+            style={{
+              backgroundColor: 'var(--color-paper-2)',
+              color: 'var(--color-accent)',
+              borderColor: 'var(--color-border)',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-paper-3)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-paper-2)'; }}
             title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             type="button"
@@ -81,7 +99,10 @@ const Navbar = () => {
 
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-full transition-colors hover:bg-amber-500/10 text-amber-500"
+            className="md:hidden p-2 rounded-full transition-colors"
+            style={{ color: 'var(--color-accent)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-accent-subtle)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
             aria-expanded={menuOpen}
             type="button"
@@ -94,11 +115,12 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       {menuOpen && (
         <div
-          className={`absolute top-16 left-4 right-4 p-5 rounded-2xl shadow-xl border backdrop-blur-xl md:hidden ${
-            isDarkMode
-              ? "bg-gray-900/95 border-gray-800 text-white"
-              : "bg-white/95 border-gray-200 text-gray-900"
-          }`}
+          className="absolute top-16 left-4 right-4 p-5 rounded-2xl shadow-xl border backdrop-blur-xl md:hidden"
+          style={{
+            backgroundColor: isDarkMode ? 'oklch(0.13 0.005 85 / 0.95)' : 'oklch(0.985 0.002 85 / 0.95)',
+            borderColor: 'var(--color-border)',
+            color: 'var(--color-ink)',
+          }}
         >
           <div className="flex flex-col space-y-3">
             {navLinks.map((link) => {
@@ -108,13 +130,24 @@ const Navbar = () => {
                   key={link.name}
                   to={link.path}
                   onClick={() => setMenuOpen(false)}
-                  className={`px-4 py-2 text-base font-medium rounded-lg transition-colors ${
-                    isActive
-                      ? "text-amber-500 font-bold bg-amber-500/10"
-                      : isDarkMode
-                      ? "text-gray-300 hover:text-white hover:bg-gray-800"
-                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-                  }`}
+                  className="px-4 py-2 text-base font-medium rounded-lg transition-colors"
+                  style={{
+                    color: isActive ? 'var(--color-accent)' : 'var(--color-ink-muted)',
+                    backgroundColor: isActive ? 'var(--color-accent-subtle)' : 'transparent',
+                    fontWeight: isActive ? 600 : 500,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = 'var(--color-ink)';
+                      e.currentTarget.style.backgroundColor = 'var(--color-paper-3)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = 'var(--color-ink-muted)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }
+                  }}
                 >
                   {link.name}
                 </Link>

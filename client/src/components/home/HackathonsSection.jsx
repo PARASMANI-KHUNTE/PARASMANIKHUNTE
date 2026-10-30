@@ -7,12 +7,12 @@ const HackathonsSection = ({ onPreviewCertificate }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <section className="py-14 max-w-5xl mx-auto border-t border-gray-200 dark:border-gray-800">
+    <section className="py-14 max-w-6xl mx-auto px-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
       <div className="mb-8">
-        <span className="text-xs font-semibold uppercase tracking-wider text-amber-500 mb-1 block">
+        <span className="text-xs font-semibold uppercase tracking-wider mb-1 block" style={{ color: 'var(--color-accent)' }}>
           Competitive Achievements
         </span>
-        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight" style={{ color: 'var(--color-ink)' }}>
           Hackathons & Recognition
         </h2>
       </div>
@@ -21,34 +21,39 @@ const HackathonsSection = ({ onPreviewCertificate }) => {
         {hackathons.map((hackathon) => (
           <div
             key={hackathon.id}
-            className={`p-6 rounded-2xl border transition-colors flex flex-col justify-between ${
-              isDarkMode
-                ? "bg-gray-800/40 border-gray-800 hover:border-gray-700"
-                : "bg-white border-gray-200 hover:border-gray-300"
-            }`}
+            className="p-6 rounded-2xl border transition-colors flex flex-col justify-between"
+            style={{
+              backgroundColor: 'var(--color-paper-2)',
+              borderColor: 'var(--color-border)',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--color-accent)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
           >
             <div>
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-2.5">
                   <div
-                    className={`p-2 rounded-lg ${
-                      isDarkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-50 text-amber-600"
-                    }`}
+                    className="p-2 rounded-lg"
+                    style={{
+                      backgroundColor: 'var(--color-accent-subtle)',
+                      color: 'var(--color-accent)',
+                    }}
                   >
                     <Award className="w-5 h-5" />
                   </div>
-                  <h3 className="font-bold text-base sm:text-lg">
+                  <h3 className="font-bold text-base sm:text-lg" style={{ color: 'var(--color-ink)' }}>
                     {hackathon.title}
                   </h3>
                 </div>
-                <span className={`text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${
-                  isDarkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
-                }`}>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full shrink-0" style={{
+                  backgroundColor: 'var(--color-paper-3)',
+                  color: 'var(--color-ink-muted)',
+                }}>
                   {hackathon.year}
                 </span>
               </div>
 
-              <p className={`text-sm mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+              <p className="text-sm mb-4" style={{ color: 'var(--color-ink-muted)' }}>
                 {hackathon.organization}
               </p>
             </div>
@@ -62,11 +67,14 @@ const HackathonsSection = ({ onPreviewCertificate }) => {
                   })
                 }
                 type="button"
-                className={`self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                  isDarkMode
-                    ? "bg-gray-700 text-amber-300 hover:bg-gray-600"
-                    : "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100"
-                }`}
+                className="self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                style={{
+                  backgroundColor: 'var(--color-accent-subtle)',
+                  color: 'var(--color-accent)',
+                  borderColor: 'var(--color-accent)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-accent)'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-accent-subtle)'; e.currentTarget.style.color = 'var(--color-accent)'; }}
               >
                 <FileText className="w-3.5 h-3.5" />
                 View Certificate

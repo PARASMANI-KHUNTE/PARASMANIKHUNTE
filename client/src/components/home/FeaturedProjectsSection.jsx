@@ -9,21 +9,22 @@ const FeaturedProjectsSection = ({ onPreview }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <section className="py-14 max-w-5xl mx-auto border-t border-gray-200 dark:border-gray-800">
+    <section className="py-14 max-w-6xl mx-auto px-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-amber-500 mb-1 block">
+          <span className="text-xs font-semibold uppercase tracking-wider mb-1 block" style={{ color: 'var(--color-accent)' }}>
             Selected Work
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight" style={{ color: 'var(--color-ink)' }}>
             Featured Projects & Case Studies
           </h2>
         </div>
         <Link
           to="/projects"
-          className={`inline-flex items-center gap-1.5 text-sm font-semibold transition-colors ${
-            isDarkMode ? "text-amber-400 hover:text-amber-300" : "text-amber-600 hover:text-amber-700"
-          }`}
+          className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors"
+          style={{ color: 'var(--color-accent)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'oklch(0.58 0.18 55)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-accent)'; }}
         >
           <span>View all projects</span>
           <ArrowRight className="w-4 h-4" />

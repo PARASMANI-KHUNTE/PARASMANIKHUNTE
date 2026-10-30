@@ -5,21 +5,27 @@ import { useTheme } from "../context/ThemeContext";
 const EducationCard = ({ item, type = "education", onPreview }) => {
   const { isDarkMode } = useTheme();
 
+  const cardStyle = {
+    backgroundColor: 'var(--color-paper-2)',
+    borderColor: 'var(--color-border)',
+  };
+
   return (
     <article
-      className={`rounded-2xl border p-6 transition-all duration-200 flex flex-col justify-between ${
-        isDarkMode
-          ? "bg-gray-800/40 border-gray-800 hover:border-gray-700"
-          : "bg-white border-gray-200 hover:border-gray-300 shadow-sm"
-      }`}
+      className="rounded-2xl border p-6 transition-all duration-200 flex flex-col justify-between"
+      style={cardStyle}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--color-accent)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
     >
       <div>
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-start gap-3">
             <div
-              className={`p-2.5 rounded-xl shrink-0 ${
-                isDarkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-50 text-amber-600"
-              }`}
+              className="p-2.5 rounded-xl shrink-0"
+              style={{
+                backgroundColor: 'var(--color-accent-subtle)',
+                color: 'var(--color-accent)',
+              }}
             >
               {type === "hackathon" ? (
                 <Award className="w-5 h-5" />
@@ -28,36 +34,37 @@ const EducationCard = ({ item, type = "education", onPreview }) => {
               )}
             </div>
             <div>
-              <h3 className="text-lg font-bold">
+              <h3 className="text-lg font-bold" style={{ color: 'var(--color-ink)' }}>
                 {item.degree || item.title}
               </h3>
-              <p className={`text-sm font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
+              <p className="text-sm font-semibold" style={{ color: 'var(--color-accent)' }}>
                 {item.institution || item.organization}
               </p>
             </div>
           </div>
 
-          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${
-            isDarkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
-          }`}>
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full shrink-0" style={{
+            backgroundColor: 'var(--color-paper-3)',
+            color: 'var(--color-ink-muted)',
+          }}>
             {item.year}
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mt-2 mb-4">
+        <div className="flex flex-wrap items-center gap-4 text-xs mt-2 mb-4" style={{ color: 'var(--color-ink-muted)' }}>
           {item.location && (
             <div className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5" />
+              <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--color-ink-muted)' }} />
               <span>{item.location}</span>
             </div>
           )}
           {item.gpa && (
-            <div className="font-semibold text-emerald-600 dark:text-emerald-400">
+            <div className="font-semibold" style={{ color: 'oklch(0.5 0.15 160)' }}>
               CGPA: {item.gpa}
             </div>
           )}
           {item.status && (
-            <div className="font-semibold text-amber-600 dark:text-amber-400">
+            <div className="font-semibold" style={{ color: 'var(--color-accent)' }}>
               Status: {item.status}
             </div>
           )}
@@ -65,7 +72,7 @@ const EducationCard = ({ item, type = "education", onPreview }) => {
       </div>
 
       {item.certificateUrl && onPreview && (
-        <div className="pt-3 border-t border-gray-100 dark:border-gray-800">
+        <div className="pt-3 border-t" style={{ borderColor: 'var(--color-border)' }}>
           <button
             onClick={() =>
               onPreview({
@@ -74,11 +81,14 @@ const EducationCard = ({ item, type = "education", onPreview }) => {
               })
             }
             type="button"
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-              isDarkMode
-                ? "bg-gray-700 text-amber-300 hover:bg-gray-600"
-                : "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100"
-            }`}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+            style={{
+              backgroundColor: 'var(--color-accent-subtle)',
+              color: 'var(--color-accent)',
+              borderColor: 'var(--color-accent)',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-accent)'; e.currentTarget.style.color = '#fff'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-accent-subtle)'; e.currentTarget.style.color = 'var(--color-accent)'; }}
           >
             <FileText className="w-3.5 h-3.5" />
             View Certificate

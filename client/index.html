@@ -12,6 +12,19 @@
     <meta name="keywords" content="Parasmani Khunte, Software Engineer, Backend Developer, Full-Stack Developer, Node.js, TypeScript, Python, FastAPI, Redis Streams, RAG, Ollama, Docker" />
     <meta name="author" content="Parasmani Khunte" />
     <meta name="theme-color" content="#f59e0b" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var isDark = saved
+            ? saved === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", isDark);
+          document.documentElement.classList.toggle("light", !isDark);
+          document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+        } catch (e) {}
+      })();
+    </script>
     <link rel="canonical" href="https://parasmanikhunte.onrender.com/" />
     <link rel="preload" as="image" href="/profilepic.jpg" />
 

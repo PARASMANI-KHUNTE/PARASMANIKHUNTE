@@ -1,11 +1,57 @@
+/* Hallmark · checked: 2026-10-31 · genre: modern-minimal
+ * floor: 0 FAIL · refactor: hallmark design system · v2.0.0 */
+
 @import "tailwindcss";
 
+:root {
+  --color-paper: oklch(0.985 0.002 85);
+  --color-paper-2: oklch(0.97 0.003 85);
+  --color-paper-3: oklch(0.94 0.005 85);
+  --color-ink: oklch(0.145 0.005 85);
+  --color-ink-muted: oklch(0.45 0.01 85);
+  --color-accent: oklch(0.65 0.18 55);
+  --color-accent-subtle: oklch(0.92 0.05 55);
+  --color-border: oklch(0.88 0.005 85);
+  --color-focus: oklch(0.65 0.18 55);
+}
+
+.dark {
+  --color-paper: oklch(0.13 0.005 85);
+  --color-paper-2: oklch(0.16 0.005 85);
+  --color-paper-3: oklch(0.22 0.008 85);
+  --color-ink: oklch(0.98 0.002 85);
+  --color-ink-muted: oklch(0.65 0.01 85);
+  --color-accent: oklch(0.72 0.16 60);
+  --color-accent-subtle: oklch(0.22 0.06 60);
+  --color-border: oklch(0.25 0.008 85);
+  --color-focus: oklch(0.72 0.16 60);
+}
+
 @layer base {
-  html {
+  html, body {
+    overflow-x: clip;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     scroll-behavior: smooth;
-  }
-  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    min-width: 0;
+    letter-spacing: -0.02em;
+  }
+
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
   }
 }
 

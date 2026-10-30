@@ -1,145 +1,91 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { GraduationCap, Calendar, MapPin, Award, BookOpen } from "lucide-react";
+import { GraduationCap, Calendar, MapPin, Award, FileText } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
-const EducationCard = ({ education, onPreview }) => {
+const EducationCard = ({ item, type = "education", onPreview }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      transition={{ type: "spring", stiffness: 100, damping: 15 }}
-      className={`relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300 ${
+    <article
+      className={`rounded-2xl border p-6 transition-all duration-200 flex flex-col justify-between ${
         isDarkMode
-          ? "bg-gray-800/40 border border-gray-700 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-black/50"
-          : "bg-white/60 border border-white shadow-lg hover:shadow-2xl hover:shadow-amber-100"
+          ? "bg-gray-800/40 border-gray-800 hover:border-gray-700"
+          : "bg-white border-gray-200 hover:border-gray-300 shadow-sm"
       }`}
     >
-      {/* Left accent border */}
-      <div className="absolute left-0 top-0 h-full w-1 bg-amber-500"></div>
-      
-      {/* Card content */}
-      <div className="p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <motion.div 
-              whileHover={{ rotate: 5 }}
-              className={`flex h-12 w-12 items-center justify-center rounded-lg ${
-                isDarkMode ? "bg-gray-700" : "bg-amber-500/10"
+      <div>
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <div className="flex items-start gap-3">
+            <div
+              className={`p-2.5 rounded-xl shrink-0 ${
+                isDarkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-50 text-amber-600"
               }`}
             >
-              {education.type === "certification" ? (
-                <Award className={`h-6 w-6 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
+              {type === "hackathon" ? (
+                <Award className="w-5 h-5" />
               ) : (
-                <GraduationCap className={`h-6 w-6 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
+                <GraduationCap className="w-5 h-5" />
               )}
-            </motion.div>
+            </div>
             <div>
-              <h3 className={`text-xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-                {education.degree}
+              <h3 className="text-lg font-bold">
+                {item.degree || item.title}
               </h3>
-              <p className={`font-medium ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
-                {education.institution}
+              <p className={`text-sm font-semibold ${isDarkMode ? "text-amber-400" : "text-amber-600"}`}>
+                {item.institution || item.organization}
               </p>
             </div>
           </div>
-        </div>
-        
-        {/* Meta information */}
-        <div className="mb-4 flex flex-wrap gap-4">
-          <div className={`flex items-center gap-2 text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-            <Calendar className="h-4 w-4" />
-            <span>{education.year}</span>
-          </div>
-          
-          {education.location && (
-            <div className={`flex items-center gap-2 text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              <MapPin className="h-4 w-4" />
-              <span>{education.location}</span>
-            </div>
-          )}
-          
-          {education.gpa && (
-            <div className={`flex items-center gap-2 text-sm ${
-              isDarkMode 
-                ? education.gpa >= 3.5 ? "text-green-400" : "text-amber-400" 
-                : education.gpa >= 3.5 ? "text-green-600" : "text-amber-600"
-            }`}>
-              <Award className="h-4 w-4" />
-              <span>GPA / % : {education.gpa}</span>
-            </div>
-          )}
-        </div>
-        
-        {/* Description */}
-        <p className={`leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-          {education.description}
-        </p>
-        
-        {/* Courses/Skills */}
-        {education.courses && education.courses.length > 0 && (
-          <div className="mt-4">
-            <div className="flex items-center gap-2 mb-2">
-              <BookOpen className={`h-4 w-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`} />
-              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                Key Courses
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {education.courses.map((course, index) => (
-                <span 
-                  key={index}
-                  className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
-                    isDarkMode 
-                      ? "bg-gray-700 text-gray-300" 
-                      : "bg-gray-100 text-gray-600"
-                  }`}
-                >
-                  {course}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-        
-        {/* Achievements */}
-        {education.achievements && education.achievements.length > 0 && (
-          <div className="mt-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Award className={`h-4 w-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`} />
-              <span className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                Achievements
-              </span>
-            </div>
-            <ul className={`list-disc list-inside text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-              {education.achievements.map((achievement, index) => (
-                <li key={index}>{achievement}</li>
-              ))}
-            </ul>
-          </div>
-        )}
 
-        {/* Certificate button */}
-        {education.certificateUrl && (
-          <button
-            onClick={() => onPreview && onPreview({
-              title: education.degree,
-              link: education.certificateUrl
-            })}
-            className={`mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all duration-300 shadow-md ${isDarkMode
-              ? "bg-amber-400 text-gray-900 hover:bg-amber-300 shadow-amber-900/20"
-              : "bg-amber-500 text-white hover:bg-amber-600 shadow-amber-200/50"
-              }`}
-          >
-            <Award className="h-4 w-4" /> View Certificate
-          </button>
-        )}
+          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${
+            isDarkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
+          }`}>
+            {item.year}
+          </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mt-2 mb-4">
+          {item.location && (
+            <div className="flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>{item.location}</span>
+            </div>
+          )}
+          {item.gpa && (
+            <div className="font-semibold text-emerald-600 dark:text-emerald-400">
+              CGPA: {item.gpa}
+            </div>
+          )}
+          {item.status && (
+            <div className="font-semibold text-amber-600 dark:text-amber-400">
+              Status: {item.status}
+            </div>
+          )}
+        </div>
       </div>
-    </motion.div>
+
+      {item.certificateUrl && onPreview && (
+        <div className="pt-3 border-t border-gray-100 dark:border-gray-800">
+          <button
+            onClick={() =>
+              onPreview({
+                title: item.title || item.degree,
+                link: item.certificateUrl
+              })
+            }
+            type="button"
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              isDarkMode
+                ? "bg-gray-700 text-amber-300 hover:bg-gray-600"
+                : "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100"
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            View Certificate
+          </button>
+        </div>
+      )}
+    </article>
   );
 };
 

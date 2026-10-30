@@ -1,63 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { Menu, X, Sun, Moon, Volume2, VolumeX } from "lucide-react";
-import { sounds } from "../utils/SoundManager";
-
-const MagneticLink = ({ children, to, isActive, isDarkMode, onClick }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const mouseX = useSpring(x, { stiffness: 350, damping: 25 });
-  const mouseY = useSpring(y, { stiffness: 350, damping: 25 });
-
-  function handleMouseMove(e) {
-    const { clientX, clientY, currentTarget } = e;
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-    x.set((clientX - centerX) * 0.3);
-    y.set((clientY - centerY) * 0.3);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: mouseX, y: mouseY }}
-      className="relative"
-    >
-      <Link
-        to={to}
-        onClick={onClick}
-        className={`relative z-10 px-4 py-2 transition-colors duration-300 ${isDarkMode ? "text-white" : "text-gray-800"
-          } hover:text-amber-500`}
-      >
-        <span className="relative z-10">{children}</span>
-        {isActive && (
-          <motion.span
-            layoutId="nav-pill"
-            className={`absolute inset-0 z-0 rounded-full ${isDarkMode ? "bg-amber-500/10" : "bg-amber-500/10"
-              }`}
-            transition={{ type: "spring", stiffness: 350, damping: 30 }}
-          />
-        )}
-      </Link>
-    </motion.div>
-  );
-};
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Define navigation links
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
@@ -66,121 +16,114 @@ const Navbar = () => {
     { name: "Experience", path: "/experience" },
   ];
 
-  // Toggle mobile menu
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const [isMuted, setIsMuted] = useState(false);
-
-  const toggleMute = () => {
-    const newMuted = !isMuted;
-    setIsMuted(newMuted);
-    sounds.setMuted(newMuted);
-    if (!newMuted) sounds.playBloop();
-  };
-
   return (
-    <div className="fixed top-6 left-0 w-full z-50 px-4 flex justify-center">
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className={`flex items-center gap-4 md:gap-6 px-4 md:px-6 py-2 rounded-full border backdrop-blur-xl shadow-2xl transition-all duration-500 ${isDarkMode
-          ? "bg-gray-900/40 border-white/10 shadow-black/50"
-          : "bg-white/60 border-black/5 shadow-amber-500/5"
-          }`}
+    <header className="fixed top-4 left-0 w-full z-50 px-4 flex justify-center">
+      <nav
+        aria-label="Primary Navigation"
+        className={`flex items-center gap-4 md:gap-6 px-5 py-2.5 rounded-full border backdrop-blur-xl shadow-lg transition-colors duration-200 ${
+          isDarkMode
+            ? "bg-gray-900/80 border-gray-800 text-white"
+            : "bg-white/80 border-gray-200 text-gray-900"
+        }`}
       >
         {/* Logo */}
         <Link
           to="/"
-          className={`text-xl font-bold tracking-tighter ${isDarkMode ? "text-white" : "text-gray-900"
-            }`}
+          className="text-lg font-bold tracking-tight text-amber-500 hover:text-amber-400 transition-colors"
+          aria-label="Parasmani Khunte Home"
         >
-          P<span className="text-amber-500">.</span>
+          Parasmani<span className="text-gray-400">.</span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <MagneticLink
-              key={link.name}
-              to={link.path}
-              isActive={location.pathname === link.path}
-              isDarkMode={isDarkMode}
-            >
-              {link.name}
-            </MagneticLink>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-150 ${
+                  isActive
+                    ? isDarkMode
+                      ? "bg-amber-500/10 text-amber-400 font-semibold"
+                      : "bg-amber-50 text-amber-700 font-semibold"
+                    : isDarkMode
+                    ? "text-gray-300 hover:text-white hover:bg-gray-800/60"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100/70"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
 
-        <div className="h-6 w-[1px] bg-gray-500/20 hidden md:block" />
+        <div className="h-5 w-[1px] bg-gray-300 dark:bg-gray-700 hidden md:block" />
 
-        {/* Controls: Theme & Audio */}
-        <div className="flex items-center gap-2">
-          {/* Audio Toggle */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleMute}
-            className={`p-2 rounded-full transition-all duration-300 ${isDarkMode
-              ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"
-              : "bg-amber-100 text-amber-600 hover:bg-amber-200"
-              }`}
-            title={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-          </motion.button>
-
-          {/* Theme Toggle */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+        {/* Controls: Theme Toggle & Mobile Menu */}
+        <div className="flex items-center gap-1.5">
+          <button
             onClick={toggleTheme}
-            className={`p-2 rounded-full transition-all duration-300 ${isDarkMode
-              ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"
-              : "bg-amber-100 text-amber-600 hover:bg-amber-200"
-              }`}
+            className={`p-2 rounded-full transition-colors duration-150 ${
+              isDarkMode
+                ? "bg-gray-800 text-amber-400 hover:bg-gray-700"
+                : "bg-gray-100 text-amber-600 hover:bg-gray-200"
+            }`}
             title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            type="button"
           >
             {isDarkMode ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </motion.button>
+          </button>
 
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-full transition-colors hover:bg-amber-500/10"
+            className="md:hidden p-2 rounded-full transition-colors hover:bg-amber-500/10 text-amber-500"
+            aria-label={menuOpen ? "Close Menu" : "Open Menu"}
+            aria-expanded={menuOpen}
+            type="button"
           >
-            {menuOpen ? <X className="w-5 h-5 text-amber-500" /> : <Menu className="w-5 h-5 text-amber-500" />}
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Navigation Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            className={`absolute top-24 left-4 right-4 bg-opacity-95 backdrop-blur-xl px-6 py-8 rounded-3xl shadow-2xl border ${isDarkMode
-              ? "bg-gray-900/90 border-white/10 text-white shadow-black"
-              : "bg-white/90 border-black/5 text-gray-800 shadow-amber-500/10"
-              } md:hidden`}
-          >
-            <div className="flex flex-col space-y-6">
-              {navLinks.map((link) => (
+      {menuOpen && (
+        <div
+          className={`absolute top-16 left-4 right-4 p-5 rounded-2xl shadow-xl border backdrop-blur-xl md:hidden ${
+            isDarkMode
+              ? "bg-gray-900/95 border-gray-800 text-white"
+              : "bg-white/95 border-gray-200 text-gray-900"
+          }`}
+        >
+          <div className="flex flex-col space-y-3">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
                 <Link
                   key={link.name}
                   to={link.path}
                   onClick={() => setMenuOpen(false)}
-                  className={`text-2xl font-bold transition-all ${location.pathname === link.path ? "text-amber-500 scale-105" : "text-gray-500 hover:text-amber-400"
-                    }`}
+                  className={`px-4 py-2 text-base font-medium rounded-lg transition-colors ${
+                    isActive
+                      ? "text-amber-500 font-bold bg-amber-500/10"
+                      : isDarkMode
+                      ? "text-gray-300 hover:text-white hover:bg-gray-800"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                  }`}
                 >
                   {link.name}
                 </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </header>
   );
 };
 

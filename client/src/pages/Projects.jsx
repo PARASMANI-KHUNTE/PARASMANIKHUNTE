@@ -1,518 +1,96 @@
-import React from "react";
-import { useAnimation, motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useTheme } from "../context/ThemeContext";
+import React, { useState } from "react";
+import { featuredProjects, moreProjects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
-import { Code, ExternalLink, Github, Layers, Search, Zap } from "lucide-react";
 import ProjectPreviewModal from "../components/ProjectPreviewModal";
-import { useState, useEffect } from "react";
-import BackgroundParticles from "../components/common/BackgroundParticles";
-
-
-export const projects = [
-  // ⚡ Zuvo - RESUME SELECTED PROJECT
-  {
-    title: "Zuvo - Distributed Microservices Platform",
-    description: "Engineered an 8-service microservices architecture spanning API Gateway, Auth, Blog, Media, Interactions, Real-time, Worker, and Feed & Search services. Implemented Redis Streams for asynchronous inter-service communication and event-driven processing. Added OpenTelemetry distributed tracing with Jaeger to trace requests across multiple backend services. Implemented circuit breakers, dead-letter queues, background workers, and audit logging for failure handling and operational visibility.",
-    tech: "Node.js, TypeScript, Redis Streams, MongoDB, OpenTelemetry, Docker",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Zuvo",
-    year: "2026",
-    isLatest: true,
-    categories: ["Backend", "Full Stack"]
-  },
-  // 🥇 MyCircle - RESUME SELECTED PROJECT
-  {
-    title: "MyCircle - Hyperlocal Exchange Platform",
-    description: "Built a full-stack hyperlocal platform for discovering and interacting with nearby people and local services through 500m, 1km, and 2km search radii. Developed real-time chat and interaction features using Node.js, Socket.io, and MongoDB. Built web and React Native clients from a shared full-stack codebase and integrated Google OAuth for authentication. Integrated Groq AI for content moderation and used Redis + BullMQ for caching and asynchronous notification processing.",
-    tech: "React 19, React Native, Node.js, MongoDB, Socket.io, Redis, BullMQ, Groq AI",
-    link: "https://mycircle-9gm5.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/MyCircle",
-    year: "2025-2026",
-    categories: ["Mobile Apps", "Full Stack"]
-  },
-  // 🤖 Gravitor - RESUME SELECTED PROJECT
-  {
-    title: "Gravitor - Privacy-First Local AI Coding IDE",
-    description: "Built a VS Code extension providing AI-powered ghost-text code completion using locally hosted Ollama models. Implemented local code-context retrieval using AST-based parsing and vector similarity search over the user's codebase. Designed the system around local inference so source code can remain on the user's machine instead of being sent to a remote AI provider.",
-    tech: "VS Code Extension API, TypeScript, Node.js, Ollama, Vector Search",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Gravitor",
-    year: "2026",
-    categories: ["AI & Machine Learning"]
-  },
-  // ⚡ SYNAPSE - RESUME SELECTED PROJECT
-  {
-    title: "SYNAPSE - Local Multimodal AI Assistant",
-    description: "Built a local multimodal AI assistant using Qwen2.5 7B, DeepSeek-Coder, and Llama 3.2 3B with model routing based on task requirements. Implemented RAG with FAISS and out-of-distribution rejection to improve retrieval reliability. Integrated LLaVA for image understanding, Whisper for speech recognition, and Qwen-TTS for voice responses. Added web-search triggering and different response/emotion modes to support multi-modal assistant workflows.",
-    tech: "Python, Ollama, FAISS, RAG, LLaVA, Whisper, Qwen-TTS",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/LLMContext",
-    year: "2026",
-    categories: ["AI & Machine Learning"]
-  },
-  // 🎨 Whiteboard.io
-  {
-    title: "Whiteboard.io - Collaborative Whiteboard with AI Interactions",
-    description: "Real-time collaborative whiteboard enabling multi-user live sketching, diagramming, and brainstorming with AI-powered interactions. Features instant WebSocket canvas synchronization, interactive drawing tools, and integrated AI assistant for smart diagramming and visual ideation.",
-    tech: "React, Node.js, Express, Socket.io, HTML5 Canvas, Generative AI, Tailwind CSS",
-    link: "https://whiteboard-io-1.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/Whiteboard.io",
-    year: "2026",
-    categories: ["Full Stack", "AI & Machine Learning"]
-  },
-  // 📍 NearMe
-  {
-    title: "NearMe - Location-Based Social Networking",
-    description: "Developed privacy-first proximity features including friend requests, live location updates, nearby users, real-time alerts, JWT/OAuth, map discovery, geospatial queries, Redis caching.",
-    tech: "TypeScript, Node.js, React Native, MongoDB, Redis, Geospatial Queries",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/NearMe",
-    year: "2026",
-    categories: ["Mobile Apps", "Full Stack"]
-  },
-  // 💬 Vaani
-  {
-    title: "Vaani - Real-Time Messaging Platform",
-    description: "Built production-style chat workflows for 1-to-1/group messaging, typing indicators, presence, read/delivered states, media/file/voice sharing, reactions, replies, friend requests, group admin controls.",
-    tech: "React, Node.js, Express, Socket.io, MongoDB, Cloudinary",
-    link: "https://vaani-11o3.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/Vaani",
-    year: "2026",
-    categories: ["Full Stack"]
-  },
-  // 🎓 CampusCompare
-  {
-    title: "CampusCompare",
-    description: "A full-stack web platform helping students discover, evaluate, and compare colleges. Features advanced search filters, side-by-side comparisons, student reviews, personalized showcase.",
-    tech: "React, Node.js, PostgreSQL, Prisma, Cloudinary",
-    link: "https://campuscompare-app.onrender.com",
-    github: "https://github.com/PARASMANI-KHUNTE/CampusCompare",
-    year: "2026",
-    categories: ["Full Stack"]
-  },
-  // 🥈 Modern Developer Portfolio
-  {
-    title: "Modern Developer Portfolio",
-    description: "A premium, high-performance portfolio featuring glassmorphism design, interactive project previews, and advanced UI animations with dark mode support.",
-    tech: "React 19, Tailwind CSS, Framer Motion, Lucide React, Vite",
-    link: "https://parasmanikhunte.onrender.com/",
-    github: "https://github.com/PARASMANI-KHUNTE/PARASMANIKHUNTE",
-    year: "2025",
-    categories: ["UI/UX & Portfolio"]
-  },
-  // 🥉 Admin Dashboard
-  {
-    title: "Admin Dashboard",
-    description: "A full-stack web application for managing hotels, vehicles, and regions with CRUD operations. Features secure JWT authentication and modern responsive UI.",
-    tech: "React, Node.js, Express, MongoDB, JWT, Tailwind CSS",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Admin-Dashboard",
-    year: "2025",
-    categories: ["Full Stack"]
-  },
-  // 🥉 Warehouse Management System
-  {
-    title: "Warehouse Management System",
-    description: "MERN stack application for inventory management, order processing, and warehouse optimization with data visualization and CSV import/export.",
-    tech: "React, Vite, Node.js, MongoDB, Recharts, Tailwind CSS",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Warehouse-Management-system",
-    year: "2024",
-    categories: ["Full Stack"]
-  },
-  // OrgSync
-  {
-    title: "OrgSync",
-    description: "Organization synchronization and management platform designed to streamline team collaboration and organizational workflows.",
-    tech: "JavaScript, Node.js, Express, React, MongoDB",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/orgSync",
-    year: "2024",
-    categories: ["Full Stack"]
-  },
-  // CafeAutomation
-  {
-    title: "CafeAutomation",
-    description: "Full-stack web application to automate cafe operations including order management, inventory tracking, and customer interactions with real-time updates.",
-    tech: "React, Node.js, Express, MongoDB",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/CafeAutomation",
-    year: "2024",
-    categories: ["Full Stack"]
-  },
-  // Chat Application
-  {
-    title: "Chat Application",
-    description: "Real-time chat application with Google OAuth authentication and modern glassmorphism UI design deployed on Vercel.",
-    tech: "React, Node.js, Socket.io, Google OAuth",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/ChatApplication",
-    year: "2024",
-    categories: ["Full Stack"]
-  },
-  // FaceTrack
-  {
-    title: "FaceTrack",
-    description: "Multi-Branch, Multi-Department Organization Management System with face tracking and recognition capabilities.",
-    tech: "React, Redux, Machine Learning, TailwindCSS, Express, MongoDB",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/FaceTrack",
-    year: "2025",
-    categories: ["AI & Machine Learning"]
-  },
-  // FRAS
-  {
-    title: "FRAS",
-    description: "Facial Recognition Attendance System - Automated attendance tracking using facial recognition for contactless attendance management.",
-    tech: "Python, OpenCV, Deep Learning, Flask",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/FRAS",
-    year: "2024",
-    categories: ["AI & Machine Learning"]
-  },
-  // HRMS
-  {
-    title: "HRMS",
-    description: "Human Resource Management System for managing employee data, attendance, payroll, and organizational hierarchy.",
-    tech: "React, Node.js, Express, MongoDB",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/HRMS",
-    year: "2024",
-    categories: ["Full Stack"]
-  },
-  // Resume Builder
-  {
-    title: "Resume Builder",
-    description: "Intuitive resume builder application that helps users create professional resumes with customizable templates.",
-    tech: "React, JavaScript, CSS",
-    link: "",
-    github: "https://github.com/PARASMANI-KHUNTE/Resume-Builder",
-    year: "2024",
-    categories: ["Full Stack"]
-  }
-];
+import { useTheme } from "../context/ThemeContext";
 
 const Projects = () => {
   const { isDarkMode } = useTheme();
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [onlyLiveDemos, setOnlyLiveDemos] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const categories = ["All", "Full Stack", "Backend", "AI & Machine Learning", "Mobile Apps", "UI/UX & Portfolio"];
 
   const handleOpenPreview = (project) => {
     setSelectedProject(project);
     setIsPreviewModalOpen(true);
   };
 
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  // Filtering Logic
-  const filteredProjects = projects.filter((project) => {
-    const matchesCategory =
-      selectedCategory === "All" || project.categories.includes(selectedCategory);
-    const matchesLive = !onlyLiveDemos || (project.link && project.link.trim() !== "");
-    const matchesSearch =
-      !searchQuery.trim() ||
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.tech.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchesCategory && matchesLive && matchesSearch;
-  });
-
-  // Pagination Logic
-  const [currentPage, setCurrentPage] = useState(1);
-  const projectsPerPage = 6;
-  const indexOfLastProject = currentPage * projectsPerPage;
-  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
-  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    controls.start("hidden").then(() => controls.start("visible"));
-  };
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategory, onlyLiveDemos, searchQuery]);
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-
-
   return (
-    <section
-      className={`min-h-screen relative py-20 px-6 overflow-hidden transition-all duration-500 ${
-        isDarkMode
-          ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white"
-          : "bg-gradient-to-br from-white to-gray-50 text-gray-800"
-        }`}
+    <div
+      className={`min-h-screen py-24 px-6 transition-colors duration-200 ${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      }`}
     >
-      <BackgroundParticles count={15} />
-
-      <div className="container mx-auto max-w-6xl relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-            className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${
-              isDarkMode ? "bg-gray-800" : "bg-white shadow-md"
-              }`}
-          >
-            <Code className={`h-8 w-8 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
-          </motion.div>
-
-          <h2 className={`text-4xl md:text-5xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-            Featured Projects
-          </h2>
-
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "80px" }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className={`h-1 mx-auto mt-4 mb-6 rounded-full ${isDarkMode ? "bg-amber-400" : "bg-amber-500"}`}
-          />
-
-          <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-            A collection of my recent work, spanning from web applications to distributed systems and AI/ML solutions.
+      <div className="container mx-auto max-w-5xl space-y-16">
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-amber-500 mb-2 block">
+            Portfolio
+          </span>
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            Projects & Case Studies
+          </h1>
+          <p className={`text-base sm:text-lg leading-relaxed ${
+            isDarkMode ? "text-gray-300" : "text-gray-600"
+          }`}>
+            Architecture case studies, event-driven backends, and full-stack software applications.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Controls: Search & Live Demos Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="max-w-2xl mx-auto mb-8 space-y-4"
-        >
-          {/* Search Input */}
-          <div className="relative">
-            <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`} />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search projects by name, tech stack, or description... (e.g. Socket.io, Redis, AI)"
-              className={`w-full pl-12 pr-10 py-3.5 rounded-2xl text-sm font-medium transition-all outline-none border ${
-                isDarkMode
-                  ? "bg-gray-800/60 border-gray-700 focus:border-amber-400 text-white placeholder-gray-500 focus:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
-                  : "bg-white/80 border-amber-200 focus:border-amber-500 text-gray-800 placeholder-gray-400 focus:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
-              }`}
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className={`absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold px-2 py-1 rounded-md ${
-                  isDarkMode ? "bg-gray-700 text-gray-300 hover:text-white" : "bg-gray-200 text-gray-600 hover:text-black"
-                }`}
-              >
-                Clear
-              </button>
-            )}
+        {/* 1. Featured Projects with Case Studies */}
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+                Featured Case Studies
+              </h2>
+              <p className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+                Deep-dive architectural implementations with system diagrams
+              </p>
+            </div>
           </div>
 
-          {/* Quick Filter: Live Demos Toggle */}
-          <div className="flex justify-center">
-            <button
-              onClick={() => setOnlyLiveDemos(!onlyLiveDemos)}
-              className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-all duration-300 border cursor-pointer ${
-                onlyLiveDemos
-                  ? "bg-emerald-500 text-gray-950 border-emerald-400 shadow-lg shadow-emerald-500/25 scale-105"
-                  : isDarkMode
-                  ? "bg-gray-800/60 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/10"
-                  : "bg-white text-emerald-700 border-emerald-300 hover:bg-emerald-50 shadow-sm"
-              }`}
-            >
-              <span className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${onlyLiveDemos ? "bg-gray-900 opacity-75" : "bg-emerald-400 opacity-75"}`}></span>
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${onlyLiveDemos ? "bg-gray-900" : "bg-emerald-500"}`}></span>
-              </span>
-              <span>Live Interactive Demos Only</span>
-              <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${onlyLiveDemos ? "bg-black/20 text-gray-950" : isDarkMode ? "bg-emerald-500/20 text-emerald-300" : "bg-emerald-100 text-emerald-800"}`}>
-                {projects.filter((p) => p.link && p.link.trim() !== "").length}
-              </span>
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Category Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                selectedCategory === category
-                  ? isDarkMode
-                    ? "bg-amber-400 text-gray-900 shadow-lg shadow-amber-900/20 font-bold"
-                    : "bg-amber-500 text-white shadow-lg shadow-amber-200/50 font-bold"
-                  : isDarkMode
-                  ? "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-amber-400 border border-gray-700/50"
-                  : "bg-white text-gray-500 hover:bg-amber-50 hover:text-amber-600 border border-gray-100 shadow-sm"
-              }`}
-            >
-              {category}
-              <span className={`ml-2 text-xs opacity-60`}>
-                ({category === "All" ? projects.length : projects.filter(p => p.categories.includes(category)).length})
-              </span>
-            </button>
-          ))}
-        </motion.div>
-
-        {/* Projects Grid or Empty State */}
-        {currentProjects.length > 0 ? (
-          <motion.div
-            ref={ref}
-            variants={containerVariants}
-            initial="hidden"
-            animate={controls}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-visible"
-          >
-            {currentProjects.map((project, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredProjects.map((project) => (
               <ProjectCard
-                key={index + indexOfFirstProject}
+                key={project.slug}
                 project={project}
                 onPreview={handleOpenPreview}
               />
             ))}
-          </motion.div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className={`p-12 text-center rounded-3xl border ${
-              isDarkMode ? "bg-gray-800/30 border-gray-700" : "bg-white/60 border-amber-100"
-            }`}
-          >
-            <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center ${isDarkMode ? "bg-gray-700 text-gray-400" : "bg-amber-50 text-amber-500"}`}>
-              <Search className="w-7 h-7" />
-            </div>
-            <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-              No matching projects found
-            </h3>
-            <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Try clearing your search query "{searchQuery}" or turning off filters.
+          </div>
+        </section>
+
+        {/* 2. More Projects */}
+        <section className="pt-10 border-t border-gray-200 dark:border-gray-800">
+          <div className="mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-1">
+              More Projects
+            </h2>
+            <p className={`text-xs sm:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+              Prototypes, utilities, and applications with available source code or deployments
             </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("All");
-                setOnlyLiveDemos(false);
-              }}
-              className={`mt-6 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${
-                isDarkMode ? "bg-amber-400 text-gray-900 hover:bg-amber-300" : "bg-amber-500 text-white hover:bg-amber-600"
-              }`}
-            >
-              Reset Filters
-            </button>
-          </motion.div>
-        )}
+          </div>
 
-        {/* Project Preview Modal */}
-        <React.Suspense fallback={null}>
-          <ProjectPreviewModal
-            isOpen={isPreviewModalOpen}
-            onClose={() => setIsPreviewModalOpen(false)}
-            project={selectedProject}
-            isDarkMode={isDarkMode}
-          />
-        </React.Suspense>
-
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex justify-center items-center mt-12 space-x-2"
-          >
-            <button
-              onClick={() => paginate(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-              className={`p-2 rounded-full transition-all ${
-                currentPage === 1
-                  ? "opacity-30 cursor-not-allowed"
-                  : isDarkMode
-                  ? "hover:bg-gray-800 text-amber-400"
-                  : "hover:bg-amber-100 text-amber-600"
-              }`}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            </button>
-
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i}
-                onClick={() => paginate(i + 1)}
-                className={`w-10 h-10 rounded-full font-bold transition-all ${
-                  currentPage === i + 1
-                    ? isDarkMode
-                      ? "bg-amber-400 text-gray-900 shadow-lg shadow-amber-900/20"
-                      : "bg-amber-500 text-white shadow-lg shadow-amber-200/50"
-                    : isDarkMode
-                    ? "bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-amber-400"
-                    : "bg-white text-gray-500 hover:bg-amber-50 hover:text-amber-600 shadow-sm"
-                }`}
-              >
-                {i + 1}
-              </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {moreProjects.map((project) => (
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                onPreview={handleOpenPreview}
+              />
             ))}
-
-            <button
-              onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-              className={`p-2 rounded-full transition-all ${
-                currentPage === totalPages
-                  ? "opacity-30 cursor-not-allowed"
-                  : isDarkMode
-                  ? "hover:bg-gray-800 text-amber-400"
-                  : "hover:bg-amber-100 text-amber-600"
-              }`}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </button>
-          </motion.div>
-        )}
-
+          </div>
+        </section>
       </div>
-    </section>
+
+      {/* Preview Modal */}
+      <ProjectPreviewModal
+        isOpen={isPreviewModalOpen}
+        onClose={() => setIsPreviewModalOpen(false)}
+        project={selectedProject}
+        isDarkMode={isDarkMode}
+      />
+    </div>
   );
 };
 

@@ -1,287 +1,66 @@
-import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useTheme } from "../context/ThemeContext";
-import ExperienceCard, { ExperienceGroupCard } from "../components/ExperienceCard";
+import React, { useState } from "react";
+import { Briefcase } from "lucide-react";
+import { experienceData } from "../data/experience";
+import ExperienceCard from "../components/ExperienceCard";
 import ProjectPreviewModal from "../components/ProjectPreviewModal";
-import { Briefcase, ChevronDown } from "lucide-react";
-import BackgroundParticles from "../components/common/BackgroundParticles";
-
-const experienceData = [
-  {
-    role: "Technical Intern",
-    company: "Hybrowlabs Technologies",
-    companyUrl: "https://hybrowlabs.com/",
-    duration: "Mar 2025 – May 2025",
-    location: "Remote",
-    description: "Delivered 3 client-facing React modules with REST API integration and engineered a live GPS tracking IoT prototype.",
-    highlights: [
-      "Delivered 3 client-facing React modules with REST API integration and contributed to reducing the UI bug backlog by approximately 40%.",
-      "Engineered a GPS tracking prototype that ingested live IoT device feeds and displayed real-time location data through a web dashboard."
-    ],
-    skills: ["React", "REST APIs", "IoT", "GPS Tracking", "JavaScript"]
-  },
-  {
-    role: "Web Developer Intern",
-    company: "Akkuraa IT Services",
-    companyUrl: "https://internshala.com/company/akkuraa-it-services-1732513752/",
-    logoUrl: "/akkuraItLogo.png",
-    duration: "Jan 2025 – Apr 2025",
-    location: "Remote",
-    description: "Built and deployed 2 full-stack MERN applications, developed production REST APIs and React Native interfaces, and managed Render/Vercel pipelines.",
-    highlights: [
-      "Built and deployed 2 full-stack MERN applications with Node.js, Express.js, MongoDB, React, and React Native.",
-      "Developed REST APIs and React Native interfaces for production-oriented application workflows and integrated frontend clients with backend services.",
-      "Deployed applications using Render and Vercel, managing environment configuration and release workflows."
-    ],
-    skills: ["Node.js", "Express.js", "MongoDB", "React", "React Native", "Render", "Vercel"],
-    certificateUrl: "/IntershipCertificate.pdf"
-  },
-  {
-    role: "SDE Intern",
-    company: "Bluestock Fintech",
-    companyUrl: "https://bluestock.in/",
-    duration: "Nov 2024 – Dec 2024",
-    location: "Remote",
-    description: "Developed REST APIs with JWT authentication, implemented Role-Based Access Control (RBAC), and designed automated Postman API test suites.",
-    highlights: [
-      "Developed REST APIs with JWT authentication and Role-Based Access Control (RBAC) for fintech application workflows.",
-      "Implemented authentication middleware and protected API routes based on user roles and authorization requirements.",
-      "Created Postman API collections and testing workflows to validate authentication, authorization, and endpoint behavior."
-    ],
-    skills: ["REST APIs", "JWT", "RBAC", "Postman", "Node.js"],
-    certificateUrl: "/bluestock.jpg"
-  },
-  {
-    role: "Full Stack Intern",
-    company: "Elite Tech",
-    duration: "Oct 2024 – Nov 2024",
-    location: "Remote",
-    description: "Built Photoshare social platform with JWT authentication, Cloudinary media pipeline, and real-time Socket.io interactions.",
-    highlights: [
-      "Built Photoshare, a social platform with JWT authentication and Cloudinary-powered image upload and storage.",
-      "Implemented real-time Socket.io updates for social interactions and application events.",
-      "Developed REST API integration between the React frontend and Node.js backend for authentication, media, and social features."
-    ],
-    skills: ["React", "Node.js", "Socket.io", "JWT", "Cloudinary", "REST APIs"]
-  }
-];
-
-// Group experiences by company
-const grouped = experienceData.reduce((acc, exp) => {
-  const key = exp.company;
-  if (!acc[key]) acc[key] = [];
-  acc[key].push(exp);
-  return acc;
-}, {});
-const groupedList = Object.values(grouped);
+import { useTheme } from "../context/ThemeContext";
 
 const Experience = () => {
   const { isDarkMode } = useTheme();
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleOpenPreview = (role) => {
-    setSelectedRole({
-      title: `${role.role} - ${role.company}`,
-      link: role.certificateUrl
-    });
+  const handleOpenPreview = (item) => {
+    setSelectedItem(item);
     setIsPreviewModalOpen(true);
   };
 
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 100, damping: 15 }
-    }
-  };
-
   return (
-    <section
-      className={`min-h-screen relative py-20 px-6 overflow-hidden transition-all duration-500 ${isDarkMode
-        ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white"
-        : "bg-gradient-to-br from-amber-50 via-gray-50 to-white text-gray-800"
-        }`}
+    <div
+      className={`min-h-screen py-24 px-6 transition-colors duration-200 ${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      }`}
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <BackgroundParticles />
-        <div className={`absolute blur -top-32 -right-32 w-96 h-96 rounded-full ${isDarkMode ? "bg-amber-900/10" : "bg-amber-200/30"}`}></div>
-        <div className={`absolute blur top-1/4 -left-16 w-64 h-64 rounded-full ${isDarkMode ? "bg-amber-800/10" : "bg-amber-100/50"}`}></div>
-        <div className={`absolute blur bottom-1/4 right-1/3 w-48 h-48 rounded-full ${isDarkMode ? "bg-amber-700/10" : "bg-amber-300/20"}`}></div>
-      </div>
-
-      <div className="container mx-auto max-w-6xl relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-            className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full ${isDarkMode ? "bg-gray-800" : "bg-white shadow-md"
-              }`}
-          >
-            <Briefcase className={`h-8 w-8 ${isDarkMode ? "text-amber-400" : "text-amber-500"}`} />
-          </motion.div>
-
-          <h2 className={`text-4xl md:text-5xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-            Work Experience
-          </h2>
-
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "80px" }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className={`h-1 mx-auto mt-4 mb-3 rounded-full ${isDarkMode ? "bg-amber-400" : "bg-amber-500"}`}
-          />
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="mb-8"
-          >
-            <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm tracking-wide shadow-lg ${isDarkMode
-              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-              : "bg-emerald-50 text-emerald-600 border border-emerald-100"
-              }`}>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              Project & Professional Experience
-            </span>
-          </motion.div>
-
-          <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-            A glimpse of my professional journey in the industry, showcasing roles that have shaped my expertise.
+      <div className="container mx-auto max-w-4xl">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span className="text-xs font-semibold uppercase tracking-wider text-amber-500 mb-2 block">
+            Work History
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+            Professional Experience
+          </h1>
+          <p className={`text-base max-w-xl mx-auto leading-relaxed ${
+            isDarkMode ? "text-gray-300" : "text-gray-600"
+          }`}>
+            Engineering internships spanning distributed systems, API development, and production application delivery.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Experience Timeline */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="space-y-12 relative"
-        >
-          {/* Timeline Connector */}
-          <motion.div
-            initial={{ height: 0 }}
-            whileInView={{ height: "100%" }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className={`absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 ${isDarkMode ? "bg-gradient-to-b from-amber-500/50 via-amber-500 to-amber-500/50" : "bg-amber-500/30"
-              }`}
-          />
-
-          {groupedList.map((roles, index) => {
-            const first = roles[0];
-            if (roles.length === 1) {
-              return (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
-                >
-                  <div className="md:w-1/2 flex justify-center md:justify-end md:pr-8 md:text-right relative mb-8 md:mb-0">
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      className={`absolute md:right-0 left-1/2 md:left-auto top-0 h-5 w-5 -translate-x-1/2 md:translate-x-1/2 rounded-full border-4 ${isDarkMode
-                        ? `border-gray-800 ${first.isCurrent ? "bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-amber-400"}`
-                        : `border-white ${first.isCurrent ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-amber-500"}`
-                        }`}
-                    />
-                    <div className={`mt-10 md:mt-0 ${first.isCurrent ? (isDarkMode ? "text-emerald-400" : "text-emerald-600") : (isDarkMode ? "text-amber-400" : "text-amber-500")} font-bold text-xl`}>
-                      {first.duration}
-                    </div>
-                  </div>
-
-                  {/* Experience Card */}
-                  <div className="md:w-1/2 md:pl-8">
-                    <ExperienceCard
-                      experience={first}
-                      onPreview={handleOpenPreview}
-                    />
-                  </div>
-                </motion.div>
-              );
-            } else {
-              // Grouped card for promotions
-              return (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
-                >
-                  <div className="md:w-1/2 flex justify-center md:justify-end md:pr-8 md:text-right relative mb-8 md:mb-0">
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      className={`absolute md:right-0 left-1/2 md:left-auto top-0 h-5 w-5 -translate-x-1/2 md:translate-x-1/2 rounded-full border-4 ${isDarkMode
-                        ? `border-gray-800 ${first.isCurrent ? "bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-amber-400"}`
-                        : `border-white ${first.isCurrent ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "bg-amber-500"}`
-                        }`}
-                    />
-                    <div className={`mt-10 md:mt-0 ${first.isCurrent ? (isDarkMode ? "text-emerald-400" : "text-emerald-600") : (isDarkMode ? "text-amber-400" : "text-amber-500")} font-bold text-xl`}>
-                      {roles[0].duration}
-                    </div>
-                  </div>
-                  <div className="md:w-1/2 md:pl-8">
-                    <ExperienceGroupCard
-                      company={first.company}
-                      logoUrl={first.logoUrl}
-                      companyUrl={first.companyUrl}
-                      roles={roles}
-                      onPreview={handleOpenPreview}
-                    />
-                  </div>
-                </motion.div>
-              );
-            }
-          })}
-
-        </motion.div>
+        {/* Timeline List */}
+        <div className="relative pl-6 sm:pl-8 border-l-2 border-amber-500/30 space-y-8 ml-2 sm:ml-4">
+          {experienceData.map((exp) => (
+            <div key={exp.id} className="relative group">
+              {/* Timeline dot */}
+              <div
+                className={`absolute -left-[31px] sm:-left-[39px] top-6 w-3.5 h-3.5 rounded-full border-2 ${
+                  isDarkMode ? "bg-amber-400 border-gray-900" : "bg-amber-500 border-white shadow-sm"
+                }`}
+              />
+              <ExperienceCard experience={exp} onPreview={handleOpenPreview} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Certificate Preview Modal */}
-      <React.Suspense fallback={null}>
-        <ProjectPreviewModal
-          isOpen={isPreviewModalOpen}
-          onClose={() => setIsPreviewModalOpen(false)}
-          project={selectedRole}
-          isDarkMode={isDarkMode}
-        />
-      </React.Suspense>
-    </section>
+      <ProjectPreviewModal
+        isOpen={isPreviewModalOpen}
+        onClose={() => setIsPreviewModalOpen(false)}
+        project={selectedItem}
+        isDarkMode={isDarkMode}
+      />
+    </div>
   );
 };
 

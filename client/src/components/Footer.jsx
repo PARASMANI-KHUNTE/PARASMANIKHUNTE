@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Github, Linkedin, Instagram, Globe, Copy, Check } from "lucide-react";
+import { Github, Linkedin, Mail, Globe, Copy, Check } from "lucide-react";
+import { profile } from "../data/profile";
 import { useTheme } from "../context/ThemeContext";
 import { useToast } from "../context/ToastContext";
 
@@ -11,83 +11,52 @@ const Footer = () => {
 
   const handleCopyEmail = (e) => {
     e.preventDefault();
-    const email = "parasmanikhunte@gmail.com";
-    navigator.clipboard.writeText(email);
+    navigator.clipboard.writeText(profile.email);
     setCopied(true);
-    showToast("Email copied: parasmanikhunte@gmail.com");
+    showToast(`Email copied: ${profile.email}`);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const socialLinks = [
-    { name: "GitHub", icon: Github, href: "https://github.com/PARASMANI-KHUNTE" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/parasmani-khunte-330488228/" },
-    { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/ll.__.p.a.r.a.s.__.ll/" },
-  ];
-
-  const quickLinks = [
-    { name: "Home", path: "/" },
-    { name: "Projects", path: "/projects" },
-    { name: "Skills", path: "/skills" },
-    { name: "Education", path: "/education" },
-    { name: "Experience", path: "/experience" },
+    { name: "GitHub", icon: Github, href: profile.github },
+    { name: "LinkedIn", icon: Linkedin, href: profile.linkedin },
+    { name: "Email", icon: Mail, href: `mailto:${profile.email}` },
   ];
 
   return (
-    <footer className={`relative py-12 px-6 overflow-hidden transition-all duration-300 border-t ${
-      isDarkMode
-        ? "bg-gray-900 border-gray-800 text-white"
-        : "bg-white border-gray-200 text-gray-800"
-    }`}>
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
-          {/* Branding */}
-          <div className="md:col-span-5 text-center md:text-left">
-            <h2 className="text-2xl font-bold tracking-tight mb-3 text-amber-500">
-              Parasmani Khunte
-            </h2>
-            <p className={`text-sm mb-4 max-w-sm leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-              Backend / Full-Stack Developer building event-driven backends and local-first AI systems in Node.js/TypeScript and Python.
+    <footer
+      className={`relative py-10 px-6 transition-colors duration-200 border-t ${
+        isDarkMode
+          ? "bg-gray-900 border-gray-800 text-white"
+          : "bg-white border-gray-200 text-gray-800"
+      }`}
+    >
+      <div className="container mx-auto max-w-6xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-gray-200 dark:border-gray-800">
+          {/* Branding & Headline */}
+          <div>
+            <div className="text-xl font-bold tracking-tight text-amber-500 mb-1">
+              {profile.name}<span className="text-gray-400">.</span>
+            </div>
+            <p className={`text-xs sm:text-sm max-w-md ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+              {profile.headline} — {profile.oneLiner}
             </p>
           </div>
 
-          {/* Quick Navigation Links */}
-          <div className="md:col-span-3 text-center md:text-left">
-            <h3 className={`text-xs font-semibold uppercase tracking-wider mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Navigation
-            </h3>
-            <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className={`text-sm transition-colors duration-200 ${
-                      isDarkMode ? "text-gray-300 hover:text-amber-400" : "text-gray-600 hover:text-amber-600"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Connect Ecosystem */}
-          <div className="md:col-span-4 text-center md:text-right flex flex-col md:items-end">
-            <h3 className={`text-xs font-semibold uppercase tracking-wider mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Connect
-            </h3>
-            <div className="flex flex-wrap justify-center md:justify-end gap-2.5 mb-5">
+          {/* Connect & Direct Actions */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex items-center gap-2">
               {socialLinks.map((social) => {
                 const IconComponent = social.icon;
                 return (
                   <a
                     key={social.name}
                     href={social.href}
-                    target="_blank"
+                    target={social.href.startsWith("mailto:") ? "_self" : "_blank"}
                     rel="noopener noreferrer"
-                    className={`p-2.5 rounded-xl transition-all duration-200 border ${
+                    className={`p-2.5 rounded-xl border transition-colors ${
                       isDarkMode
-                        ? "bg-gray-800 border-gray-700 text-gray-300 hover:text-amber-400 hover:border-amber-500/40"
+                        ? "bg-gray-800/80 border-gray-700 text-gray-300 hover:text-amber-400 hover:border-amber-500/40"
                         : "bg-gray-50 border-gray-200 text-gray-600 hover:text-amber-600 hover:border-amber-300"
                     }`}
                     title={social.name}
@@ -101,17 +70,25 @@ const Footer = () => {
 
             <button
               onClick={handleCopyEmail}
-              className={`inline-flex items-center gap-2 text-xs font-medium transition-colors cursor-pointer ${
-                isDarkMode ? "text-gray-400 hover:text-amber-400" : "text-gray-600 hover:text-amber-600"
+              className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-colors cursor-pointer ${
+                isDarkMode
+                  ? "bg-gray-800/80 border-gray-700 text-gray-300 hover:border-amber-500/40"
+                  : "bg-gray-50 border-gray-200 text-gray-700 hover:border-amber-300"
               }`}
-              title="Click to copy email"
+              title="Click to copy email address"
               type="button"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>parasmanikhunte@gmail.com</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${
-                isDarkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-100 text-amber-700"
-              }`}>
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-gray-400" />}
+              <span>{profile.email}</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${
+                  copied
+                    ? "bg-emerald-500/20 text-emerald-400"
+                    : isDarkMode
+                    ? "bg-amber-500/10 text-amber-400"
+                    : "bg-amber-100 text-amber-700"
+                }`}
+              >
                 {copied ? "Copied" : "Copy"}
               </span>
             </button>
@@ -119,14 +96,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom Line */}
-        <div className={`pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-3 text-xs ${
-          isDarkMode ? "border-gray-800 text-gray-400" : "border-gray-200 text-gray-600"
+        <div className={`pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs ${
+          isDarkMode ? "text-gray-400" : "text-gray-500"
         }`}>
           <div className="flex items-center gap-1.5">
-            <Globe className="w-3.5 h-3.5" />
-            <span>Bilaspur, Chhattisgarh, India (open to remote)</span>
+            <Globe className="w-3.5 h-3.5 text-amber-500" />
+            <span>{profile.location}</span>
           </div>
-          <p>© {new Date().getFullYear()} Parasmani Khunte. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
         </div>
       </div>
     </footer>

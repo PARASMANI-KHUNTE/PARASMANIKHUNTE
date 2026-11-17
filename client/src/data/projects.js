@@ -141,103 +141,13 @@ export const projects = [
     featured: false
   },
   {
-    slug: "campuscompare",
-    title: "CampusCompare",
-    oneLiner: "Platform helping students discover, evaluate, and compare higher education institutions.",
-    stack: ["React", "Node.js", "PostgreSQL", "Prisma"],
+    slug: "leaderboard",
+    title: "Leaderboard",
+    oneLiner: "Enterprise-grade real-time academic and competitive leaderboard ecosystem with sub-10ms rankings and automated document verification.",
+    stack: ["React", "Node.js", "Express", "MongoDB", "Redis", "Socket.io", "Tailwind CSS"],
     category: "Full-Stack",
-    liveUrl: "https://campuscompare-app.onrender.com",
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/CampusCompare",
-    featured: false
-  },
-  {
-    slug: "admin-dashboard",
-    title: "Admin Dashboard",
-    oneLiner: "Management dashboard for operations with JWT authentication and responsive controls.",
-    stack: ["React", "Node.js", "Express", "MongoDB", "JWT"],
-    category: "Full-Stack",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/Admin-Dashboard",
-    featured: false
-  },
-  {
-    slug: "warehouse-management",
-    title: "Warehouse Management System",
-    oneLiner: "Inventory tracking and order management system with data visualization and CSV workflows.",
-    stack: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-    category: "Full-Stack",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/Warehouse-Management-system",
-    featured: false
-  },
-  {
-    slug: "orgsync",
-    title: "OrgSync",
-    oneLiner: "Organization synchronization and management platform streamlining team collaboration.",
-    stack: ["JavaScript", "Node.js", "Express", "React", "MongoDB"],
-    category: "Full-Stack",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/orgSync",
-    featured: false
-  },
-  {
-    slug: "cafeautomation",
-    title: "CafeAutomation",
-    oneLiner: "Order management and inventory tracking system with live status updates.",
-    stack: ["React", "Node.js", "Express", "MongoDB"],
-    category: "Full-Stack",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/CafeAutomation",
-    featured: false
-  },
-  {
-    slug: "chatapplication",
-    title: "Chat Application",
-    oneLiner: "Real-time chat application with Google OAuth and socket-based messaging.",
-    stack: ["React", "Node.js", "Socket.io"],
-    category: "Full-Stack",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/ChatApplication",
-    featured: false
-  },
-  {
-    slug: "facetrack",
-    title: "FaceTrack",
-    oneLiner: "Multi-branch organization management system with face verification capabilities.",
-    stack: ["React", "Express", "MongoDB", "Machine Learning"],
-    category: "Data and AI",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/FaceTrack",
-    featured: false
-  },
-  {
-    slug: "fras",
-    title: "FRAS",
-    oneLiner: "Facial recognition attendance system with automated verification.",
-    stack: ["Python", "OpenCV", "Flask"],
-    category: "Data and AI",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/FRAS",
-    featured: false
-  },
-  {
-    slug: "hrms",
-    title: "HRMS",
-    oneLiner: "Human resource management system for employee records, payroll, and hierarchy.",
-    stack: ["React", "Node.js", "Express", "MongoDB"],
-    category: "Full-Stack",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/HRMS",
-    featured: false
-  },
-  {
-    slug: "resume-builder",
-    title: "Resume Builder",
-    oneLiner: "Resume creation tool with custom formatting and template generation.",
-    stack: ["React", "JavaScript", "Tailwind CSS"],
-    category: "Developer Tools",
-    liveUrl: null,
-    repoUrl: "https://github.com/PARASMANI-KHUNTE/Resume-Builder",
+    liveUrl: "https://leaderboard-xgi1.onrender.com/",
+    repoUrl: "https://github.com/PARASMANI-KHUNTE/Leaderboard",
     featured: false
   }
 ];

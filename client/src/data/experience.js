@@ -6,7 +6,7 @@ export const experienceData = [
     companyUrl: "https://hybrowlabs.com/",
     duration: "Mar-May 2025",
     location: "Remote",
-    result: "Reduced UI/integration bug backlog by ~40%",
+    result: "TODO",
     certificateUrl: null
   },
   {
